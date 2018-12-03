@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szdtoo.mapper.UserMapper">
+
+
+	<select id="findUserList" parameterType="Object" resultType="com.szdtoo.model.User">
+		SELECT id,login_name loginName,pwd,user_name userName,tel,icon,gender,birthday,email,addr,create_time createTime,is_del isDel from tb_user
+		WHERE 1=1
+		<if test="searchContent != null and searchContent != '' ">
+			and login_name like '%${searchContent}%'
+		</if>
+	</select>
+
+	<select id="findUserById" parameterType="Object" resultType="com.szdtoo.model.User">
+		SELECT id,login_name loginName,pwd,user_name userName,tel,icon,gender,birthday,email,addr,create_time createTime,is_del isDel from tb_user
+		WHERE id=#{id}
+
+	</select>
+
+
+	<select id="findUsernameAndPassword" resultType="com.szdtoo.model.User">
+		SELECT  
+			a.id id,
+			a.login_name loginName,
+			a.pwd pwd,
+			a.user_name userName,
+			a.tel tel,
+			a.icon icon,
+			a.gender gender,
+			a.birthday birthday,
+			a.email email,
+			a.addr addr,
+			a.create_time createTime,
+			a.is_del isDel,
+			b.role_name roleName  
+		FROM 
+			tb_user a
+		LEFT JOIN tb_role b ON b.id = a.role_id
+		WHERE 
+			login_name = #{username} 
+		AND pwd = #{password}
+	</select>
+
+	<update id="updatePasswordByUsername">
+		update tb_user SET pwd = #{password} where login_name = #{username}
+	</update>
+
+
+</mapper>

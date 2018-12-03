@@ -1,0 +1,36 @@
+<?mapper version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<context id="context1">
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+
+		<plugin type="com.szdtoo.common.mybatisGenerator.plugin.MysqlPagePlugin" />
+
+		<commentGenerator
+			type="com.szdtoo.common.mybatisGenerator.comment.MyCommentGenerator">
+
+		</commentGenerator>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://47.105.189.247:3306/jyweb?useUnicode=true&amp;characterEncoding=UTF8"
+			userId="root" password="123456">
+		</jdbcConnection>
+
+		<javaModelGenerator targetPackage="com.szdtoo.model"
+			targetProject="src/main/java" />
+		<sqlMapGenerator targetPackage="mapping"
+			targetProject="src/main/resources" />
+
+		<javaClientGenerator targetPackage="com.szdtoo.mapper"
+			targetProject="src/main/java" type="XMLMAPPER" />
+
+
+		<table tableName="tb_video" domainObjectName="Video">
+			<generatedKey column="id" sqlStatement="Mysql" identity="true" />
+		</table>
+
+	</context>
+
+</generatorConfiguration>
