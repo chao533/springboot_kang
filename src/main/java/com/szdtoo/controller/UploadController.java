@@ -55,5 +55,20 @@ public class UploadController {
 		}
 		return new Message<String>(ErrorCode.ERROR);
 	}
+	
+	@ApiOperation("fast图片缩放")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "scale", value = "缩放比例", dataType = "Integer", required = false, paramType = "form")
+	})
+	@RequestMapping(value = "/scale", method = RequestMethod.POST)
+	public Message<String> scale(HttpServletRequest request, float scale,
+			@ApiParam(name = "fileKey", value = "图片上传") MultipartFile file1) throws Exception {
+		// 缩放图片并上传
+		String subImg = fdfsClientUtils.uploadCutScale(request, "fileKey", scale);
+		if (StringUtils.isNotBlank(subImg)) {
+			return new Message<String>(ErrorCode.SUCCESS, subImg);
+		}
+		return new Message<String>(ErrorCode.ERROR);
+	}
 
 }

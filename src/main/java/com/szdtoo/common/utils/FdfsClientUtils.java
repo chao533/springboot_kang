@@ -109,6 +109,37 @@ public class FdfsClientUtils {
 	}
 	
 	/**
+	 * 图片缩放并上传
+	 * @param request
+	 * @param fileKey
+	 * @param scale
+	 * @return
+	 * @throws IOException
+	 */
+	public String uploadCutScale(HttpServletRequest request, String fileKey,float scale) throws IOException {
+		List<MultipartFile> multipartFileList = this.getFileList(request, fileKey);
+		String result = "";
+		for(MultipartFile multipartFile : multipartFileList) {
+			
+			ByteArrayOutputStream output = new ByteArrayOutputStream();
+			ImgUtil.scale(multipartFile.getInputStream(), output, scale);
+			
+			ByteArrayInputStream input = new ByteArrayInputStream(output.toByteArray());
+			String extName = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+			StorePath storePath = storageClient.uploadFile(input,output.size(), extName,null);
+			String fullPath = storePath.getFullPath();
+			if(StringUtils.isNotBlank(fullPath)) {
+				result += Constants.getFastWebServer() + fullPath + ",";
+			}
+		}
+		if(StringUtils.isNotBlank(result)) {
+			result = result.substring(0, result.length() - 1);
+		}
+		log.info("result:" + result);
+		return result;
+	}
+	
+	/**
 	 * 图片上传
 	 * @param request
 	 * @param fileKey
