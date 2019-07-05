@@ -18,23 +18,26 @@
     <java.version>1.8</java.version>
     
   </properties>
-  <!-- Maven 仓库配置 START -->
-  <repositories>
-    <repository>
-      <id>repo1-cache</id>
-      <name>repo1-cache</name>
-      <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>Codehaus repository</id>
-      <url>http://repository.codehaus.org/</url>
-    </pluginRepository>
-  </pluginRepositories>
-  <!-- Maven 仓库配置 END -->
+ <distributionManagement>
+        <repository>
+            <id>maven-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://47.105.144.64:888/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>maven-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://47.105.144.64:888/repository/maven-snapshots/</url>
+        </snapshotRepository>
+ </distributionManagement>
 
   <dependencies>
+  	<dependency>
+	  <groupId>cn.hutool</groupId>
+	  <artifactId>hutool-all</artifactId>
+	  <version>4.5.16</version>
+	</dependency>
+  
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>

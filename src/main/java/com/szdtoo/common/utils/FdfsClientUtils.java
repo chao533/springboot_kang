@@ -1,13 +1,17 @@
 package com.szdtoo.common.utils;
 
 
+import java.awt.Rectangle;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import com.szdtoo.common.constant.Constants;
+
+import cn.hutool.core.img.ImgUtil;
 
 /**
  * <p>Title: FdfsClientUtils</p>  
@@ -35,20 +41,20 @@ public class FdfsClientUtils {
 	private FastFileStorageClient storageClient;
 
 
-	private Map<String, MultipartFile> getFileMap(HttpServletRequest request){
-		//创建一个通用的多部分解析器
-		CommonsMultipartResolver multipartResovler = new CommonsMultipartResolver();
-		//判断 request 是否有文件上传,即多部分请求
-		if (!multipartResovler.isMultipart(request)) {
-			//无附件上传
-			return null;
-		}
-		// 转型为MultipartHttpRequest：
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		// 获得文件：
-		Map<String, MultipartFile> files = multipartRequest.getFileMap();
-		return files;
-	}
+//	private Map<String, MultipartFile> getFileMap(HttpServletRequest request){
+//		//创建一个通用的多部分解析器
+//		CommonsMultipartResolver multipartResovler = new CommonsMultipartResolver();
+//		//判断 request 是否有文件上传,即多部分请求
+//		if (!multipartResovler.isMultipart(request)) {
+//			//无附件上传
+//			return null;
+//		}
+//		// 转型为MultipartHttpRequest：
+//		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+//		// 获得文件：
+//		Map<String, MultipartFile> files = multipartRequest.getFileMap();
+//		return files;
+//	}
 
 
 	private List<MultipartFile> getFileList(HttpServletRequest request,String key){
@@ -68,104 +74,65 @@ public class FdfsClientUtils {
 
 
 
-	// 封装图片完整URL地址
-	private String getResAccessUrl(StorePath storePath) {
-		String webserver = Constants.propertiesVal(Constants.FDFSCONFIG, Constants.propertiesKey.FDFS_WEBSERVER);
-		String fileUrl = webserver + storePath.getFullPath();
-		return fileUrl;
-	}
-
 	/**
-	 * <p>Title: uploadFile</p>  
-	 * <p>Description: 上传文件</p>  
+	 * 图片裁剪并上传
 	 * @param request
+	 * @param fileKey
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
 	 * @return
+	 * @throws IOException
 	 */
-	public String uploadFile(HttpServletRequest request) {
-
+	public String uploadCutPic(HttpServletRequest request, String fileKey,int x,int y,int width,int height) throws IOException {
+		List<MultipartFile> multipartFileList = this.getFileList(request, fileKey);
 		String result = "";
-		Map<String, MultipartFile> files = getFileMap(request);
-		if (files == null || files.keySet().size() <=0) {
-			return result;
-		}
-		try {
-			for(String key:files.keySet()){
-				MultipartFile file = files.get(key);
-				StorePath storePath=storageClient.uploadFile(file.getInputStream(),file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()),null);
-				String fullPath=storePath.getFullPath();
-				
-				if (StringUtils.isNotBlank(fullPath)) {
-					// 添加fastdfs前缀
-					String webserver = Constants.propertiesVal(Constants.FDFSCONFIG, Constants.propertiesKey.FDFS_WEBSERVER);
-					result += webserver + fullPath + ",";
-				}
+		for(MultipartFile multipartFile : multipartFileList) {
+			
+			ByteArrayOutputStream output = new ByteArrayOutputStream();
+			ImgUtil.cut(multipartFile.getInputStream(), output, new Rectangle(x,y,width,height));
+			
+			ByteArrayInputStream input = new ByteArrayInputStream(output.toByteArray());
+			String extName = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+			StorePath storePath = storageClient.uploadFile(input,output.size(), extName,null);
+			String fullPath = storePath.getFullPath();
+			if(StringUtils.isNotBlank(fullPath)) {
+				result += Constants.getFastWebServer() + fullPath + ",";
 			}
-
-		}catch (Exception ex){
-			ex.printStackTrace();
 		}
-
-		if(!StringUtils.isEmpty(result)){
-			result = result.substring(0,result.length()-1);
+		if(StringUtils.isNotBlank(result)) {
+			result = result.substring(0, result.length() - 1);
 		}
-		return result;
-
-	}
-
-
-	public String uploadFile(HttpServletRequest request, String fileKey, List<String> filterKeys) {
-
-		String result = "";
-		Map<String, MultipartFile> files = getFileMap(request);
-		if (files == null || files.keySet().size() <=0) {
-			return result;
-		}
-		try {
-			for(String key:files.keySet()){
-				//指定文件名，过滤非此文件名的文件
-				if (!ValidateUtils.isIllegalString(fileKey) && !fileKey.equals(key)) { continue; }
-				//过滤文件名，过滤集合中存在此文件名，过滤
-				if (!ValidateUtils.isIllegalList(filterKeys) && filterKeys.contains(key)) { continue; }
-				MultipartFile file = files.get(key);
-				StorePath storePath=storageClient.uploadFile(file.getInputStream(),file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()),null);
-				String fullPath=getResAccessUrl(storePath);
-				if (fullPath!=null&&!"".equals(fullPath)) {
-					result += fullPath + ",";
-				}
-			}
-
-		}catch (Exception ex){
-			ex.printStackTrace();
-		}
-
-		if(!StringUtils.isEmpty(result)){
-			result = result.substring(0,result.length()-1);
-		}
-		return result;
-	}
-
-
-	public String uploadFile1(HttpServletRequest request, String fileKey) {
-		String result = "";
-		List<MultipartFile> files = getFileList(request, fileKey);
-		if (files == null || files.size() <=0) {
-			return result;
-		}
-		try {
-			for(MultipartFile file:files){
-				StorePath storePath=storageClient.uploadFile(file.getInputStream(),file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()),null);
-				String fullPath= storePath.getFullPath();
-				result += fullPath + ",";
-			}
-
-		}catch (Exception ex){
-			ex.printStackTrace();
-		}
-
-		if(!StringUtils.isEmpty(result)){
-			result = result.substring(0,result.length()-1);
-		}
+		log.info("result:" + result);
 		return result;
 	}
 	
+	/**
+	 * 图片上传
+	 * @param request
+	 * @param fileKey
+	 * @return
+	 * @throws IOException
+	 */
+	public String uploadFile(HttpServletRequest request, String fileKey) throws IOException {
+		List<MultipartFile> multipartFileList = this.getFileList(request, fileKey);
+		String result = "";
+		for(MultipartFile multipartFile : multipartFileList) {
+			InputStream inputStream = multipartFile.getInputStream();
+			String extName = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+			StorePath storePath = storageClient.uploadFile(inputStream,multipartFile.getSize(), extName,null);
+			String fullPath = storePath.getFullPath();
+			if(StringUtils.isNotBlank(fullPath)) {
+				result += Constants.getFastWebServer() + fullPath + ",";
+			}
+		}
+		if(StringUtils.isNotBlank(result)) {
+			result = result.substring(0, result.length() - 1);
+		}
+		log.info("result:" + result);
+		return result;
+	}
+	
+
 }

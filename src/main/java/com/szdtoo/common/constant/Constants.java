@@ -81,4 +81,8 @@ public final class Constants {
 		return null;
     }
     
+    public static String getFastWebServer() {
+    	return Constants.propertiesVal(Constants.FDFSCONFIG, Constants.propertiesKey.FDFS_WEBSERVER);
+    }
+    
 }
