@@ -62,7 +62,7 @@ public class UploadController {
 	})
 	@RequestMapping(value = "/scale", method = RequestMethod.POST)
 	public Message<String> scale(HttpServletRequest request, float scale,
-			@ApiParam(name = "fileKey", value = "图片上传") MultipartFile file1) throws Exception { 
+			@ApiParam(name = "fileKey", value = "图片上传") MultipartFile file1) throws Exception {
 		// 缩放图片并上传
 		String subImg = fdfsClientUtils.uploadCutScale(request, "fileKey", scale);
 		if (StringUtils.isNotBlank(subImg)) {
