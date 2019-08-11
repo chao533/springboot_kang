@@ -1,5 +1,6 @@
 package com.szdtoo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 /**
  * <p>Title: User.java</p>  
@@ -8,9 +9,13 @@ import java.util.Date;
  * @author chaokang  
  * @date 2018年12月2日
  */
-public class User {
+public class User implements Serializable{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String loginName;
 	private String pwd;

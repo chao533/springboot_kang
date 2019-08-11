@@ -33,6 +33,12 @@ spring:
       expose-request-attributes: false
       expose-session-attributes: false
       expose-spring-macro-helpers: false
+    cache:
+      type: REDIS
+      redis:
+        cache-null-values: false
+        time-to-live: 600000ms
+        use-key-prefix: true
 
 
     http:

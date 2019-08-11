@@ -11,6 +11,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.Page;
@@ -51,6 +52,7 @@ public class UserServiceImpl implements UserService {
 		return new Message<PageInfo<User>>(ErrorCode.SUCCESS,pageInfo);
     }
 
+    @Cacheable(value="user",key="#id",unless="#result == null")
     @Override
     public User findUserById(Long id) {
         return userMapper.findUserById(id);

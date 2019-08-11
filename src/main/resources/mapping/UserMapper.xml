@@ -16,7 +16,6 @@
 	<select id="findUserById" parameterType="Object" resultType="com.szdtoo.model.User">
 		SELECT id,login_name loginName,pwd,user_name userName,tel,icon,gender,birthday,email,addr,create_time createTime,is_del isDel from tb_user
 		WHERE id=#{id}
-
 	</select>
 
 

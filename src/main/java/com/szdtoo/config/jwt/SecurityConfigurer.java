@@ -29,6 +29,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests()
                 // 请求放行,（没有配置放行，则表示无权限访问该接口）
                 .antMatchers("/login").permitAll()
+                .antMatchers("/async/**").permitAll()
                 .antMatchers("/upload").permitAll()
                 .antMatchers("/scale").permitAll()
                 .antMatchers("/user/**").permitAll()

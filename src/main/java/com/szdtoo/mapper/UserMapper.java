@@ -3,6 +3,7 @@ package com.szdtoo.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.cache.annotation.Cacheable;
 
 import com.szdtoo.model.User;
 
@@ -29,6 +30,7 @@ public interface UserMapper {
      * @param id
      * @return
      */
+    
     User findUserById(@Param("id")Long id);
 
     /**
