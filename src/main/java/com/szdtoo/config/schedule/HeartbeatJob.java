@@ -27,7 +27,7 @@ public class HeartbeatJob {
     /**
      * 检查状态1
      */
-    @Scheduled(cron = "* * * * * ?")
+    //@Scheduled(cron = "* * * * * ?")
     public void checkState1() {
         logger.info(">>>>> 检查开始....");
     }
