@@ -216,6 +216,8 @@
 					<!-- <imageName>ck/${project.artifactId}</imageName> -->
 					<!-- 123 -->
 					<!-- <imageName>ck/${project.artifactId}</imageName>  -->
+					
+					
 					<baseImage>ascdc/jdk8</baseImage>
 					<entryPoint>["java", "-jar","/${project.build.finalName}.jar"]</entryPoint>
 					<resources>
