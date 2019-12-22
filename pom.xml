@@ -214,6 +214,7 @@
 				<configuration>
 					<imageName>192.168.1.126:5000/${project.artifactId}:${project.version}</imageName>
 					<!-- <imageName>ck/${project.artifactId}</imageName> -->
+					<!-- 123 -->
 					<baseImage>ascdc/jdk8</baseImage>
 					<entryPoint>["java", "-jar","/${project.build.finalName}.jar"]</entryPoint>
 					<resources>
@@ -227,6 +228,7 @@
 					<dockerHost>http://192.168.1.126:2375</dockerHost>
 				</configuration>
 			</plugin>
+			
 		</plugins>
 	</build>
 </project>
