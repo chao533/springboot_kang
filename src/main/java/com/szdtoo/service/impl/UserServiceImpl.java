@@ -1,12 +1,10 @@
 package com.szdtoo.service.impl;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.szdtoo.common.constant.Constants;
 import com.szdtoo.common.exception.TokenValidationException;
 import com.szdtoo.common.msg.ErrorCode;
 import com.szdtoo.common.msg.Message;
@@ -25,7 +22,14 @@ import com.szdtoo.common.utils.JwtUtil;
 import com.szdtoo.common.utils.MD5Util;
 import com.szdtoo.mapper.UserMapper;
 import com.szdtoo.model.User;
+import com.szdtoo.model.param.ModifyPwdParam;
 import com.szdtoo.service.UserService;
+
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.Assert;
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.log.StaticLog;
 
 /**
  * <p>Title: UserServiceImpl</p>  
@@ -42,65 +46,75 @@ public class UserServiceImpl implements UserService {
     private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
-    public Message<PageInfo<User>> findUserList(String searchContent, int pageNo, int pageSize) {
+    public Message<?> findUserList(Map<String,Object> params) {
     	logger.info("开始：------------");
-    	Page<User> page = PageHelper.startPage(pageNo, pageSize);
-		Page<User> datas = (Page<User>) userMapper.findUserList(searchContent);
+    	Page<User> page = PageHelper.startPage(MapUtil.getInt(params, "pageNo"), MapUtil.getInt(params, "pageSize"));
+		Page<Map<String,Object>> datas = (Page<Map<String,Object>>) userMapper.getUserList(params);
 		datas.setTotal(page.getTotal());
-		PageInfo<User> pageInfo = new PageInfo<User>(datas);
+		PageInfo<Map<String,Object>> pageInfo = new PageInfo<>(datas);
 		logger.info("结束：------------");
-		return new Message<PageInfo<User>>(ErrorCode.SUCCESS,pageInfo);
+		return new Message<>(ErrorCode.SUCCESS,pageInfo);
     }
 
-    @Cacheable(value="user",key="#id",unless="#result == null")
+    //@Cacheable(value="user",key="#id",unless="#result == null")
     @Override
-    public User findUserById(Long id) {
-        return userMapper.findUserById(id);
+    public Message<?> findUserById(Long id) {
+    	Assert.notNull(id,"参数异常");
+    	Map<String,Object> params = CollUtil.newHashMap();
+    	params.put("id", id);
+        List<Map<String, Object>> userList = userMapper.getUserList(params);
+        if(userList != null && userList.size() == 1) {
+        	return new Message<>(ErrorCode.SUCCESS,userList.get(0));
+        }
+        return new Message<>(ErrorCode.ERROR);
     }
 
     @Override
-    public Map<String,Object> login(HttpServletRequest request, String username, String password) {
-        // 用户名或密码不能为空
-    	if(StringUtils.isBlank(username)) {
-    		throw new ServiceException("用户名不能为空");
-    	}
-    	if(StringUtils.isBlank(password)) {
-    		throw new ServiceException("密码不能为空");
-    	}
+    public Message<?> login(Map<String,Object> params) {
+    	Map<String,Object> result = CollUtil.newHashMap();
     	
-    	Map<String,Object> result = new HashMap<String,Object>();
+    	String loginName = MapUtil.getStr(params, "loginName");
+    	String pwd = MapUtil.getStr(params, "pwd");
+    	Assert.notBlank(loginName, "用户名不能为空");
+    	Assert.notBlank(pwd, "密码不能为空");
+    	StaticLog.info("日志{},{}", "1234","gdf");
     	
-        User user = userMapper.findUsernameAndPassword(username, MD5Util.MD5(password));
-        if(user == null) {
+    	params.put("pwd", SecureUtil.md5(pwd));
+        List<Map<String, Object>> userList = userMapper.getUserList(params);
+        if(userList == null || userList.size() != 1) {
            throw new ServiceException("用户名或密码错误");
         }
-        result.put("user", user);
+        result.put("userInfo", userList.get(0));
         
-        String jwt = JwtUtil.generateToken(user);
+        String jwt = JwtUtil.generateToken(userList.get(0));
         if(jwt == null) {
         	throw new TokenValidationException("认证失败");
         }
         result.put("jwt", jwt);
-        return result;
+        return new Message<>(ErrorCode.SUCCESS,result);
     }
 
     @Override
-    public Message<User> modifyPwd(HttpServletRequest request, String username, String oldPwd, String newPwd) {
-        User user = userMapper.findUsernameAndPassword(username, MD5Util.MD5(oldPwd));
-        if(user == null) {
+    public Message<?> modifyPwd(ModifyPwdParam params) {
+    	Assert.notBlank(params.getUsername(), "用户名不能为空");
+    	Assert.notBlank(params.getOldPwd(), "原密码不能为空");
+    	Assert.notBlank(params.getNewPwd(), "新密码不能为空");
+    	Map<String, Object> userParams = CollUtil.newHashMap();
+    	userParams.put("loginName", params.getUsername());
+    	userParams.put("pwd", MD5Util.MD5(params.getOldPwd()));
+        List<Map<String, Object>> userList = userMapper.getUserList(userParams);
+        if(userList == null || userList.size() != 1) {
         	throw new ServiceException("用户名或密码错误");
         }
-        // 根据用户名修改密码
-        userMapper.updatePasswordByUsername(user.getLoginName(), MD5Util.MD5(newPwd));
-        user = userMapper.findUsernameAndPassword(username, MD5Util.MD5(newPwd));
-        // 将用户信息再次替换并保存到Session对象中
-        HttpSession session = request.getSession();
-        return new Message<User>(ErrorCode.SUCCESS,user);
+        // 根据用户名修改密码（推荐使用id作为修改的唯一标识）
+        if(userMapper.updatePasswordByUsername(params.getUsername(), MD5Util.MD5(params.getNewPwd())) < 0) {
+        	throw new ServiceException("修改密码失败");
+        }
+        return new Message<>(ErrorCode.SUCCESS);
     }
 
     @Override
     public Message<String> loginOut(HttpServletRequest request) {
-        //HttpSession session = request.getSession();
         return new Message<String>(ErrorCode.SUCCESS);
     }
 }

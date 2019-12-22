@@ -1,9 +1,9 @@
 package com.szdtoo.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.cache.annotation.Cacheable;
 
 import com.szdtoo.model.User;
 
@@ -16,31 +16,12 @@ import com.szdtoo.model.User;
 public interface UserMapper {
 
     /**
-     * <p>Title: findUserList</p>  
-     * <p>Description: 按条件分页取得用户</p>  
-     * @param searchContent
-     * @return
+     * <p>Title: getUserList</p>
+     * <p>Description: 用户列表</p>
+     * @param @param params
+     * @param @return
      */
-    List<User> findUserList(@Param("searchContent")String searchContent);
-
-
-    /**
-     * <p>Title: findUserById</p>  
-     * <p>Description: 根据主键取得一个用户</p>  
-     * @param id
-     * @return
-     */
-    
-    User findUserById(@Param("id")Long id);
-
-    /**
-     * <p>Title: findUsernameAndPassword</p>  
-     * <p>Description: 通过用户名和密码查询该用户是否存在</p>  
-     * @param username
-     * @param password
-     * @return
-     */
-    public User findUsernameAndPassword(@Param("username") String username,@Param("password")String password);
+    List<Map<String,Object>> getUserList(Map<String,Object> params);
 
 
     /**

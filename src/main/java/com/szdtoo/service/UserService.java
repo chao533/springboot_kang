@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.github.pagehelper.PageInfo;
 import com.szdtoo.common.msg.Message;
 import com.szdtoo.model.User;
+import com.szdtoo.model.param.ModifyPwdParam;
 
 /**
  * <p>Title: UserService</p>  
@@ -24,7 +25,7 @@ public interface UserService {
      * @param pageSize
      * @return
      */
-    Message<PageInfo<User>> findUserList(String searchContent,int pageNo, int pageSize);
+    Message<?> findUserList(Map<String,Object> params);
 
     /**
      * <p>Title: findUserById</p>  
@@ -32,29 +33,24 @@ public interface UserService {
      * @param id
      * @return
      */
-    User findUserById(Long id);
+    Message<?> findUserById(Long id);
 
     /**
-     * <p>Title: login</p>  
-     * <p>Description: 登录功能</p>  
-     * @param request
-     * @param username
-     * @param password
-     * @return
+     * <p>Title: login</p>
+     * <p>Description: 登录</p>
+     * @param @param params
+     * @param @return
      */
-    public Map<String,Object> login(HttpServletRequest request, String username, String password);
+    Message<?> login(Map<String,Object> params);
 
 
     /**
-     * <p>Title: modifyPwd</p>  
-     * <p>Description: 修改密码功能</p>  
-     * @param request
-     * @param username
-     * @param oldPwd
-     * @param newPwd
-     * @return
+     * <p>Title: modifyPwd</p>
+     * <p>Description: 修改密码</p>
+     * @param @param params
+     * @param @return
      */
-    public Message<User> modifyPwd(HttpServletRequest request,String username,String oldPwd,String newPwd);
+    public Message<?> modifyPwd(ModifyPwdParam params);
 
 
     /**

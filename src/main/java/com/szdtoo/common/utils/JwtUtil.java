@@ -48,6 +48,20 @@ public class JwtUtil {
                 .compact();
         return TOKEN_PREFIX + " " + jwt;
     }
+    
+    public static String generateToken(Map<String,Object> userMap) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", userMap.get("id"));
+        map.put("username", userMap.get("userName"));
+        map.put("role", userMap.get("roleName"));
+
+        String jwt = Jwts.builder()
+                .setClaims(map)
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS512, SECRET)
+                .compact();
+        return TOKEN_PREFIX + " " + jwt;
+    }
 
     /**
      * <p>Title: validateTokenAndGetClaims</p>  

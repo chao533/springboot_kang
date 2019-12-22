@@ -4,26 +4,11 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.szdtoo.mapper.UserMapper">
 
-
-	<select id="findUserList" parameterType="Object" resultType="com.szdtoo.model.User">
-		SELECT id,login_name loginName,pwd,user_name userName,tel,icon,gender,birthday,email,addr,create_time createTime,is_del isDel from tb_user
-		WHERE 1=1
-		<if test="searchContent != null and searchContent != '' ">
-			and login_name like '%${searchContent}%'
-		</if>
-	</select>
-
-	<select id="findUserById" parameterType="Object" resultType="com.szdtoo.model.User">
-		SELECT id,login_name loginName,pwd,user_name userName,tel,icon,gender,birthday,email,addr,create_time createTime,is_del isDel from tb_user
-		WHERE id=#{id}
-	</select>
-
-
-	<select id="findUsernameAndPassword" resultType="com.szdtoo.model.User">
+	<select id="getUserList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT  
 			a.id id,
 			a.login_name loginName,
-			a.pwd pwd,
+			<!-- a.pwd pwd, -->
 			a.user_name userName,
 			a.tel tel,
 			a.icon icon,
@@ -38,8 +23,19 @@
 			tb_user a
 		LEFT JOIN tb_role b ON b.id = a.role_id
 		WHERE 
-			login_name = #{username} 
-		AND pwd = #{password}
+			a.is_del = false
+		<if test="id != null">
+		AND a.id = #{id}
+		</if>
+		<if test="loginName != null and loginName !=''">
+		AND a.login_name = #{loginName}
+		</if>
+		<if test="pwd != null and pwd !=''">
+		AND pwd = #{pwd}
+		</if> 
+		<if test="search != null and search != ''">
+			and login_name like '%${search}%'
+		</if>
 	</select>
 
 	<update id="updatePasswordByUsername">

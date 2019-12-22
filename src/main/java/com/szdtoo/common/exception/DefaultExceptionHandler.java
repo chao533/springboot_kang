@@ -22,15 +22,19 @@ public class DefaultExceptionHandler {
 
     @ExceptionHandler(ServiceException.class)
     public Message<String> processServiceException(ServiceException e) {
-    	e.printStackTrace();
         LOGGER.error("业务异常:{}",e.getMessage());
         return new Message<String>(ErrorCode.ERROR,e.getMessage());
+    }
+    
+    @ExceptionHandler(IllegalArgumentException.class)
+    public Message<String> processIllegalArgumentException(IllegalArgumentException e) {
+        LOGGER.error("参数异常:{}",e.getMessage());
+        return new Message<>(ErrorCode.ERROR,e.getMessage());
     }
     
     
     @ExceptionHandler(TokenValidationException.class)
     public Message<String> processServiceException(TokenValidationException e) {
-    	e.printStackTrace();
         LOGGER.error("Token认证异常:{}",e.getMessage());
         return new Message<String>(ErrorCode.ERROR,e.getMessage());
     }
