@@ -28,8 +28,8 @@ public class LoginController {
 
     @ApiOperation("登录验证")
     @RequestMapping(value="/login",method=RequestMethod.POST)
-    public Message<?> login(@RequestBody UserLoginParam param){
-    	return userService.login(BeanUtil.beanToMap(param));
+    public Message<?> login(@RequestBody UserLoginParam params){
+    	return userService.login(BeanUtil.beanToMap(params));
     }
 
     @ApiOperation("修改密码")
