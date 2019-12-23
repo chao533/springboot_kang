@@ -1,0 +1,32 @@
+﻿systemctl stop firewalld.service 防火墙
+sudo  firewall-cmd --zone=public --add-port=11129/tcp --permanent 暴露端口
+sudo firewall-cmd --reload --重启防火墙
+
+docker run -itd -p8081:8081 --name aio_auth --restart=always 205bd678ec9f /bin/bash
+
+docker run -itd -p8080:8080 --name aio_pc --restart=always 205bd678ec9f /bin/bash
+
+--springcloud项目启动容器
+docker run -d --name="rc_service" --expose=8071 -p 8071:8071 -e "EUREKA_INSTANCE_IP-ADDRESS=192.168.0.100" -e "SERVER_PORT=8071" 0e4f1a81b640 /bin/bash
+
+-- 重启
+shutdown -r now 
+-- 关机
+shutdown -h now
+-- docker私服
+http://192.168.0.100:5000/v2/_catalog
+
+-- mq
+docker run -d -p 5672:5672 -p 15672:15672 -e RABBITMQ_PASS="mypass" --restart=always tutum/rabbitmq
+
+--docker卸载
+sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-selinux \
+                  docker-engine-selinux \
+                  docker-engine
