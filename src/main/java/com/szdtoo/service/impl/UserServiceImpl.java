@@ -71,13 +71,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Message<?> login(Map<String,Object> params) {
-    	Map<String,Object> result = CollUtil.newHashMap();
-    	
     	String loginName = MapUtil.getStr(params, "loginName");
     	String pwd = MapUtil.getStr(params, "pwd");
     	Assert.notBlank(loginName, "用户名不能为空");
     	Assert.notBlank(pwd, "密码不能为空");
-    	StaticLog.info("日志{},{}", "1234","gdf");
+    	
+    	Map<String,Object> result = CollUtil.newHashMap();
+    	StaticLog.info("用户名:{},密码:{}", loginName,pwd);
     	
     	params.put("pwd", SecureUtil.md5(pwd));
         List<Map<String, Object>> userList = userMapper.getUserList(params);
@@ -99,6 +99,7 @@ public class UserServiceImpl implements UserService {
     	Assert.notBlank(params.getUsername(), "用户名不能为空");
     	Assert.notBlank(params.getOldPwd(), "原密码不能为空");
     	Assert.notBlank(params.getNewPwd(), "新密码不能为空");
+    	
     	Map<String, Object> userParams = CollUtil.newHashMap();
     	userParams.put("loginName", params.getUsername());
     	userParams.put("pwd", MD5Util.MD5(params.getOldPwd()));
