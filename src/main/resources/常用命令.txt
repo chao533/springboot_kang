@@ -16,8 +16,12 @@ shutdown -h now
 -- docker私服
 http://192.168.0.100:5000/v2/_catalog
 
--- mq
+-- rabbitmq
 docker run -d -p 5672:5672 -p 15672:15672 -e RABBITMQ_PASS="mypass" --restart=always tutum/rabbitmq
+rabbitmqctl stop_app
+rabbitmqctl reset
+rabbitmqctl start_app
+
 
 --docker卸载
 sudo yum remove docker \
