@@ -1,6 +1,11 @@
 ﻿systemctl stop firewalld.service 防火墙
+systemctl stop iptables.service
 sudo  firewall-cmd --zone=public --add-port=11129/tcp --permanent 暴露端口
 sudo firewall-cmd --reload --重启防火墙
+-- 重启
+shutdown -r now 
+-- 关机
+shutdown -h now
 
 docker run -itd -p8081:8081 --name aio_auth --restart=always 205bd678ec9f /bin/bash
 
@@ -9,18 +14,25 @@ docker run -itd -p8080:8080 --name aio_pc --restart=always 205bd678ec9f /bin/bas
 --springcloud项目启动容器
 docker run -d --name="rc_service" --expose=8071 -p 8071:8071 -e "EUREKA_INSTANCE_IP-ADDRESS=192.168.0.100" -e "SERVER_PORT=8071" 0e4f1a81b640 /bin/bash
 
--- 重启
-shutdown -r now 
--- 关机
-shutdown -h now
--- docker私服
-http://192.168.0.100:5000/v2/_catalog
 
 -- rabbitmq
 docker run -d -p 5672:5672 -p 15672:15672 -e RABBITMQ_PASS="mypass" --restart=always tutum/rabbitmq
 rabbitmqctl stop_app
 rabbitmqctl reset
 rabbitmqctl start_app
+
+-- docker私服
+http://192.168.0.100:5000/v2/_catalog
+docker pull registry
+docker run -di --name=registry -p 5000:5000 registry
+vi /etc/docker/daemon.json
+{"insecure-registries":["192.168.184.141:5000"]} 
+
+-- 配置DockerMaven插件
+vim /lib/systemd/system/docker.service
+ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
+systemctl daemon-reload
+systemctl restart docker
 
 
 --docker卸载
