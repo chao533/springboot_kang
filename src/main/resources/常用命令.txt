@@ -13,7 +13,8 @@ docker run -itd -p8080:8080 --name aio_pc --restart=always 205bd678ec9f /bin/bas
 
 --springcloud项目启动容器
 docker run -d --name="rc_service" --expose=8071 -p 8071:8071 -e "EUREKA_INSTANCE_IP-ADDRESS=192.168.0.100" -e "SERVER_PORT=8071" 0e4f1a81b640 /bin/bash
-
+docker run -d --name="app_cloudconfig" --expose=8771 -p 8771:8771 -e "EUREKA_INSTANCE_IP-ADDRESS=192.168.0.200" -e "SERVER_PORT=8771" 0e4f1a81b640 /bin/bash
+clean install docker:build -DpushImage
 
 -- rabbitmq
 docker run -d -p 5672:5672 -p 15672:15672 -e RABBITMQ_PASS="mypass" --restart=always tutum/rabbitmq
