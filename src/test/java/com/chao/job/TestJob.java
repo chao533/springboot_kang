@@ -123,12 +123,7 @@ public class TestJob {
 	
 
 	public static void test1() {
-//		new Thread(() -> System.out.println(Thread.currentThread().getName())).start();
-		
-		new Thread(() -> {
-			System.out.println(1);
-			System.out.println(2);
-		} ).start();;
+		new Thread(() -> System.out.println(Thread.currentThread().getName())).start();
 	}
 
 	public static void test2() {

@@ -128,6 +128,16 @@ public class HuToolDemo {
 	}
 
 	public static void test7() {
-
+		List<Integer> list = CollUtil.newArrayList(1,2,3,4);
+		
+		for(int i=0; i<list.size(); i++) {
+			Console.log(i);	
+		}
+		
+		for(Integer i : list) {
+			Console.log(i);
+		}
+		
+		list.forEach(i -> Console.log(i));
 	}
 }
