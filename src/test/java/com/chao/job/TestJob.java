@@ -12,6 +12,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Console;
+import cn.hutool.core.lang.Filter;
 import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ArrayUtil;
@@ -25,10 +26,10 @@ public class TestJob {
 
 //		test2();
 //		test1();
-//		test3();
+		test3();
 //		test4();
 //		log.info("用户{}", 1);
-		test12();
+//		test12();
 	}
 	
 	public static void test12() {
@@ -141,11 +142,17 @@ public class TestJob {
 	}
 	
 	public static void test3() {
-		Cat cat = () -> {
-			System.out.println(21);
-			System.out.println(33);
-		};
-		cat.eat();
+		List<Integer> list = CollUtil.newArrayList(1,2,3,4);
+		Console.log(list);
+		List<Integer> list2 = CollUtil.filter(list, new Filter<Integer>() {
+			@Override
+			public boolean accept(Integer t) {
+				
+				return t == 2 ? false:true;
+			}
+		});
+		CollUtil.filter(list, (Integer t) -> t == 2 ? false:true);
+//		Console.log(list2);
 	}
 	
 	public static void test4() {
