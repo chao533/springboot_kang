@@ -6,19 +6,23 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.szdtoo.model.User;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.ArrayUtil;
 
 public class HuToolDemo {
 
 	public static void main(String[] args) {
-		test6();
+		test10();
 	}
 
 	public static void test1() {
@@ -139,5 +143,32 @@ public class HuToolDemo {
 		}
 		
 		list.forEach(i -> Console.log(i));
+	}
+	
+	public static void test8() {
+		String[] arr = ArrayUtil.append(new String[] {}, "21","43","54","76","12","73");
+		Console.log(arr);
+		Integer[] arr2 = Convert.toIntArray(arr);
+		Console.log(arr2);
+	}
+	
+	public static void test9() {
+		ArrayList<Integer> list = CollUtil.newArrayList(4,5,1,2,8,5,7);
+		Console.log(list);
+		List<Integer> subList = list.stream().distinct().filter(value -> !new Integer(3).equals(value)).sorted((o1,o2) -> o1.compareTo(o2)).collect(Collectors.toList());
+		Console.log(subList);
+		
+	}
+
+	public static void test10() {
+		Map<String,Object> param1 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 1).put("name", "zhangsan").build();
+		Map<String,Object> param2 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 2).put("name", "李四").build();
+		Map<String,Object> param4 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 2).put("name", "李四").build();
+		Map<String,Object> param3 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 3).put("name", "wangwu").build();
+		List<Map<String,Object>> list = CollUtil.newArrayList(param3,param1,param2,param4);
+		
+		Console.log(list);
+		List<Integer> list2 = list.stream().distinct().filter(ele -> MapUtil.getInt(ele, "id").equals(1)? false : true).map(ele -> MapUtil.getInt(ele, "id")).collect(Collectors.toList());
+		Console.log(list2);
 	}
 }
