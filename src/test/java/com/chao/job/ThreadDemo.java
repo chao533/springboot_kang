@@ -6,7 +6,11 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
@@ -16,10 +20,11 @@ import cn.hutool.core.util.RandomUtil;
 
 public class ThreadDemo {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws Exception {
 //		TimeInterval timer = DateUtil.timer();
-		test3();
+//		test4();
 //		Console.log("总时长:{}" ,timer.intervalMs());
+		
 	}
 	
 	static int sum = 0;
@@ -139,6 +144,56 @@ public class ThreadDemo {
 		});
 		Console.log("sum:{}" , sum1);
 		Console.log("时长：{}" , timer.intervalMs());
+		
+	}
+	
+	public static void test4() throws Exception {
+		// 1
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				Console.log(Thread.currentThread().getName() + "---1");
+			}
+		}).start();
+		
+		// 2
+		FutureTask<String> futureTask = new FutureTask<>(new Callable<String>() {
+
+			@Override
+			public String call() throws Exception {
+				Console.log(Thread.currentThread().getName() + "---2");
+				return null;
+			}
+		});
+//		new Thread(futureTask).start();
+//		futureTask.run();
+		
+		// 3
+		new Callable<String>() {
+
+			@Override
+			public String call() throws Exception {
+				Console.log(Thread.currentThread().getName() + "---3");
+				return null;
+			}
+		}.call();
+		
+		// 4
+		ExecutorService  executorService  = Executors.newFixedThreadPool(3);
+		executorService.submit(new Callable<String>() {
+
+			@Override
+			public String call() throws Exception {
+				Console.log(Thread.currentThread().getName() + "---4");
+				return "";
+			}
+		});
+		
+		executorService.submit(futureTask);
+		
+		executorService.shutdown();
+		
 		
 	}
 }
