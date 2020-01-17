@@ -1,4 +1,4 @@
-package com.chao.job;
+package com.chao.hutool;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import com.szdtoo.model.User;
 
@@ -22,7 +24,7 @@ import cn.hutool.core.util.ArrayUtil;
 public class HuToolDemo {
 
 	public static void main(String[] args) {
-		test10();
+		test6();
 	}
 
 	public static void test1() {
@@ -119,16 +121,24 @@ public class HuToolDemo {
 	public static void test6() {
 		Map<String,Object> param1 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 1).put("name", "zhangsan").build();
 		Map<String,Object> param2 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 2).put("name", "李四").build();
-		Map<String,Object> param4 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 2).put("name", "李四").build();
 		Map<String,Object> param3 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 3).put("name", "wangwu").build();
-		List<Map<String,Object>> list = CollUtil.newArrayList(param3,param1,param2);
-		List<Map<String,Object>> list2 = CollUtil.newArrayList(param1);
+		Map<String,Object> param4 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 2).put("name", "李四").build();
+		List<Map<String,Object>> list = CollUtil.newArrayList(param3,param2,param1);
+		List<Map<String,Object>> list2 = CollUtil.newArrayList(param2);
 		Console.log(list);
 		Console.log(list2);
+		
+//		Collection retainAll = CollectionUtils.retainAll(list, list2); // 交集
+//		Console.log(retainAll);
+//		Collection union = CollectionUtils.union(list, list2); // 并集
+//		Console.log(union);
+		Collection subtract = CollectionUtils.subtract(list, list2);// 差集
+		Console.log(subtract);
+		
 //		Collection<Map<String,Object>> all = CollUtil.union(list,list2);
-		Collection<Map<String,Object>> all = CollUtil.intersection(list,list2);
-		ArrayList<Map<String, Object>> newArrayList = CollUtil.newArrayList(all);
-		Console.log(newArrayList);
+//		Collection<Map<String,Object>> all = CollUtil.intersection(list,list2);
+//		ArrayList<Map<String, Object>> newArrayList = CollUtil.newArrayList(all);
+//		Console.log(newArrayList);
 	}
 
 	public static void test7() {

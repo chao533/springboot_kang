@@ -1,4 +1,4 @@
-package com.chao.job;
+package com.chao.hutool;
 
 import java.util.List;
 import java.util.concurrent.BrokenBarrierException;
