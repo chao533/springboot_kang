@@ -146,7 +146,7 @@ public class ThreadDemo {
 		Console.log("时长：{}" , timer.intervalMs());
 		
 	}
-	
+	// 创建线程的几种方式
 	public static void test4() throws Exception {
 		// 1
 		new Thread(new Runnable() {

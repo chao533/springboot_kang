@@ -20,7 +20,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 @Data
 @Slf4j
-public class TestJob {
+public class HuToolDemo2 {
 
 	public static void main(String[] args) {
 
@@ -32,6 +32,7 @@ public class TestJob {
 //		test12();
 	}
 	
+	// 取出Map对象的复制属性并循环操作
 	public static void test12() {
 		HashMap<Object, Object> newHashMap = CollUtil.newHashMap();
 		Map<String, Object> user1 = MapUtil.builder(new HashMap<String,Object>()).put("id", 1).put("name", "sz").build();
@@ -53,6 +54,7 @@ public class TestJob {
 		
 	}
 	
+	// 复制对象的去重操作
 	public static void test11() {
 		Map<String, Object> user1 = MapUtil.builder(new HashMap<String,Object>()).put("id", 1).put("name", "sz").build();
 		Map<String, Object> user2 = MapUtil.builder(new HashMap<String,Object>()).put("id", 2).put("name", "li").build();
@@ -64,6 +66,7 @@ public class TestJob {
 		System.out.println(newList);
 	}
 	
+	// 排序
 	public static void test10() {
 		ArrayList<Integer> list = CollUtil.newArrayList(2,3,4,10,3,8);
 		System.out.println(list);
@@ -97,16 +100,18 @@ public class TestJob {
 		Map<String,Object> params2 = MapUtil.builder(new HashMap<String,Object>()).put("name", "zk").build();
 	}
 	
+	// 文件操作
 	public static void test7() {
-		String extName = FileUtil.extName(new File("G:/fsdkl/1.gif"));
+		String extName = FileUtil.extName(new File("G:/fsdkl/1.gif")); // 取出文件扩展名
 		System.out.println(extName);
 		
-		System.out.println(FileUtil.getUserHomeDir());
+		System.out.println(FileUtil.getUserHomeDir()); 
 		System.out.println(FileUtil.getUserHomePath());
-		System.out.println(FileUtil.getTmpDir());
-		System.out.println(FileUtil.mainName(new File("G:/1.gif")));
+		System.out.println(FileUtil.getTmpDir()); // 临时目录
+		System.out.println(FileUtil.mainName(new File("G:/1.gif"))); // 主文件名（不含扩展名）
 	}
 	
+	// 数组切割
 	public static void test6() {
 		List<Integer> list = CollUtil.newArrayList(2,3,4,5,6);
 		String join = CollUtil.join(list, ",");
@@ -116,16 +121,17 @@ public class TestJob {
 		System.out.println(join2);
 	}
 	
+	// 图片操作
 	public static void test5() {
-		ImgUtil.convert(new File("G:/1.gif"), new File("G:/3.PNG"));
+		ImgUtil.convert(new File("G:/1.gif"), new File("G:/3.PNG")); // 转换图片格式
 	}
 	
 	
-
+    // 创建线程
 	public static void test1() {
 		new Thread(() -> System.out.println(Thread.currentThread().getName())).start();
 	}
-
+	// 创建线程
 	public static void test2() {
 		new Thread(new Runnable() {
 
@@ -136,6 +142,7 @@ public class TestJob {
 		}).start();
 	}
 	
+	// 过滤
 	public static void test3() {
 		List<Integer> list = CollUtil.newArrayList(1,2,3,4);
 		Console.log(list);
@@ -149,7 +156,7 @@ public class TestJob {
 		CollUtil.filter(list, (Integer t) -> t == 2 ? false:true);
 //		Console.log(list2);
 	}
-	
+	// 循环
 	public static void test4() {
 		ArrayList<Integer> newArrayList = CollUtil.newArrayList(1,2,3,4);
 		
