@@ -1,4 +1,4 @@
-package com.chao.job;
+package com.chao.hutool;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,6 +7,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import com.szdtoo.model.User;
 
@@ -21,9 +23,10 @@ import cn.hutool.core.util.ArrayUtil;
 public class HuToolDemo {
 
 	public static void main(String[] args) {
-		test10();
+		test6();
 	}
-
+	
+	// 对象拷贝
 	public static void test1() {
 		User user1 = new User();
 		user1.setAddr("21");
@@ -34,6 +37,7 @@ public class HuToolDemo {
 		Console.log(user2);
 	}
 
+	// 取出Map对象封装的各种类型属性
 	public static void test2() {
 		ArrayList<Integer> newArrayList = CollUtil.newArrayList(2,3,4,43,2,1);
 		Map<String,Object> param2 = MapUtil.builder(new HashMap<String,Object>()).put("id", 3).put("name", "李四").build();
@@ -42,14 +46,15 @@ public class HuToolDemo {
 		Console.log(param3);
 		BeanUtil.copyProperties(param1, param3);
 		Console.log(param3);
-		
+		// 取出List集合
 		List<Integer> list = MapUtil.get(param3, "userList", new TypeReference<List<Integer>>(){});
 		Console.log(list);
+		// 取出User对象
 		Map<String, Object> map = MapUtil.get(param3, "user", new TypeReference<Map<String,Object>>(){});
 		Console.log(map);
 	}
 
-	// 过滤
+	// 过滤lambda写法
 	public static void test3() {
 		Map<String,Object> param1 = MapUtil.builder(new HashMap<String,Object>()).put("id", 1).put("name", "zhangsan").build();
 		Map<String,Object> param2 = MapUtil.builder(new HashMap<String,Object>()).put("id", 2).put("name", "李四").build();
@@ -68,7 +73,7 @@ public class HuToolDemo {
 		Console.log(list);
 	}
 
-	// 编辑
+	// 编辑lambda写法
 	public static void test4() {
 		Map<String,Object> param1 = MapUtil.builder(new HashMap<String,Object>()).put("id", 1).put("name", "zhangsan").build();
 		Map<String,Object> param2 = MapUtil.builder(new HashMap<String,Object>()).put("id", 2).put("name", "李四").build();
@@ -95,10 +100,10 @@ public class HuToolDemo {
 				return map;
 			}
 		});
-		
 		Console.log(list);
 	}
 
+	// 排序lambda写法
 	public static void test5() {
 		Map<String,Object> param1 = MapUtil.builder(new HashMap<String,Object>()).put("id", 1).put("name", "zhangsan").build();
 		Map<String,Object> param2 = MapUtil.builder(new HashMap<String,Object>()).put("id", 2).put("name", "李四").build();
@@ -116,21 +121,31 @@ public class HuToolDemo {
 		Console.log(list);
 	}
 
+	// 集合交、并、差集操作
 	public static void test6() {
 		Map<String,Object> param1 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 1).put("name", "zhangsan").build();
 		Map<String,Object> param2 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 2).put("name", "李四").build();
-		Map<String,Object> param4 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 2).put("name", "李四").build();
 		Map<String,Object> param3 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 3).put("name", "wangwu").build();
-		List<Map<String,Object>> list = CollUtil.newArrayList(param3,param1,param2);
-		List<Map<String,Object>> list2 = CollUtil.newArrayList(param1);
+		Map<String,Object> param4 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 2).put("name", "李四").build();
+		List<Map<String,Object>> list = CollUtil.newArrayList(param3,param2,param1);
+		List<Map<String,Object>> list2 = CollUtil.newArrayList(param2);
 		Console.log(list);
 		Console.log(list2);
+		
+//		Collection retainAll = CollectionUtils.retainAll(list, list2); // 交集
+//		Console.log(retainAll);
+//		Collection union = CollectionUtils.union(list, list2); // 并集
+//		Console.log(union);
+		Collection subtract = CollectionUtils.subtract(list, list2);// 差集
+		Console.log(subtract);
+		
 //		Collection<Map<String,Object>> all = CollUtil.union(list,list2);
-		Collection<Map<String,Object>> all = CollUtil.intersection(list,list2);
-		ArrayList<Map<String, Object>> newArrayList = CollUtil.newArrayList(all);
-		Console.log(newArrayList);
+//		Collection<Map<String,Object>> all = CollUtil.intersection(list,list2);
+//		ArrayList<Map<String, Object>> newArrayList = CollUtil.newArrayList(all);
+//		Console.log(newArrayList);
 	}
 
+	// for循环的集中方式
 	public static void test7() {
 		List<Integer> list = CollUtil.newArrayList(1,2,3,4);
 		
@@ -145,6 +160,7 @@ public class HuToolDemo {
 		list.forEach(i -> Console.log(i));
 	}
 	
+	// 数组的类型转换(包含元素)
 	public static void test8() {
 		String[] arr = ArrayUtil.append(new String[] {}, "21","43","54","76","12","73");
 		Console.log(arr);
@@ -152,6 +168,7 @@ public class HuToolDemo {
 		Console.log(arr2);
 	}
 	
+	// java8的Stream流写法
 	public static void test9() {
 		ArrayList<Integer> list = CollUtil.newArrayList(4,5,1,2,8,5,7);
 		Console.log(list);
@@ -160,6 +177,7 @@ public class HuToolDemo {
 		
 	}
 
+	// java8的Stream流写法（对象操作）
 	public static void test10() {
 		Map<String,Object> param1 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 1).put("name", "zhangsan").build();
 		Map<String,Object> param2 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 2).put("name", "李四").build();
