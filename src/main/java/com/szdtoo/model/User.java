@@ -3,6 +3,7 @@ package com.szdtoo.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import lombok.Builder;
 import lombok.Data;
 /**
  * <p>Title: User.java</p>  

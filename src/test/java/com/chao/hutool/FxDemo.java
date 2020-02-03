@@ -50,6 +50,7 @@ public class FxDemo {
 		ArrayList<Person> newArrayList = CollUtil.newArrayList(new Person());
 		
 		List<String> list = newArrayList.stream().map(ele -> ele.getName()).collect(Collectors.toList());
+		
 	}
 	
 

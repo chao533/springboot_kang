@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import com.chao.job.Person;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.img.ImgUtil;
@@ -26,8 +30,8 @@ public class HuToolDemo2 {
 
 //		test2();
 //		test1();
-		test3();
-//		test4();
+//		test3();
+		test4();
 //		log.info("用户{}", 1);
 //		test12();
 	}
@@ -161,6 +165,11 @@ public class HuToolDemo2 {
 		ArrayList<Integer> newArrayList = CollUtil.newArrayList(1,2,3,4);
 		
 		newArrayList.forEach(value -> System.out.println(value));
+		
+		List<Integer> subList = newArrayList.stream().filter(t -> t == 2 ? false : true).distinct().collect(Collectors.toList());
+		Console.log(subList);
+		
+		
 	}
 	
 }

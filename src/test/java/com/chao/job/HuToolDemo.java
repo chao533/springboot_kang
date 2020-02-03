@@ -21,7 +21,7 @@ import cn.hutool.core.util.ArrayUtil;
 public class HuToolDemo {
 
 	public static void main(String[] args) {
-		test10();
+		test11();
 	}
 
 	public static void test1() {
@@ -32,6 +32,31 @@ public class HuToolDemo {
 		Console.log(user2);
 		BeanUtil.copyProperties(user1, user2);
 		Console.log(user2);
+	}
+	// 测试对象的深度复制
+	public static void test11() {
+		Person person = Person.builder().age(12).name("张三").sex(false).build();
+		
+		com.chao.job.User user = com.chao.job.User.builder().id(0l).username("liu@dfh.com").pwd("123").build();
+		person.setUser(user);
+		
+		Goods goods1 = Goods.builder().id(1l).goodsName("商品1").build();
+		Goods goods2 = Goods.builder().id(1l).goodsName("商品2").build();
+		List<Goods> goodsList = CollUtil.newArrayList(goods1,goods2);
+		person.setGoodsList(goodsList);
+		Console.log(person);
+		
+		Map<String,Object> params = CollUtil.newHashMap();
+		Console.log(params);
+		BeanUtil.copyProperties(person, params);
+		Console.log(params);
+		
+		Boolean sex = MapUtil.getBool(params, "sex");
+		Console.log(sex);
+		Map<String,Object> userMap = MapUtil.get(params, "user", new TypeReference<Map<String,Object>>(){});
+		Console.log(userMap);
+		List<Map<String,Object>> goodsMapList = MapUtil.get(params, "goodsList", new TypeReference<List<Map<String,Object>>>(){});
+		Console.log(goodsMapList);
 	}
 
 	public static void test2() {
@@ -171,4 +196,5 @@ public class HuToolDemo {
 		List<Integer> list2 = list.stream().distinct().filter(ele -> MapUtil.getInt(ele, "id").equals(1)? false : true).map(ele -> MapUtil.getInt(ele, "id")).collect(Collectors.toList());
 		Console.log(list2);
 	}
+	
 }
