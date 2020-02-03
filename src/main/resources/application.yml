@@ -85,4 +85,11 @@ fdfs:
     height: 150
   trackerList:            #TrackerList参数,支持多个
     - 47.105.189.247:22122
+    
+shiro: 
+  #unauthorizedUrl: /test/unauthorizedurl
+  loginUrl: /unauthorizedurl
+  #successUrl: /test/login
+  web: 
+    enabled: true
 

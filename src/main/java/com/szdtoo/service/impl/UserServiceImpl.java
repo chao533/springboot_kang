@@ -5,14 +5,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -78,17 +78,19 @@ public class UserServiceImpl implements UserService {
     	Assert.notBlank(loginName, "用户名不能为空");
     	Assert.notBlank(pwd, "密码不能为空");
     	
+    	Subject subject = SecurityUtils.getSubject();
+		subject.login(new UsernamePasswordToken(loginName, SecureUtil.md5(pwd)));
+    	
     	Map<String,Object> result = CollUtil.newHashMap();
     	StaticLog.info("用户名:{},密码:{}", loginName,pwd);
     	
     	params.put("pwd", SecureUtil.md5(pwd));
         List<Map<String, Object>> userList = userMapper.getUserList(params);
-        if(userList == null || userList.size() != 1) {
-           throw new ServiceException("用户名或密码错误");
-        }
-        result.put("userInfo", userList.get(0));
+        Map<String, Object> userMap = userList.get(0);
+        userMap.remove("pwd");
+        result.put("userInfo", userMap);
         
-        String jwt = JwtUtil.generateToken(userList.get(0));
+        String jwt = JwtUtil.generateToken(userMap);
         if(jwt == null) {
         	throw new TokenValidationException("认证失败");
         }

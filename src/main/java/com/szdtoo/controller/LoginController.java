@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.szdtoo.common.msg.ErrorCode;
 import com.szdtoo.common.msg.Message;
 import com.szdtoo.model.param.ModifyPwdParam;
 import com.szdtoo.model.param.UserLoginParam;
 import com.szdtoo.service.UserService;
 
 import cn.hutool.core.bean.BeanUtil;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 @RestController
 public class LoginController {
@@ -43,5 +42,10 @@ public class LoginController {
     public Message<String> loginOut(HttpServletRequest request){
     	return userService.loginOut(request);
     }
+    
+    @RequestMapping(value="/unauthorizedurl",method=RequestMethod.GET)
+	public Message<?> unauthorizedurl() {
+		return new Message<>(ErrorCode.ERROR_AUTH);
+	}
     
 }

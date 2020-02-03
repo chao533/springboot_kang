@@ -8,7 +8,7 @@
 		SELECT  
 			a.id id,
 			a.login_name loginName,
-			<!-- a.pwd pwd, -->
+			a.pwd pwd, 
 			a.user_name userName,
 			a.tel tel,
 			a.icon icon,

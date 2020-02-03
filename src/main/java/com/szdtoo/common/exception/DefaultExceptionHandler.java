@@ -1,5 +1,6 @@
 package com.szdtoo.common.exception;
 
+import org.apache.shiro.authc.AuthenticationException;
 import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,12 @@ public class DefaultExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public Message<String> processIllegalArgumentException(IllegalArgumentException e) {
         LOGGER.error("参数异常:{}",e.getMessage());
+        return new Message<>(ErrorCode.ERROR,e.getMessage());
+    }
+    
+    @ExceptionHandler(AuthenticationException.class)
+    public Message<String> processAuthenticationException(AuthenticationException e) {
+        LOGGER.error("登录异常:{}",e.getMessage());
         return new Message<>(ErrorCode.ERROR,e.getMessage());
     }
     
