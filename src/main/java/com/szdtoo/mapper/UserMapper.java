@@ -5,8 +5,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.szdtoo.model.User;
-
 /**
  * <p>Title: UserMapper</p>  
  * <p>Description: 用户Mapper</p>  
@@ -32,4 +30,8 @@ public interface UserMapper {
      * @return
      */
     public int updatePasswordByUsername(@Param("username") String username, @Param("password")String password);
+    
+    List<Map<String,Object>> getPermissionsList(@Param("userId") Long userId);
+    
+    List<Map<String,Object>> getPermissionsList2();
 }

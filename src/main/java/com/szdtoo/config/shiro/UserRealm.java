@@ -3,6 +3,7 @@ package com.szdtoo.config.shiro;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -10,6 +11,7 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,10 @@ import org.springframework.stereotype.Component;
 import com.szdtoo.mapper.UserMapper;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.core.util.StrUtil;
 
 @Component
 public class UserRealm extends AuthorizingRealm {
@@ -30,7 +33,19 @@ public class UserRealm extends AuthorizingRealm {
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		return null; 
+		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+		
+		Map<String,Object> userMap = Convert.convert(new TypeReference<Map<String,Object>>() {}, principals.getPrimaryPrincipal());
+		List<Map<String, Object>> permList = null;
+		if(StringUtils.equals(MapUtil.getStr(userMap, "roleName"), "master")) {
+			permList = userMapper.getPermissionsList2();
+		} else {
+			permList = userMapper.getPermissionsList(MapUtil.getLong(userMap, "id"));
+		}
+		List<String> permStrList = permList.stream().distinct().map(user -> MapUtil.getStr(user, "url")).filter(user -> StringUtils.isNotBlank(user)).collect(Collectors.toList());
+		
+		info.addStringPermissions(permStrList);
+		return info; 
 	}
 
 	@Override
@@ -48,6 +63,6 @@ public class UserRealm extends AuthorizingRealm {
 		if(CollUtil.isEmpty(userList)) {
 			throw new AuthenticationException("密码输入错误");
 		}
-		return new SimpleAuthenticationInfo(username, token.getCredentials(), getName());
+		return new SimpleAuthenticationInfo(userList.get(0), token.getCredentials(), getName());
 	}
 }

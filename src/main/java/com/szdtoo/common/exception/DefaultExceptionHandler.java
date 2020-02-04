@@ -1,6 +1,7 @@
 package com.szdtoo.common.exception;
 
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authz.AuthorizationException;
 import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +38,12 @@ public class DefaultExceptionHandler {
     public Message<String> processAuthenticationException(AuthenticationException e) {
         LOGGER.error("登录异常:{}",e.getMessage());
         return new Message<>(ErrorCode.ERROR,e.getMessage());
+    }
+    
+    @ExceptionHandler(AuthorizationException.class)
+    public Message<String> processAuthorizationException(AuthorizationException e) {
+        LOGGER.error("没有权限:{}",e.getMessage());
+        return new Message<>(ErrorCode.ERROR_AUTH);
     }
     
     
