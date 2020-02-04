@@ -80,7 +80,6 @@ public class UserServiceImpl implements UserService {
     	
     	Subject subject = SecurityUtils.getSubject();
 		subject.login(new UsernamePasswordToken(loginName, SecureUtil.md5(pwd)));
-    	
     	Map<String,Object> result = CollUtil.newHashMap();
     	StaticLog.info("用户名:{},密码:{}", loginName,pwd);
     	
@@ -120,6 +119,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Message<String> loginOut(HttpServletRequest request) {
+    	Subject subject = SecurityUtils.getSubject();
+    	subject.logout();
         return new Message<String>(ErrorCode.SUCCESS);
     }
 }

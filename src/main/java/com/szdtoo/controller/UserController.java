@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +47,7 @@ public class UserController {
         return new Message<Map<String,Object>>(ErrorCode.SUCCESS,JwtUtil.getUser(request));
     }
 
-    //@RequiresPermissions(value= {"user:get","user:add"})
+    @RequiresPermissions(value= {"user:get","user:add"})
     @ApiOperation("获取所有用户信息")
     @RequestMapping(value = "/userList",method=RequestMethod.GET)
     public Message<?> userList(UserListParam params){
