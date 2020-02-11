@@ -22,7 +22,9 @@ import com.szdtoo.common.msg.ErrorCode;
 import com.szdtoo.common.msg.Message;
 import com.szdtoo.common.utils.JwtUtil;
 import com.szdtoo.common.utils.MD5Util;
+import com.szdtoo.mapper.MongoUserRepository;
 import com.szdtoo.mapper.UserMapper;
+import com.szdtoo.model.MongoUser;
 import com.szdtoo.model.User;
 import com.szdtoo.model.param.ModifyPwdParam;
 import com.szdtoo.service.UserService;
@@ -44,6 +46,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private MongoUserRepository mongoUserRepository;
     
     private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -123,4 +127,9 @@ public class UserServiceImpl implements UserService {
     	subject.logout();
         return new Message<String>(ErrorCode.SUCCESS);
     }
+
+	@Override
+	public Message<?> getMongoUserList() {
+		return new Message<>(ErrorCode.SUCCESS,mongoUserRepository.findAll());
+	}
 }

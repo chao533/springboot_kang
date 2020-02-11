@@ -60,5 +60,13 @@ public interface UserService {
      * @return
      */
     public Message<String> loginOut(HttpServletRequest request);
+    
+    /**
+     * <p>Title: getMongoUserList</p>  
+     * <p>Description: 获取MongoUser对象</p>  
+     * @param request
+     * @return
+     */
+    public Message<?> getMongoUserList();
 
 }

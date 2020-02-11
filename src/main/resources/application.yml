@@ -39,6 +39,10 @@ spring:
         cache-null-values: false
         time-to-live: 600000ms
         use-key-prefix: true
+    data:
+      mongodb:
+        uri: mongodb://localhost:27017
+        database: admin
 
 
     http:
