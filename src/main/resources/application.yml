@@ -43,6 +43,8 @@ spring:
       mongodb:
         uri: mongodb://localhost:27017
         database: admin
+      elasticsearch: 
+        cluster-nodes: 192.168.31.131:9200
 
 
     http:
@@ -96,4 +98,5 @@ shiro:
   #successUrl: /test/login
   web: 
     enabled: true
+
 

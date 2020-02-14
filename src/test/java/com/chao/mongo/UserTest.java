@@ -1,16 +1,13 @@
-package com.chao;
+package com.chao.mongo;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import com.szdtoo.Application;
+import com.chao.BaseTest;
 import com.szdtoo.common.msg.Message;
 import com.szdtoo.mapper.MongoUserRepository;
 import com.szdtoo.model.MongoUser;
@@ -22,9 +19,7 @@ import cn.hutool.core.lang.Console;
 import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.map.MapUtil;
 
-@SpringBootTest(classes=Application.class)
-@RunWith(SpringRunner.class)
-public class UserTest {
+public class UserTest extends BaseTest{
 	
 	@Autowired
 	private UserService userService;
@@ -57,4 +52,10 @@ public class UserTest {
 		MongoUser mongoUser = MongoUser.builder().id("004").name("王五").gender(false).goodsList(CollUtil.newArrayList(goods1,goods2)).build();
 		mongoUserRepository.save(mongoUser);
 	} 
+	
+	
+	@Test
+	public void test4() {
+		 
+	}
 }
