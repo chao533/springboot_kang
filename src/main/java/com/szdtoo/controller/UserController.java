@@ -47,7 +47,7 @@ public class UserController {
         return new Message<Map<String,Object>>(ErrorCode.SUCCESS,JwtUtil.getUser(request));
     }
 
-    @RequiresPermissions(value= {"user:get","user:add"})
+    @RequiresPermissions(value= {"user:get","user:add"}) // 同时满足 
     @ApiOperation("获取所有用户信息")
     @RequestMapping(value = "/userList",method=RequestMethod.GET)
     public Message<?> userList(UserListParam params){

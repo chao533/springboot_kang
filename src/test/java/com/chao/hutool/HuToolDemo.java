@@ -174,7 +174,7 @@ public class HuToolDemo {
 		Console.log(list);
 		List<Integer> subList = list.stream().distinct().filter(value -> !new Integer(3).equals(value)).sorted((o1,o2) -> o1.compareTo(o2)).collect(Collectors.toList());
 		Console.log(subList);
-		
+		list.stream().map((item) -> item > 3).collect(Collectors.toList());
 	}
 
 	// java8的Stream流写法（对象操作）

@@ -169,7 +169,6 @@ public class HuToolDemo2 {
 		List<Integer> subList = newArrayList.stream().filter(t -> t == 2 ? false : true).distinct().collect(Collectors.toList());
 		Console.log(subList);
 		
-		
 	}
 	
 }

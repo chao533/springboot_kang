@@ -1,5 +1,6 @@
 package com.szdtoo.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,6 @@ import com.szdtoo.common.utils.JwtUtil;
 import com.szdtoo.common.utils.MD5Util;
 import com.szdtoo.mapper.MongoUserRepository;
 import com.szdtoo.mapper.UserMapper;
-import com.szdtoo.model.MongoUser;
 import com.szdtoo.model.User;
 import com.szdtoo.model.param.ModifyPwdParam;
 import com.szdtoo.service.UserService;
@@ -107,15 +107,17 @@ public class UserServiceImpl implements UserService {
     	Assert.notBlank(params.getOldPwd(), "原密码不能为空");
     	Assert.notBlank(params.getNewPwd(), "新密码不能为空");
     	
-    	Map<String, Object> userParams = CollUtil.newHashMap();
-    	userParams.put("loginName", params.getUsername());
-    	userParams.put("pwd", MD5Util.MD5(params.getOldPwd()));
+//    	Map<String, Object> userParams = CollUtil.newHashMap();
+//    	userParams.put("loginName", params.getUsername());
+//    	userParams.put("pwd", MD5Util.MD5(params.getOldPwd()));
+    	Map<String,Object> userParams = MapUtil.builder(new HashMap<String,Object>())
+    			.put("loginName", params.getUsername()).put("pwd", SecureUtil.md5(params.getOldPwd())).build();
         List<Map<String, Object>> userList = userMapper.getUserList(userParams);
         if(userList == null || userList.size() != 1) {
         	throw new ServiceException("用户名或密码错误");
         }
         // 根据用户名修改密码（推荐使用id作为修改的唯一标识）
-        if(userMapper.updatePasswordByUsername(params.getUsername(), MD5Util.MD5(params.getNewPwd())) < 0) {
+        if(userMapper.updatePasswordByUsername(params.getUsername(), SecureUtil.md5(params.getNewPwd())) < 0) {
         	throw new ServiceException("修改密码失败");
         }
         return new Message<>(ErrorCode.SUCCESS);
