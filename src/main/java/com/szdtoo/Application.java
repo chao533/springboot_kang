@@ -20,6 +20,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @MapperScan("com.szdtoo.mapper")
 @EnableCaching
+//@EnableAsync
 public class Application {
 
     public static void main(String[] args) {

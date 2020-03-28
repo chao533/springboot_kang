@@ -28,8 +28,8 @@ public class AsyncController {
 	@RequestMapping(value="/get",method=RequestMethod.GET)
 	public Message<?> get() throws Exception{
 		System.out.println("main....." +  Thread.currentThread().getName());
-		Map<String,Object> result1 = (Map<String, Object>) asyncTask.async1().get();
-		Map<String,Object> result2 = (Map<String, Object>) asyncTask.async2().get();
+		Map<String,Object> result1 = asyncTask.async1().get();
+		Map<String,Object> result2 = asyncTask.async2().get();
 		Map<String,Object> result3 = new HashMap<String,Object>();
 		result3.put("result1", result1);
 		result3.put("result2", result2);

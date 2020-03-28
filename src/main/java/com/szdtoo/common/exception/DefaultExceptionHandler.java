@@ -48,7 +48,7 @@ public class DefaultExceptionHandler {
     
     
     @ExceptionHandler(TokenValidationException.class)
-    public Message<String> processServiceException(TokenValidationException e) {
+    public Message<String> processTokenValidationException(TokenValidationException e) {
         LOGGER.error("Token认证异常:{}",e.getMessage());
         return new Message<String>(ErrorCode.ERROR,e.getMessage());
     }
