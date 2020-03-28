@@ -14,8 +14,8 @@
 		</commentGenerator>
 
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://47.105.189.247:3306/jyweb?useUnicode=true&amp;characterEncoding=UTF8"
-			userId="root" password="123456">
+			connectionURL="jdbc:mysql://192.168.0.100:11129/study_pad?useUnicode=true&amp;characterEncoding=UTF8"
+			userId="root" password="szdtoo123">
 		</jdbcConnection>
 
 		<javaModelGenerator targetPackage="com.szdtoo.model"
@@ -27,7 +27,7 @@
 			targetProject="src/main/java" type="XMLMAPPER" />
 
 
-		<table tableName="tb_video" domainObjectName="Video">
+		<table tableName="role_group" domainObjectName="RoleGroup">
 			<generatedKey column="id" sqlStatement="Mysql" identity="true" />
 		</table>
 
