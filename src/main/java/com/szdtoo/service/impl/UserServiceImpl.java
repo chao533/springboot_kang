@@ -83,11 +83,13 @@ public class UserServiceImpl implements UserService {
     	Assert.notBlank(pwd, "密码不能为空");
     	
     	Subject subject = SecurityUtils.getSubject();
-		subject.login(new UsernamePasswordToken(loginName, SecureUtil.md5(pwd)));
+    	String md5Pwd = SecureUtil.md5(pwd);
+    	StaticLog.info("加密密码:{}", md5Pwd);
+		subject.login(new UsernamePasswordToken(loginName, md5Pwd));
     	Map<String,Object> result = CollUtil.newHashMap();
     	StaticLog.info("用户名:{},密码:{}", loginName,pwd);
     	
-    	params.put("pwd", SecureUtil.md5(pwd));
+    	params.put("pwd", md5Pwd);
         List<Map<String, Object>> userList = userMapper.getUserList(params);
         Map<String, Object> userMap = userList.get(0);
         userMap.remove("pwd");

@@ -12,9 +12,22 @@ import org.springframework.context.annotation.DependsOn;
 
 @Configuration
 public class ShiroConfig {
+	
+//	@Bean
+//    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+//        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+//        //指定加密方式为MD5
+//        credentialsMatcher.setHashAlgorithmName("MD5");
+//        //加密次数
+//        credentialsMatcher.setHashIterations(1);
+//        credentialsMatcher.setStoredCredentialsHexEncoded(true);
+//        return credentialsMatcher;
+//    }
+	
 	@Bean
 	UserRealm userRealm() {
-		return new UserRealm();
+		UserRealm userRealm = new UserRealm();
+        return userRealm;
 	}
 
 	@Bean

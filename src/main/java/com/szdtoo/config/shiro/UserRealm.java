@@ -24,6 +24,7 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.log.StaticLog;
 
 @Component
 public class UserRealm extends AuthorizingRealm {
@@ -57,7 +58,7 @@ public class UserRealm extends AuthorizingRealm {
 		if(CollUtil.isEmpty(userList)) {
 			throw new AuthenticationException("用户名不存在");
 		}
-		
+		StaticLog.info("UserRealm加密密码:{}", ArrayUtil.join(pwd, ""));
 		Map<String,Object> params2 = MapUtil.builder(new HashMap<String,Object>()).put("loginName", username).put("pwd", ArrayUtil.join(pwd, "")).build();
 		userList = userMapper.getUserList(params2);
 		if(CollUtil.isEmpty(userList)) {
