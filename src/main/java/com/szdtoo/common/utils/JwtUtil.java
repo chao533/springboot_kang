@@ -8,6 +8,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.szdtoo.common.exception.TokenValidationException;
 import com.szdtoo.model.User;
@@ -87,8 +90,8 @@ public class JwtUtil {
      * @param request
      * @return
      */
-    public static Map<String,Object> getUser(HttpServletRequest request){
-    	 String token = request.getHeader(HEADER_STRING);
+    public static Map<String,Object> getUser(){
+    	 String token = getRequest().getHeader(HEADER_STRING);
          if (token == null) {
              throw new TokenValidationException("认证失败");
          }
@@ -99,4 +102,9 @@ public class JwtUtil {
          body.remove("exp");
          return body;
     }
+    
+    public static HttpServletRequest getRequest() {
+		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+		return (requestAttributes == null) ? null : ((ServletRequestAttributes) requestAttributes).getRequest();
+	}
 }

@@ -43,8 +43,8 @@ public class UserController {
     @RequiresPermissions("user:get")
     @ApiOperation("根据token获取用户信息")
     @RequestMapping(value = "/tokenUserInfo",method=RequestMethod.GET)
-    public Message<Map<String,Object>> findOneUser(HttpServletRequest request){
-        return new Message<Map<String,Object>>(ErrorCode.SUCCESS,JwtUtil.getUser(request));
+    public Message<Map<String,Object>> findOneUser(){
+        return new Message<Map<String,Object>>(ErrorCode.SUCCESS,JwtUtil.getUser());
     }
 
     @RequiresPermissions(value= {"user:get","user:add"}) // 同时满足 
