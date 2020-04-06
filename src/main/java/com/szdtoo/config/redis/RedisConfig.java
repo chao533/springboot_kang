@@ -21,7 +21,7 @@ import redis.clients.jedis.JedisPoolConfig;
  * @date 2018年12月3日
  */
 @Component
-@PropertySource(value = "classpath:redis.properties")//配置文件路径  在resource目录下
+@PropertySource(value = "classpath:config/redis.properties")//配置文件路径  在resource目录下
 public class RedisConfig {
 	
 	@Value("${spring.redis.host}")
