@@ -18,6 +18,13 @@ import com.szdtoo.service.UserService;
 
 import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.ApiOperation;
+
+/**
+　 * <p>Title: LoginController</p> 
+　 * <p>Description: 登录操作</p> 
+　 * @author CK 
+　 * @date 2020年4月6日
+ */
 @RestController
 public class LoginController {
     protected Logger logger = LoggerFactory.getLogger(LoginController.class);

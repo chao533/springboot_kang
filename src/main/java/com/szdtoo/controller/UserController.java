@@ -24,7 +24,12 @@ import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(value="用户controller",description="用户操作",tags={"用户操作接口"})
+/**
+　 * <p>Title: UserController</p> 
+　 * <p>Description: 用户操作</p> 
+　 * @author CK 
+　 * @date 2020年4月6日
+ */
 @RestController
 @RequestMapping(value="/user")
 public class UserController {
@@ -33,22 +38,36 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     *<p>Title: findUserById</p> 
+     *<p>Description: 获取用户信息</p> 
+     * @param id
+     * @return
+     */
     //@RequiresPermissions(value= {"user:get","user:add"})
-    @ApiOperation("获取用户信息")
     @RequestMapping(value = "/{id}",method=RequestMethod.GET)
     public Message<?> findUserById(@PathVariable Long id){
         return userService.findUserById(id);
     }
     
+    /**
+     *<p>Title: userInfo</p> 
+     *<p>Description: 根据token获取用户信息</p> 
+     * @return
+     */
     @RequiresPermissions("user:get")
-    @ApiOperation("根据token获取用户信息")
-    @RequestMapping(value = "/tokenUserInfo",method=RequestMethod.GET)
-    public Message<Map<String,Object>> findOneUser(){
-        return new Message<Map<String,Object>>(ErrorCode.SUCCESS,JwtUtil.getUser());
+    @RequestMapping(value = "/userInfo",method=RequestMethod.GET)
+    public Message<Map<String,Object>> userInfo(){
+        return new Message<>(ErrorCode.SUCCESS,JwtUtil.getUser());
     }
 
+    /**
+     *<p>Title: userList</p> 
+     *<p>Description: 获取所有用户信息</p> 
+     * @param params
+     * @return
+     */
     @RequiresPermissions(value= {"user:get","user:add"}) // 同时满足 
-    @ApiOperation("获取所有用户信息")
     @RequestMapping(value = "/userList",method=RequestMethod.GET)
     public Message<?> userList(UserListParam params){
         return userService.findUserList(BeanUtil.beanToMap(params));

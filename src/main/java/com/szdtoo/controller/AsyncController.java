@@ -17,6 +17,12 @@ import com.szdtoo.common.msg.Message;
 import com.szdtoo.config.async.AsyncTask;
 import com.szdtoo.config.async.TaskFactory;
 
+/**
+　 * <p>Title: AsyncController</p> 
+　 * <p>Description: 异步操作</p> 
+　 * @author CK 
+　 * @date 2020年4月6日
+ */
 @RequestMapping("/async")
 @RestController
 public class AsyncController {
@@ -25,22 +31,31 @@ public class AsyncController {
 	@Autowired
 	private AsyncTask asyncTask;
 	
+	/**
+	 *<p>Title: get</p> 
+	 *<p>Description: 异步获取数据</p> 
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/get",method=RequestMethod.GET)
 	public Message<?> get() throws Exception{
 		System.out.println("main....." +  Thread.currentThread().getName());
 		Map<String,Object> result1 = asyncTask.async1().get();
 		Map<String,Object> result2 = asyncTask.async2().get();
-		Map<String,Object> result3 = new HashMap<String,Object>();
-		result3.put("result1", result1);
-		result3.put("result2", result2);
-		return new Message<Map<String,Object>>(ErrorCode.SUCCESS,result3);
+		Map<String,Object> result = new HashMap<String,Object>();
+		result.put("result1", result1);
+		result.put("result2", result2);
+		return new Message<Map<String,Object>>(ErrorCode.SUCCESS,result);
 	}
 	
 	@Autowired
     private TaskFactory task;
 
     /**
-     * 测试异步任务
+     *<p>Title: asyncTaskTest</p> 
+     *<p>Description: 测试异步任务</p> 
+     * @throws InterruptedException
+     * @throws ExecutionException
      */
 	@RequestMapping(value="/test1",method=RequestMethod.GET)
     public void asyncTaskTest() throws InterruptedException, ExecutionException {
@@ -59,7 +74,9 @@ public class AsyncController {
     }
 
     /**
-     * 测试同步任务
+     *<p>Title: taskTest</p> 
+     *<p>Description: 测试同步任务</p> 
+     * @throws InterruptedException
      */
 	@RequestMapping(value="/test2",method=RequestMethod.GET)
     public void taskTest() throws InterruptedException {

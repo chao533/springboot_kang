@@ -42,29 +42,6 @@ public final class Constants {
     
     
     /**
-     * <p>Title: PayType</p>  
-     * <p>Description: 支付方式</p>  
-     * @author chaokang  
-     * @date 2018年12月3日
-     */
-    public interface PayType{
-        /**
-         * 现金 
-         */
-        int MONEY = 0;
-
-        /**
-         * 支付宝
-         */
-        int ALIPAY = 1;
-
-        /**
-         * 微信
-         */
-        int WEIXIN = 2;
-    }
-
-    /**
      * <p>Title: propertiesVal</p>  
      * <p>Description: 根据配置文件的名称获取值</p>  
      * @param file
