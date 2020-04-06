@@ -8,10 +8,10 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.chao.BaseTest;
-import com.szdtoo.common.msg.Message;
-import com.szdtoo.mapper.MongoUserRepository;
-import com.szdtoo.model.MongoUser;
-import com.szdtoo.service.UserService;
+import com.kang.common.msg.Message;
+import com.kang.mapper.MongoUserRepository;
+import com.kang.model.MongoUser;
+import com.kang.service.UserService;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;

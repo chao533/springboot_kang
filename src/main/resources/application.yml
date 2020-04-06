@@ -65,7 +65,7 @@ spring:
 
 mybatis:
   mapper-locations: classpath:mapping/*.xml
-  type-aliases-package: com.szdtoo.model
+  type-aliases-package: com.kang.model
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 

@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONObject;
 import com.chao.BaseTest;
-import com.szdtoo.mapper.EsMapper;
+import com.kang.mapper.EsMapper;
 
 import cn.hutool.core.lang.Console;
 
