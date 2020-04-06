@@ -2,8 +2,6 @@ package com.szdtoo.common.aop;
 
 import java.lang.reflect.Method;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.time.StopWatch;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -14,8 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.szdtoo.common.msg.ErrorCode;
 import com.szdtoo.common.msg.Message;
@@ -37,10 +33,6 @@ public class LogAspect {
     public void logPointCut() {
     }
     
-    private HttpServletRequest getRequest() {
-        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-    }
-
     @Around(value = "logPointCut()")
     public Object logOperate(ProceedingJoinPoint joinPoint) {
     	
