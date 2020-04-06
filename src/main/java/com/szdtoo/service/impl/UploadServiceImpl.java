@@ -22,9 +22,9 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
-import com.szdtoo.common.constant.Constants;
 import com.szdtoo.common.msg.ErrorCode;
 import com.szdtoo.common.msg.Message;
+import com.szdtoo.config.fast.FastConfig;
 import com.szdtoo.service.UploadService;
 
 import cn.hutool.core.img.ImgUtil;
@@ -38,6 +38,8 @@ public class UploadServiceImpl implements UploadService{
 	
 	@Autowired
 	private FastFileStorageClient storageClient;
+	@Autowired
+	private FastConfig fastConfig;
 
 	@SneakyThrows
 	@Override
@@ -50,7 +52,7 @@ public class UploadServiceImpl implements UploadService{
 			StorePath storePath = storageClient.uploadFile(inputStream,multipartFile.getSize(), extName,null);
 			String fullPath = storePath.getFullPath();
 			if(StringUtils.isNotBlank(fullPath)) {
-				result += Constants.getFastWebServer() + fullPath + ",";
+				result += fastConfig.getWebserver() + fullPath + ",";
 			}
 		}
 		if(StringUtils.isNotBlank(result)) {
@@ -90,7 +92,7 @@ public class UploadServiceImpl implements UploadService{
 			StorePath storePath = storageClient.uploadFile(input,output.size(), extName,null);
 			String fullPath = storePath.getFullPath();
 			if(StringUtils.isNotBlank(fullPath)) {
-				result += Constants.getFastWebServer() + fullPath + ",";
+				result += fastConfig.getWebserver() + fullPath + ",";
 			}
 		}
 		if(StringUtils.isNotBlank(result)) {
@@ -115,7 +117,7 @@ public class UploadServiceImpl implements UploadService{
 			StorePath storePath = storageClient.uploadFile(input,output.size(), extName,null);
 			String fullPath = storePath.getFullPath();
 			if(StringUtils.isNotBlank(fullPath)) {
-				result += Constants.getFastWebServer() + fullPath + ",";
+				result += fastConfig.getWebserver() + fullPath + ",";
 			}
 		}
 		if(StringUtils.isNotBlank(result)) {
