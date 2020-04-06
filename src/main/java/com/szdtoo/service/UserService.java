@@ -4,9 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.github.pagehelper.PageInfo;
 import com.szdtoo.common.msg.Message;
-import com.szdtoo.model.User;
 import com.szdtoo.model.param.ModifyPwdParam;
 
 /**

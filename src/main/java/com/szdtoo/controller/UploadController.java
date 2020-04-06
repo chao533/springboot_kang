@@ -12,8 +12,6 @@ import com.szdtoo.common.msg.Message;
 import com.szdtoo.model.param.ImgCutParam;
 import com.szdtoo.service.UploadService;
 
-import io.swagger.annotations.ApiOperation;
-
 /**
 　 * <p>Title: UploadController</p> 
 　 * <p>Description: FAST上传</p> 

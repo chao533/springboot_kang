@@ -2,9 +2,6 @@ package com.szdtoo.controller;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +18,6 @@ import com.szdtoo.model.param.UserListParam;
 import com.szdtoo.service.UserService;
 
 import cn.hutool.core.bean.BeanUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
 /**
 　 * <p>Title: UserController</p> 

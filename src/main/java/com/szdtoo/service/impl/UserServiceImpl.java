@@ -22,7 +22,6 @@ import com.szdtoo.common.exception.TokenValidationException;
 import com.szdtoo.common.msg.ErrorCode;
 import com.szdtoo.common.msg.Message;
 import com.szdtoo.common.utils.JwtUtil;
-import com.szdtoo.common.utils.MD5Util;
 import com.szdtoo.mapper.MongoUserRepository;
 import com.szdtoo.mapper.UserMapper;
 import com.szdtoo.model.User;
