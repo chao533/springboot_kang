@@ -38,14 +38,13 @@ public class JwtUtil {
      * @return
      */
     public static String generateToken(User user) {
-        //you can put any data in the map
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id", user.getId());
-        map.put("username", user.getUserName());
-        map.put("role", user.getRoleName());
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put("id", user.getId());
+        userMap.put("username", user.getUserName());
+        userMap.put("role", user.getRoleName());
 
         String jwt = Jwts.builder()
-                .setClaims(map)
+                .setClaims(userMap)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
@@ -72,8 +71,8 @@ public class JwtUtil {
      * @param request
      * @return
      */
-    public static Map<String, Object> validateTokenAndGetClaims(HttpServletRequest request) {
-        String token = request.getHeader(HEADER_STRING);
+    public static Map<String, Object> validateTokenAndGetClaims() {
+        String token = getRequest().getHeader(HEADER_STRING);
         if (StringUtils.isBlank(token)) {
             throw new TokenValidationException("认证失败");
         }
