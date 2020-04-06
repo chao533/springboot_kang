@@ -9,7 +9,7 @@ package com.kang.common.msg;
 public enum ErrorCode {
 	
 	SUCCESS(200,"操作成功"),
-	ERROR_AUTH(200,"无权限操作"),
+	ERROR_AUTH(401,"无权限操作"),
 	ERROR(500,"操作失败");
 	
 	private int code;

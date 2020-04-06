@@ -32,24 +32,44 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @ApiOperation("登录验证")
+    /**
+     *<p>Title: login</p> 
+     *<p>Description: 登录验证</p> 
+     * @param params
+     * @return
+     */
     @RequestMapping(value="/login",method=RequestMethod.POST)
     public Message<?> login(@RequestBody UserLoginParam params){
     	return userService.login(BeanUtil.beanToMap(params));
     }
 
-    @ApiOperation("修改密码")
+    /**
+     *<p>Title: modifyPwd</p> 
+     *<p>Description: 修改密码</p> 
+     * @param params
+     * @return
+     */
     @RequestMapping(value="/modifyPwd",method=RequestMethod.POST)
     public Message<?> modifyPwd(@RequestBody ModifyPwdParam params){
     	return userService.modifyPwd(params);
     }
 
-    @ApiOperation("退出登录")
+    /**
+     *<p>Title: loginOut</p> 
+     *<p>Description: 退出登录</p> 
+     * @param request
+     * @return
+     */
     @RequestMapping(value="/loginOut",method=RequestMethod.GET)
-    public Message<String> loginOut(HttpServletRequest request){
-    	return userService.loginOut(request);
+    public Message<String> loginOut(){
+    	return userService.loginOut();
     }
     
+    /**
+     *<p>Title: unauthorizedurl</p> 
+     *<p>Description: 无权限访问</p> 
+     * @return
+     */
     @RequestMapping(value="/unauthorizedurl",method=RequestMethod.GET)
 	public Message<?> unauthorizedurl() {
 		return new Message<>(ErrorCode.ERROR_AUTH);

@@ -2,8 +2,6 @@ package com.kang.service;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.kang.common.msg.Message;
 import com.kang.model.param.ModifyPwdParam;
 
@@ -57,7 +55,7 @@ public interface UserService {
      * @param request
      * @return
      */
-    public Message<String> loginOut(HttpServletRequest request);
+    public Message<String> loginOut();
     
     /**
      * <p>Title: getMongoUserList</p>  

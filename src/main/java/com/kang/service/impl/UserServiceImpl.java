@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Message<String> loginOut(HttpServletRequest request) {
+    public Message<String> loginOut() {
     	Subject subject = SecurityUtils.getSubject();
     	subject.logout();
         return new Message<String>(ErrorCode.SUCCESS);
