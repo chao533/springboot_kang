@@ -4,11 +4,15 @@ import java.awt.Rectangle;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +28,7 @@ import com.szdtoo.common.msg.Message;
 import com.szdtoo.service.UploadService;
 
 import cn.hutool.core.img.ImgUtil;
+import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -118,6 +123,21 @@ public class UploadServiceImpl implements UploadService{
 		}
 		log.info("result:" + result);
 		return new Message<>(ErrorCode.SUCCESS,result);
+	}
+
+	@SneakyThrows
+	@Override
+	public void downloadFile(HttpServletResponse response, String path) {
+		StorePath storePath = StorePath.praseFromUrl(path);
+		@Cleanup InputStream inputStream = storageClient.downloadFile(storePath.getGroup(), storePath.getPath(), (input) -> input);
+		//1.设置文件ContentType类型，这样设置，会自动判断下载文件类型  
+		response.setContentType("multipart/form-data");
+		 //2.设置文件头：
+		response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode("测试文件.jpg", "UTF-8"));//此处需要设置下载文件的默认名称
+		
+		@Cleanup ServletOutputStream outputStream = response.getOutputStream();
+		
+		IOUtils.copy(inputStream, outputStream);
 	}
 
 	

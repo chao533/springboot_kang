@@ -1,12 +1,14 @@
 package com.szdtoo.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.szdtoo.common.msg.ErrorCode;
 import com.szdtoo.common.msg.Message;
 import com.szdtoo.model.param.ImgCutParam;
 import com.szdtoo.service.UploadService;
@@ -39,6 +41,13 @@ public class UploadController {
 	public Message<String> scale(HttpServletRequest request, float scale) {
 		// 缩放图片并上传
 		return uploadService.uploadCutScale(request, "fileKey", scale);
+	}
+	
+	@ApiOperation("fast文件下载")
+	@RequestMapping(value = "/downloadFile", method = RequestMethod.GET)
+	public Message<String> downloadFile(HttpServletResponse response, String path) {
+		uploadService.downloadFile(response, path);
+		return new Message<>(ErrorCode.ERROR.SUCCESS);
 	}
 
 }

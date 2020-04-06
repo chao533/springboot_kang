@@ -1,6 +1,7 @@
 package com.szdtoo.service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.szdtoo.common.msg.Message;
 
@@ -37,6 +38,14 @@ public interface UploadService {
 	 * @return
 	 */
 	Message<String> uploadCutScale(HttpServletRequest request, String fileKey,float scale);
+	
+	/**
+	 *<p>Title: downloadFile</p> 
+	 *<p>Description: 文件下载</p> 
+	 * @param response
+	 * @param path
+	 */
+	void downloadFile(HttpServletResponse response, String path);
 	
 	
 }

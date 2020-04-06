@@ -21,9 +21,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @MapperScan("com.szdtoo.mapper")
 @EnableCaching
 //@EnableAsync
-public class Application {
+public class KangApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(KangApplication.class, args);
     }
 }
