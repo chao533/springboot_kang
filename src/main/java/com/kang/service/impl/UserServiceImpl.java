@@ -108,9 +108,6 @@ public class UserServiceImpl implements UserService {
     	Assert.notBlank(params.getOldPwd(), "原密码不能为空");
     	Assert.notBlank(params.getNewPwd(), "新密码不能为空");
     	
-//    	Map<String, Object> userParams = CollUtil.newHashMap();
-//    	userParams.put("loginName", params.getUsername());
-//    	userParams.put("pwd", MD5Util.MD5(params.getOldPwd()));
     	Map<String,Object> userParams = MapUtil.builder(new HashMap<String,Object>())
     			.put("loginName", params.getUsername()).put("pwd", SecureUtil.md5(params.getOldPwd())).build();
         List<Map<String, Object>> userList = userMapper.getUserList(userParams);
