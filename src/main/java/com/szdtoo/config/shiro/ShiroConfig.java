@@ -51,6 +51,7 @@ public class ShiroConfig {
 		definition.addPathDefinition("/loginOut", "anon");
 		definition.addPathDefinition("/upload", "anon");
 		definition.addPathDefinition("/downloadFile", "anon");
+		definition.addPathDefinition("/deleteFile", "anon");
 		definition.addPathDefinition("/**", "authc");
 		return definition;
 	}

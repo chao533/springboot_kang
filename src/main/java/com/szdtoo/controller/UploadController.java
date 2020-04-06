@@ -47,5 +47,11 @@ public class UploadController {
 	public void downloadFile(HttpServletResponse response, String path) {
 		uploadService.downloadFile(response, path);
 	}
+	
+	@ApiOperation("FAST删除文件")
+	@RequestMapping(value = "/deleteFile", method = RequestMethod.GET)
+	public Message<String> deleteFile(String path) {
+		return uploadService.deleteFile(path);
+	}
 
 }

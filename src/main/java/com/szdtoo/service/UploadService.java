@@ -47,5 +47,13 @@ public interface UploadService {
 	 */
 	void downloadFile(HttpServletResponse response, String path);
 	
+	/**
+	 *<p>Title: deleteFile</p> 
+	 *<p>Description: 删除文件</p> 
+	 * @param path
+	 * @return
+	 */
+	Message<String> deleteFile(String path);
+	
 	
 }

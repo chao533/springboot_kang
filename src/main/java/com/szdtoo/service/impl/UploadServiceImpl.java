@@ -45,7 +45,7 @@ public class UploadServiceImpl implements UploadService{
 		List<MultipartFile> multipartFileList = this.getFileList(request, fileKey);
 		String result = "";
 		for(MultipartFile multipartFile : multipartFileList) {
-			InputStream inputStream = multipartFile.getInputStream();
+			@Cleanup InputStream inputStream = multipartFile.getInputStream();
 			String extName = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
 			StorePath storePath = storageClient.uploadFile(inputStream,multipartFile.getSize(), extName,null);
 			String fullPath = storePath.getFullPath();
@@ -82,10 +82,10 @@ public class UploadServiceImpl implements UploadService{
 		String result = "";
 		for(MultipartFile multipartFile : multipartFileList) {
 			
-			ByteArrayOutputStream output = new ByteArrayOutputStream();
+			@Cleanup ByteArrayOutputStream output = new ByteArrayOutputStream();
 			ImgUtil.cut(multipartFile.getInputStream(), output, new Rectangle(x,y,width,height));
 			
-			ByteArrayInputStream input = new ByteArrayInputStream(output.toByteArray());
+			@Cleanup ByteArrayInputStream input = new ByteArrayInputStream(output.toByteArray());
 			String extName = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
 			StorePath storePath = storageClient.uploadFile(input,output.size(), extName,null);
 			String fullPath = storePath.getFullPath();
@@ -107,10 +107,10 @@ public class UploadServiceImpl implements UploadService{
 		String result = "";
 		for(MultipartFile multipartFile : multipartFileList) {
 			
-			ByteArrayOutputStream output = new ByteArrayOutputStream();
+			@Cleanup ByteArrayOutputStream output = new ByteArrayOutputStream();
 			ImgUtil.scale(multipartFile.getInputStream(), output, scale);
 			
-			ByteArrayInputStream input = new ByteArrayInputStream(output.toByteArray());
+			@Cleanup ByteArrayInputStream input = new ByteArrayInputStream(output.toByteArray());
 			String extName = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
 			StorePath storePath = storageClient.uploadFile(input,output.size(), extName,null);
 			String fullPath = storePath.getFullPath();
@@ -138,6 +138,12 @@ public class UploadServiceImpl implements UploadService{
 		@Cleanup ServletOutputStream outputStream = response.getOutputStream();
 		
 		IOUtils.copy(inputStream, outputStream);
+	}
+
+	@Override
+	public Message<String> deleteFile(String path) {
+		storageClient.deleteFile(path);
+		return new Message<>(ErrorCode.SUCCESS);
 	}
 
 	
