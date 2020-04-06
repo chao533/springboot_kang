@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.szdtoo.common.msg.ErrorCode;
 import com.szdtoo.common.msg.Message;
 import com.szdtoo.model.param.ImgCutParam;
 import com.szdtoo.service.UploadService;
@@ -21,7 +20,7 @@ public class UploadController {
     @Autowired
     private UploadService uploadService;
 
-	@ApiOperation("fast图片裁剪")
+	@ApiOperation("FAST图片裁剪")
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public Message<String> upload(HttpServletRequest request, ImgCutParam params) {
 		int x = params.getX();
@@ -36,18 +35,17 @@ public class UploadController {
 		return uploadService.uploadCutPic(request, "fileKey", x, y, width, height);
 	}
 	
-	@ApiOperation("fast图片缩放")
+	@ApiOperation("FAST图片缩放")
 	@RequestMapping(value = "/scale", method = RequestMethod.POST)
 	public Message<String> scale(HttpServletRequest request, float scale) {
 		// 缩放图片并上传
 		return uploadService.uploadCutScale(request, "fileKey", scale);
 	}
 	
-	@ApiOperation("fast文件下载")
+	@ApiOperation("FAST文件下载")
 	@RequestMapping(value = "/downloadFile", method = RequestMethod.GET)
-	public Message<String> downloadFile(HttpServletResponse response, String path) {
+	public void downloadFile(HttpServletResponse response, String path) {
 		uploadService.downloadFile(response, path);
-		return new Message<>(ErrorCode.ERROR.SUCCESS);
 	}
 
 }
