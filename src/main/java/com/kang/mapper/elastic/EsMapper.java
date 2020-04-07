@@ -1,4 +1,4 @@
-package com.kang.mapper;
+package com.kang.mapper.elastic;
 
 import java.util.ArrayList;
 import java.util.List;

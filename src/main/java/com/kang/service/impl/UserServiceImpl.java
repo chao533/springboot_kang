@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -22,9 +20,9 @@ import com.kang.common.exception.TokenValidationException;
 import com.kang.common.msg.ErrorCode;
 import com.kang.common.msg.Message;
 import com.kang.common.utils.JwtUtil;
-import com.kang.mapper.MongoUserRepository;
-import com.kang.mapper.UserMapper;
-import com.kang.model.User;
+import com.kang.mapper.mongo.MongoUserRepository;
+import com.kang.mapper.mybaits.UserMapper;
+import com.kang.model.mybatis.User;
 import com.kang.model.param.ModifyPwdParam;
 import com.kang.service.UserService;
 

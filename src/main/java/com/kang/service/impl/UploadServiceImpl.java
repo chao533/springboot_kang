@@ -28,6 +28,7 @@ import com.kang.config.fast.FastConfig;
 import com.kang.service.UploadService;
 
 import cn.hutool.core.img.ImgUtil;
+import cn.hutool.core.io.FileUtil;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -135,7 +136,7 @@ public class UploadServiceImpl implements UploadService{
 		//1.设置文件ContentType类型，这样设置，会自动判断下载文件类型  
 		response.setContentType("multipart/form-data");
 		 //2.设置文件头：
-		response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode("测试文件.jpg", "UTF-8"));//此处需要设置下载文件的默认名称
+		response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode("测试文件." + FileUtil.extName(path), "UTF-8"));//此处需要设置下载文件的默认名称
 		
 		@Cleanup ServletOutputStream outputStream = response.getOutputStream();
 		

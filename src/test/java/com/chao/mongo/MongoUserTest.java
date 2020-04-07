@@ -6,56 +6,79 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 
 import com.chao.BaseTest;
-import com.kang.common.msg.Message;
-import com.kang.mapper.MongoUserRepository;
-import com.kang.model.MongoUser;
-import com.kang.service.UserService;
+import com.kang.mapper.mongo.MongoUserRepository;
+import com.kang.model.mongo.MongoUser;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Console;
-import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.map.MapUtil;
 
 public class MongoUserTest extends BaseTest{
-	
-	@Autowired
-	private UserService userService;
 	@Autowired
 	private MongoUserRepository mongoUserRepository;
 	
 
+	/**
+	 *<p>Title: testSaveMongoUser</p> 
+	 *<p>Description: 测试保存MongoUser</p>
+	 */
 	@Test
-	public void test1() {
-		Map<String,Object> params = MapUtil.builder(new HashMap<String,Object>()).put("pageNo", 1).put("pageSize", 10).build();
-		Message<?> userList = userService.findUserList(params);
-		Map<String, Object> beanToMap = BeanUtil.beanToMap(userList);
-		List<Map<String, Object>> list = MapUtil.get(beanToMap, "data", new TypeReference<List<Map<String,Object>>>() {});
-		Console.log("集合数据为：{}", list);
-		Console.log("集合数据为：{},{},{},{}", 12,22,3,4);
-	}
-	
-	@Test
-	public void test2() {
-		Console.log(mongoUserRepository.findOne("004"));
-		Console.log(userService.getMongoUserList());
-		
-		Console.log(mongoUserRepository.findByName("王五"));
-	}
-	
-	@Test
-	public void test3() {
+	public void testSaveMongoUser() {
 		Map<String,Object> goods1 = MapUtil.builder(new HashMap<String,Object>()).put("goodsId", "1001").put("goodsName", "商品1").build();
 		Map<String,Object> goods2 = MapUtil.builder(new HashMap<String,Object>()).put("goodsId", "1002").put("goodsName", "商品2").build();
-		MongoUser mongoUser = MongoUser.builder().id("004").name("王五").gender(false).goodsList(CollUtil.newArrayList(goods1,goods2)).build();
-		mongoUserRepository.save(mongoUser);
+		MongoUser mongoUser1 = MongoUser.builder().id("001").name("张三").gender(false).goodsList(CollUtil.newArrayList(goods1,goods2)).build();
+		mongoUserRepository.save(mongoUser1);
+	}
+	
+	/**
+	 *<p>Title: testBatchSaveMongoUser</p> 
+	 *<p>Description: 批量保存MongoUser</p>
+	 */
+	public void testBatchSaveMongoUser() {
+		Map<String,Object> goods3 = MapUtil.builder(new HashMap<String,Object>()).put("goodsId", "1003").put("goodsName", "商品3").build();
+		Map<String,Object> goods4 = MapUtil.builder(new HashMap<String,Object>()).put("goodsId", "1004").put("goodsName", "商品4").build();
+		MongoUser mongoUser2 = MongoUser.builder().id("003").name("李四").gender(false).goodsList(CollUtil.newArrayList(goods3,goods4)).build();
+		
+		Map<String,Object> goods5 = MapUtil.builder(new HashMap<String,Object>()).put("goodsId", "1005").put("goodsName", "商品5").build();
+		Map<String,Object> goods6 = MapUtil.builder(new HashMap<String,Object>()).put("goodsId", "1006").put("goodsName", "商品6").build();
+		MongoUser mongoUser3 = MongoUser.builder().id("005").name("王五").gender(false).goodsList(CollUtil.newArrayList(goods5,goods6)).build();
+		mongoUserRepository.save(CollUtil.newArrayList(mongoUser2,mongoUser3));
+	}
+	
+	/**
+	 *<p>Title: testGetMongoUser</p> 
+	 *<p>Description: 测试id查询</p>
+	 */
+	@Test
+	public void testGetMongoUser() {
+		MongoUser mongoUser = mongoUserRepository.findOne("001");
+		Console.log(mongoUser);
 	} 
 	
-	
+	/**
+	 *<p>Title: testGetMongoUserAll</p> 
+	 *<p>Description: 查询所有</p>
+	 */
 	@Test
-	public void test4() {
-		 
+	public void testGetMongoUserAll() {
+		List<MongoUser> mongoUserList = mongoUserRepository.findAll();
+		Console.log(mongoUserList);
+	}
+	
+	/**
+	 *<p>Title: testGetMongoUserCondition</p> 
+	 *<p>Description: 条件查询</p>
+	 */
+	@Test
+	public void testGetMongoUserCondition() {
+		MongoUser mongoUser = MongoUser.builder().name("张三").build();
+		List<MongoUser> mongoUserList1 = mongoUserRepository.findAll(Example.of(mongoUser));
+		Console.log(mongoUserList1);
+		
+		List<MongoUser> mongoUserList2 = mongoUserRepository.findByName("王五");
+		Console.log(mongoUserList2);
 	}
 }

@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.chao.job.Goods;
-import com.chao.job.Person;
-import com.kang.model.User;
+import com.chao.hutool.model.Goods;
+import com.chao.hutool.model.Person;
+import com.chao.hutool.model.User;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
@@ -27,10 +27,8 @@ public class HuToolTest_3 {
 	}
 
 	public static void test1() {
-		User user1 = new User();
-		user1.setAddr("21");
-		user1.setId(1l);
-		User user2 = new User();
+		User user1 = User.builder().id(1l).username("zs").build();
+		User user2 = User.builder().build();
 		Console.log(user2);
 		BeanUtil.copyProperties(user1, user2);
 		Console.log(user2);
@@ -39,7 +37,7 @@ public class HuToolTest_3 {
 	public static void test11() {
 		Person person = Person.builder().age(12).name("张三").sex(false).build();
 		
-		com.chao.job.User user = com.chao.job.User.builder().id(0l).username("liu@dfh.com").pwd("123").build();
+		User user = User.builder().id(0l).username("liu@dfh.com").pwd("123").build();
 		person.setUser(user);
 		
 		Goods goods1 = Goods.builder().id(1l).goodsName("商品1").build();

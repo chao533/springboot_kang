@@ -1,4 +1,4 @@
-package com.kang.model;
+package com.kang.model.mongo;
 
 
 import java.util.List;

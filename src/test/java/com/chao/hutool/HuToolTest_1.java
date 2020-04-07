@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.kang.model.User;
+import com.chao.hutool.model.User;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
@@ -28,10 +28,8 @@ public class HuToolTest_1 {
 	
 	// 对象拷贝
 	public static void test1() {
-		User user1 = new User();
-		user1.setAddr("21");
-		user1.setId(1l);
-		User user2 = new User();
+		User user1 = User.builder().id(1l).username("zs").build();
+		User user2 = User.builder().build();
 		Console.log(user2);
 		BeanUtil.copyProperties(user1, user2);
 		Console.log(user2);

@@ -1,4 +1,4 @@
-package com.kang.model;
+package com.kang.model.mybatis;
 
 import java.io.Serializable;
 import java.net.UnknownHostException;
