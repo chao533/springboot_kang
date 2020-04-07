@@ -1,4 +1,4 @@
-package com.chao.job;
+package com.chao.hutool;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.chao.job.Goods;
+import com.chao.job.Person;
 import com.kang.model.User;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -18,7 +20,7 @@ import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ArrayUtil;
 
-public class HuToolDemo {
+public class HuToolTest_3 {
 
 	public static void main(String[] args) {
 		test11();

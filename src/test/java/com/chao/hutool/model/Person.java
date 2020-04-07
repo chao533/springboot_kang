@@ -1,4 +1,4 @@
-package com.chao.job;
+package com.chao.hutool.model;
 
 import java.util.List;
 

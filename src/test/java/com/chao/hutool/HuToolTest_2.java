@@ -24,7 +24,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 @Data
 @Slf4j
-public class HuToolDemo2 {
+public class HuToolTest_2 {
 
 	public static void main(String[] args) {
 

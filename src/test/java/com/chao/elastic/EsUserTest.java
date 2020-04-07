@@ -1,4 +1,4 @@
-package com.chao.es;
+package com.chao.elastic;
 
 import java.util.Map;
 
@@ -28,6 +28,10 @@ public class EsUserTest extends BaseTest{
 	@Autowired
 	private EsMapper esMapper;
 	
+	/**
+	 *<p>Title: testCreateIndexOne</p> 
+	 *<p>Description: 测试添加</p>
+	 */
 	@Test
 	public void testCreateIndexOne() {
 		 String index="testdb";  //必须为小写
@@ -42,6 +46,10 @@ public class EsUserTest extends BaseTest{
          esMapper.createIndexOne(index,type,obj);
 	}
 	
+	/**
+	 *<p>Title: testFindById</p> 
+	 *<p>Description: 测试id查询</p>
+	 */
 	@Test
 	public void testFindById() {
 		String index="testdb";  //必须为小写
@@ -54,6 +62,10 @@ public class EsUserTest extends BaseTest{
         System.out.println("查询结果source："+data.getSource());
 	}
 	
+	/**
+	 *<p>Title: findByIdexcludes</p> 
+	 *<p>Description: 测试条件查询</p>
+	 */
 	@Test
     public void findByIdexcludes(){
         String index="testdb";  //必须为小写
@@ -65,8 +77,12 @@ public class EsUserTest extends BaseTest{
         System.out.println("查询结果："+esMapper.findById(index,type,id,includes,excludes));
     }
 	
+	/**
+	 *<p>Title: getAllIndex</p> 
+	 *<p>Description: 测试查询所有</p>
+	 */
 	@Test
-    public  void  getAllIndex(){
+    public void getAllIndex(){
         String index="testdb";  //必须为小写
         String type="userinfo";
         SearchResponse allIndex = esMapper.getAllIndex(index,type);
@@ -83,8 +99,9 @@ public class EsUserTest extends BaseTest{
     }
 	
 	/**
-     * 条件查询
-     */
+	 *<p>Title: getAllIndexByFiled3</p> 
+	 *<p>Description: 测试条件查询</p>
+	 */
     @Test
     public  void  getAllIndexByFiled3(){
         String index="testdb";

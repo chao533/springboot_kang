@@ -1,4 +1,4 @@
-package com.kang.config.es;
+package com.kang.config.elastic;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;

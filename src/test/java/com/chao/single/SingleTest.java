@@ -1,4 +1,4 @@
-package com.chao.job;
+package com.chao.single;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,12 +7,9 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 
-import com.chao.hutool.Single;
-import com.chao.hutool.Singleton;
-
 import cn.hutool.core.lang.Console;
 
-public class Demo2 {
+public class SingleTest {
 
 	public static void main(String[] args) throws Exception{
 		test1();

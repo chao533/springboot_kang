@@ -1,4 +1,4 @@
-package com.chao.hutool;
+package com.chao.single;
 
 import java.io.Serializable;
 

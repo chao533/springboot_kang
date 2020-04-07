@@ -20,7 +20,7 @@ import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ArrayUtil;
 
-public class HuToolDemo {
+public class HuToolTest_1 {
 
 	public static void main(String[] args) {
 		test6();

@@ -1,4 +1,4 @@
-package com.chao.hutool;
+package com.chao.thread;
 
 import java.util.List;
 import java.util.concurrent.BrokenBarrierException;
@@ -18,7 +18,7 @@ import cn.hutool.core.date.TimeInterval;
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.RandomUtil;
 
-public class ThreadDemo {
+public class ThreadTest {
 
 	public static void main(String[] args) throws Exception {
 //		TimeInterval timer = DateUtil.timer();

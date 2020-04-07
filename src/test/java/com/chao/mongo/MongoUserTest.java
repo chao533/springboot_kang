@@ -19,7 +19,7 @@ import cn.hutool.core.lang.Console;
 import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.map.MapUtil;
 
-public class UserTest extends BaseTest{
+public class MongoUserTest extends BaseTest{
 	
 	@Autowired
 	private UserService userService;

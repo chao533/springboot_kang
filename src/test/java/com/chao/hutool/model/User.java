@@ -1,4 +1,4 @@
-package com.chao.job;
+package com.chao.hutool.model;
 
 import lombok.Builder;
 import lombok.Data;
