@@ -25,7 +25,7 @@ public class MyBatisGeneratorRun {
 
         List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
-        InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream("generatorConfig.xml");
+        InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream("config/generator-config.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(resourceAsStream);
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);

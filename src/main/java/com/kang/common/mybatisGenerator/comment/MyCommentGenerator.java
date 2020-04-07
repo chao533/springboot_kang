@@ -1,15 +1,11 @@
 package com.kang.common.mybatisGenerator.comment;
 
-import org.mybatis.generator.internal.DefaultCommentGenerator;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Field;
 import org.mybatis.generator.api.dom.java.InnerClass;
 import org.mybatis.generator.api.dom.java.Method;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Properties;
+import org.mybatis.generator.internal.DefaultCommentGenerator;
 
 /**
  * 
@@ -20,24 +16,15 @@ import java.util.Properties;
  */
 public class MyCommentGenerator extends DefaultCommentGenerator {
 
-    private Properties properties;
-    private Properties systemPro;
-    private boolean suppressDate;
     private boolean suppressAllComments;
-    private String currentDateStr;
 
     public MyCommentGenerator() {
         super();
-        properties = new Properties();
-        systemPro = System.getProperties();
-        suppressDate = false;
         suppressAllComments = false;
-        currentDateStr = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
     }
 
 
-    public void addFieldComment(Field field, IntrospectedTable introspectedTable,
-                                IntrospectedColumn introspectedColumn) {
+    public void addFieldComment(Field field, IntrospectedTable introspectedTable,IntrospectedColumn introspectedColumn) {
         if (suppressAllComments) {
             return;
         }

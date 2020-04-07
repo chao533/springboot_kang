@@ -6,10 +6,10 @@
 	<context id="context1">
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 
-		<plugin type="com.szdtoo.common.mybatisGenerator.plugin.MysqlPagePlugin" />
+		<plugin type="com.kang.common.mybatisGenerator.plugin.MysqlPagePlugin" />
 
 		<commentGenerator
-			type="com.szdtoo.common.mybatisGenerator.comment.MyCommentGenerator">
+			type="com.kang.common.mybatisGenerator.comment.MyCommentGenerator">
 
 		</commentGenerator>
 
@@ -18,16 +18,16 @@
 			userId="root" password="szdtoo123">
 		</jdbcConnection>
 
-		<javaModelGenerator targetPackage="com.szdtoo.model"
+		<javaModelGenerator targetPackage="com.kang.model"
 			targetProject="src/main/java" />
 		<sqlMapGenerator targetPackage="mapping"
 			targetProject="src/main/resources" />
 
-		<javaClientGenerator targetPackage="com.szdtoo.mapper"
+		<javaClientGenerator targetPackage="com.kang.mapper"
 			targetProject="src/main/java" type="XMLMAPPER" />
 
 
-		<table tableName="role_group" domainObjectName="RoleGroup">
+		<table tableName="permissions" domainObjectName="Permissions">
 			<generatedKey column="id" sqlStatement="Mysql" identity="true" />
 		</table>
 

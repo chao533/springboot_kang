@@ -20,7 +20,6 @@ import com.kang.common.exception.TokenValidationException;
 import com.kang.common.msg.ErrorCode;
 import com.kang.common.msg.Message;
 import com.kang.common.utils.JwtUtil;
-import com.kang.mapper.mongo.MongoUserRepository;
 import com.kang.mapper.mybaits.UserMapper;
 import com.kang.model.mybatis.User;
 import com.kang.model.param.ModifyPwdParam;
@@ -43,8 +42,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
-    @Autowired
-    private MongoUserRepository mongoUserRepository;
     
     private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -125,9 +122,4 @@ public class UserServiceImpl implements UserService {
     	subject.logout();
         return new Message<String>(ErrorCode.SUCCESS);
     }
-
-	@Override
-	public Message<?> getMongoUserList() {
-		return new Message<>(ErrorCode.SUCCESS,mongoUserRepository.findAll());
-	}
 }

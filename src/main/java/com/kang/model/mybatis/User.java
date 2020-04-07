@@ -1,7 +1,6 @@
 package com.kang.model.mybatis;
 
 import java.io.Serializable;
-import java.net.UnknownHostException;
 import java.util.Date;
 
 import lombok.Data;

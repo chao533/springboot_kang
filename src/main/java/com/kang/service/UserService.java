@@ -57,12 +57,5 @@ public interface UserService {
      */
     public Message<String> loginOut();
     
-    /**
-     * <p>Title: getMongoUserList</p>  
-     * <p>Description: 获取MongoUser对象</p>  
-     * @param request
-     * @return
-     */
-    public Message<?> getMongoUserList();
 
 }
