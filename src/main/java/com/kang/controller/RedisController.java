@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kang.common.constant.RedisConstants;
 import com.kang.common.msg.ErrorCode;
 import com.kang.common.msg.Message;
-import com.kang.common.utils.RedisUtil;
+import com.kang.mapper.redis.RedisMapper;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.json.JSONUtil;
@@ -31,7 +31,7 @@ public class RedisController {
     protected Logger logger = LoggerFactory.getLogger(RedisController.class);
 
     @Autowired
-	private RedisUtil redisUtil;
+	private RedisMapper redisUtil;
     
     /**
      *<p>Title: userOne</p> 

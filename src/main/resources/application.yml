@@ -41,8 +41,9 @@ spring:
         use-key-prefix: true
     data:
       mongodb:
-        uri: mongodb://localhost:27017
         database: admin
+        authentication-database: userAdminAnyDatabase
+        uri: mongodb://admin:123456@192.168.0.100:27017
       elasticsearch: 
         cluster-nodes: 192.168.31.131:9200
 

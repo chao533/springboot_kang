@@ -1,4 +1,4 @@
-package com.kang.common.utils;
+package com.kang.mapper.redis;
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +16,7 @@ import org.springframework.util.CollectionUtils;
  * @date 2018年12月3日
  */
 @Component
-public class RedisUtil {
+public class RedisMapper {
 
 	private RedisTemplate<String, Object> redisTemplate;
 

@@ -6,7 +6,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.kang.KangApplication;
 
-@SpringBootTest(classes=KangApplication.class)
+@SpringBootTest(classes = KangApplication.class)
 @RunWith(SpringRunner.class)
 public class BaseTest {
 

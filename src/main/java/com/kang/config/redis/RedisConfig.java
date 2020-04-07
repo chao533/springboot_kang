@@ -10,7 +10,7 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 
-import com.kang.common.utils.RedisUtil;
+import com.kang.mapper.redis.RedisMapper;
 
 import redis.clients.jedis.JedisPoolConfig;
 
@@ -158,10 +158,10 @@ public class RedisConfig {
 	 * @param redisTemplate
 	 * @return
 	 */
-	@Bean(name = "redisUtil")
-	public RedisUtil redisUtil(RedisTemplate<String, Object> redisTemplate) {
-		RedisUtil redisUtil = new RedisUtil();
-		redisUtil.setRedisTemplate(redisTemplate);
-		return redisUtil;
+	@Bean(name = "redisMapper")
+	public RedisMapper redisUtil(RedisTemplate<String, Object> redisTemplate) {
+		RedisMapper redisMapper = new RedisMapper();
+		redisMapper.setRedisTemplate(redisTemplate);
+		return redisMapper;
 	}
 }
