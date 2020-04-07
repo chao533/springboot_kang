@@ -1,4 +1,4 @@
-package com.kang.config.async;
+package com.chao.async;
 
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;

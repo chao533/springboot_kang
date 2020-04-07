@@ -26,7 +26,8 @@ public class AsyncTask {
 
     @Async
 	public Future<Map<String,Object>> async1() throws InterruptedException {
-    	logger.info("task1....." + Thread.currentThread().getName());
+    	logger.info("async1开始执行，当前线程名称【{}】" + Thread.currentThread().getName());
+    	
     	Map<String,Object> result = new HashMap<String,Object>();
     	result.put("id", IdUtil.randomUUID());
     	result.put("name", "zhangsan");
@@ -35,7 +36,8 @@ public class AsyncTask {
 	
 	@Async
 	public Future<Map<String,Object>> async2() throws InterruptedException {
-		logger.info("task2....." + Thread.currentThread().getName());
+		logger.info("async2开始执行，当前线程名称【{}】" + Thread.currentThread().getName());
+		
 		Map<String,Object> result = new HashMap<String,Object>();
     	result.put("id", IdUtil.randomUUID());
     	result.put("name", "lisi");

@@ -2,8 +2,6 @@ package com.kang.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kang.common.msg.ErrorCode;
 import com.kang.common.msg.Message;
 import com.kang.config.async.AsyncTask;
-import com.kang.config.async.TaskFactory;
 
 /**
 　 * <p>Title: AsyncController</p> 
@@ -37,9 +34,10 @@ public class AsyncController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/get",method=RequestMethod.GET)
+	@RequestMapping(value="/getData",method=RequestMethod.GET)
 	public Message<?> get() throws Exception{
-		System.out.println("main....." +  Thread.currentThread().getName());
+		log.info("main开始执行，当前线程名称【{}】" + Thread.currentThread().getName());
+		
 		Map<String,Object> result1 = asyncTask.async1().get();
 		Map<String,Object> result2 = asyncTask.async2().get();
 		Map<String,Object> result = new HashMap<String,Object>();
@@ -48,46 +46,5 @@ public class AsyncController {
 		return new Message<Map<String,Object>>(ErrorCode.SUCCESS,result);
 	}
 	
-	@Autowired
-    private TaskFactory task;
-
-    /**
-     *<p>Title: asyncTaskTest</p> 
-     *<p>Description: 测试异步任务</p> 
-     * @throws InterruptedException
-     * @throws ExecutionException
-     */
-	@RequestMapping(value="/test1",method=RequestMethod.GET)
-    public void asyncTaskTest() throws InterruptedException, ExecutionException {
-        long start = System.currentTimeMillis();
-        Future<Boolean> asyncTask1 = task.asyncTask1();
-        Future<Boolean> asyncTask2 = task.asyncTask2();
-        Future<Boolean> asyncTask3 = task.asyncTask3();
-
-        // 调用 get() 阻塞主线程
-        asyncTask1.get();
-        asyncTask2.get();
-        asyncTask3.get();
-        long end = System.currentTimeMillis();
-
-        log.info("异步任务全部执行结束，总耗时：{} 毫秒", (end - start));
-    }
-
-    /**
-     *<p>Title: taskTest</p> 
-     *<p>Description: 测试同步任务</p> 
-     * @throws InterruptedException
-     */
-	@RequestMapping(value="/test2",method=RequestMethod.GET)
-    public void taskTest() throws InterruptedException {
-        long start = System.currentTimeMillis();
-        task.task1();
-        task.task2();
-        task.task3();
-        long end = System.currentTimeMillis();
-
-        log.info("同步任务全部执行结束，总耗时：{} 毫秒", (end - start));
-    }
-		
 	
 }

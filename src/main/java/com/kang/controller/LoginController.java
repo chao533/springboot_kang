@@ -1,7 +1,5 @@
 package com.kang.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import com.kang.model.param.UserLoginParam;
 import com.kang.service.UserService;
 
 import cn.hutool.core.bean.BeanUtil;
-import io.swagger.annotations.ApiOperation;
 
 /**
 　 * <p>Title: LoginController</p> 
