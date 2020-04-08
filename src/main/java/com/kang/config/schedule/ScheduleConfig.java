@@ -10,11 +10,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * ScheduleConfig
- *
- * @author XiongNeng
- * @version 1.0
- * @since 2017/9/13
+　 * <p>Title: ScheduleConfig</p> 
+　 * <p>Description: </p> 
+　 * @author CK 
+　 * @date 2020年4月8日
  */
 @Configuration
 @EnableScheduling

@@ -1,9 +1,15 @@
 package com.kang.config.schedule;
 
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import com.kang.config.async.AsyncTask;
 
 /**
  * 第一位，表示秒，取值0-59
@@ -20,24 +26,27 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class HeartbeatJob {
+	
     private static final Logger logger = LoggerFactory.getLogger(HeartbeatJob.class);
+    
+    @Autowired
+    private AsyncTask asyncTask;
 
     /**
-     * 检查状态1
+     *<p>Title: getData</p> 
+     *<p>Description: </p>
+     * @throws ExecutionException 
+     * @throws InterruptedException 
      */
-    //@Scheduled(cron = "* * * * * ?")
-    public void checkState1() {
-        logger.info(">>>>> 检查开始....");
+    @Scheduled(cron = "0 5 9 * * *")
+    public void getData() throws Exception {
+    	logger.info("Job开始执行，当前线程名称【{}】" , Thread.currentThread().getName());
+    	
+    	Map<String,Object> result1 = asyncTask.async1().get();
+    	logger.info("result1:{}" ,result1);
+		Map<String,Object> result2 = asyncTask.async2().get();
+		logger.info("result2:{}" ,result2 + "\n");
     }
-
-    /**
-     * 检查状态2
-     */
-//    @Scheduled(cron = "0 0 18 * * ?")
-//    public void checkState2() {
-//        logger.info(">>>>> cron晚上18:00上传检查开始....");
-//        logger.info(">>>>> cron晚上18:00上传检查完成....");
-//    }
 
 
 }

@@ -2,15 +2,10 @@ package com.chao.hutool;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-
-import com.chao.job.Person;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.img.ImgUtil;
@@ -21,9 +16,7 @@ import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ArrayUtil;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 @Data
-@Slf4j
 public class HuToolTest_2 {
 
 	public static void main(String[] args) {
