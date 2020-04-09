@@ -240,6 +240,18 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        
+        <!--mail邮箱 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-boot-starter</artifactId>
+					<groupId>org.springframework.boot</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		
 
 	</dependencies>

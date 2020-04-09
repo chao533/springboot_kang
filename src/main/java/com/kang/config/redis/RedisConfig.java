@@ -159,7 +159,7 @@ public class RedisConfig {
 	 * @return
 	 */
 	@Bean(name = "redisMapper")
-	public RedisMapper redisUtil(RedisTemplate<String, Object> redisTemplate) {
+	public RedisMapper redisMapper(RedisTemplate<String, Object> redisTemplate) {
 		RedisMapper redisMapper = new RedisMapper();
 		redisMapper.setRedisTemplate(redisTemplate);
 		return redisMapper;
