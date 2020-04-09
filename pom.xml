@@ -224,6 +224,22 @@
             <artifactId>elasticsearch-rest-client-sniffer</artifactId>
             <version>${elasticsearch.version}</version>
         </dependency>
+        
+         <!--mq消息-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-starter</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-web</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 		
 
 	</dependencies>
