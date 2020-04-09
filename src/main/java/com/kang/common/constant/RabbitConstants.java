@@ -38,7 +38,7 @@ public class RabbitConstants {
     public static final String FANOUT_EXCHANGE = "kang.fanout.exchange";
     
     /**
-     * 发布和订阅模式
+     * 路由模式
      */
     public static final String DIRECT_EXCHANGE = "kang.direct.exchange";
 }

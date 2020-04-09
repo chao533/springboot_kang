@@ -3,6 +3,7 @@ package com.kang.service.impl;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
+import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -31,7 +32,7 @@ public class EmailServiceImpl implements EmailService{
 	@Autowired
 	private EmailConfig emailConfig;
 
-	@SneakyThrows(value = Exception.class)
+	@SneakyThrows(value = MessagingException.class)
 	@Override
 	public Message<String> sendHtmlMail(String to, String subject, String html) {
 		JavaMailSenderImpl mailSender = createMailSender();
