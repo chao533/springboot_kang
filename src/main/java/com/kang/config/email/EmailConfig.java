@@ -22,7 +22,7 @@ public class EmailConfig {
 	private String host;
 	
 	@Value("${email.port}")
-	private Integer port;
+	private String port;
 	
 	@Value("${email.timeout}")
 	private String timeout;

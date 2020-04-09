@@ -38,7 +38,7 @@ public class EmailServiceImpl implements EmailService{
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
 		// 设置utf-8或GBK编码，否则邮件会有乱码
 		MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-		messageHelper.setFrom(emailConfig.getUsername(), "service@szdtoo.com");
+		messageHelper.setFrom(emailConfig.getUsername());
 		//抄送给地址
 		//messageHelper.setCc(new InternetAddress("test@163.com"));
 		messageHelper.setTo(to);
@@ -57,7 +57,7 @@ public class EmailServiceImpl implements EmailService{
 		Properties props = new Properties();
 		props.setProperty("mail.transport.protocol", "SMTP");
 		props.setProperty("mail.smtp.host", emailConfig.getHost());
-		props.setProperty("mail.smtp.port", emailConfig.getPort().toString());
+		props.setProperty("mail.smtp.port", emailConfig.getPort());
 		// 指定验证为true
 		props.setProperty("mail.smtp.auth", "true");
 		props.setProperty("mail.smtp.timeout", emailConfig.getTimeout());
@@ -91,7 +91,7 @@ public class EmailServiceImpl implements EmailService{
 	private JavaMailSenderImpl createMailSender() {
         JavaMailSenderImpl sender = new JavaMailSenderImpl();
         sender.setHost(emailConfig.getHost());
-        sender.setPort(emailConfig.getPort());
+        sender.setPort(Integer.parseInt(emailConfig.getPort()));
         sender.setUsername(emailConfig.getUsername());
         sender.setPassword(emailConfig.getPassword());
         sender.setDefaultEncoding("utf-8");
