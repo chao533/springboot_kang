@@ -15,4 +15,5 @@ public interface RabbitmqProducerService {
 	 * @param jsonObj
 	 */
 	public void sendMessage(Object jsonObj);
+	
 }

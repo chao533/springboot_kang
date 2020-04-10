@@ -95,8 +95,8 @@ public class ExchangeQueueConfig {
      * @return
      */
     @Bean
-    public Binding topicExchangeBindingEmail() {
-    	 return BindingBuilder.bind(emailQueue()).to(directExchange()).with(RabbitConstants.EMAIL_ROUTING_KEY);//*表示一个词,#表示零个或多个词
+    public Binding topicExchangeBindingMessage() {
+    	 return BindingBuilder.bind(messageQueue()).to(topicExchange()).with(RabbitConstants.MESSAGE_TOPIC_KEY);//*表示一个词,#表示零个或多个词
     }
     
 }

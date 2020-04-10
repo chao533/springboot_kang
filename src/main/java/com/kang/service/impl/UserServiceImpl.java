@@ -42,6 +42,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+//    @Autowired
+//    private RabbitmqProducerService rabbitmqProducerService;
     
     private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -94,6 +96,12 @@ public class UserServiceImpl implements UserService {
         	throw new TokenValidationException("认证失败");
         }
         result.put("jwt", jwt);
+        
+        // 发送邮件消息到MQ
+//        Map<String, Object> emailMap = MapUtil.builder(new HashMap<String,Object>())
+//    			.put("to", "chao533@qq.com").put("subject", "测试登录").put("html", MapUtil.getStr(userMap, "userName") + "用户,登录成功").build();
+//    	rabbitmqProducerService.sendEmail(JSONUtil.toJsonStr(emailMap));
+        
         return new Message<>(ErrorCode.SUCCESS,result);
     }
 

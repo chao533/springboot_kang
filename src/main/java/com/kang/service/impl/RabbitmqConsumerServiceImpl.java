@@ -5,6 +5,9 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.Exchange;
+import org.springframework.amqp.rabbit.annotation.Queue;
+import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,13 +49,33 @@ public class RabbitmqConsumerServiceImpl {
     }
 
     /**
-     * 处理短信队列消息
-     *
-     * @param msg
+     * 以下三个方法都应该被监听到，都被执行
+     *<p>Title: processMessage1</p> 
+     *<p>Description: 处理短信队列消息</p> 
+     * @param jsonData
+     * @return
      */
-    @RabbitListener(queues = RabbitConstants.MESSAGE_QUEUE)
-    public String processMessage(Object jsonData) {
-        String response = MessageFormat.format("收到{0}队列的消息:{1}", RabbitConstants.MESSAGE_QUEUE, jsonData);
+    @RabbitListener(bindings ={@QueueBinding(value = @Queue(value = RabbitConstants.MESSAGE_QUEUE,durable = "true"),
+            exchange =@Exchange(value = RabbitConstants.DIRECT_EXCHANGE,durable = "true"),key = RabbitConstants.MESSAGE_ROUTING_KEY)})
+    public String processMessage1(String jsonData) {
+    	log.info("Message1接受到数据为:{}" , jsonData);
+        String response = MessageFormat.format("Message1收到{0}队列的消息:{1}", RabbitConstants.MESSAGE_QUEUE, jsonData);
+        return response.toUpperCase();
+    }
+    
+    @RabbitListener(bindings ={@QueueBinding(value = @Queue(value = RabbitConstants.MESSAGE_QUEUE,durable = "true"),
+            exchange =@Exchange(value = RabbitConstants.DIRECT_EXCHANGE,durable = "true"),key = RabbitConstants.MESSAGE_ROUTING_KEY)})
+    public String processMessage2(String jsonData) {
+    	log.info("Message2接受到数据为:{}" , jsonData);
+        String response = MessageFormat.format("Message2收到{0}队列的消息:{1}", RabbitConstants.MESSAGE_QUEUE, jsonData);
+        return response.toUpperCase();
+    }
+    
+    @RabbitListener(bindings ={@QueueBinding(value = @Queue(value = RabbitConstants.MESSAGE_QUEUE,durable = "true"),
+            exchange =@Exchange(value = RabbitConstants.DIRECT_EXCHANGE,durable = "true"),key = RabbitConstants.MESSAGE_ROUTING_KEY)})
+    public String processMessage3(String jsonData) {
+    	log.info("Message3接受到数据为:{}" , jsonData);
+        String response = MessageFormat.format("Message3收到{0}队列的消息:{1}", RabbitConstants.MESSAGE_QUEUE, jsonData);
         return response.toUpperCase();
     }
 }

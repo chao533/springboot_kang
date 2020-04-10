@@ -34,7 +34,7 @@ public class RabbitmqProducerServiceImpl implements RabbitmqProducerService{
 
 	@Override
 	public void sendMessage(Object jsonObj) {
-		send(jsonObj, RabbitConstants.TOPIC_EXCHANGE, RabbitConstants.MESSAGE_ROUTING_KEY);
+		send(jsonObj, RabbitConstants.DIRECT_EXCHANGE, RabbitConstants.MESSAGE_ROUTING_KEY);
 	}
 	
 	private void send(Object jsonObj, String exchange, String routingKey) {

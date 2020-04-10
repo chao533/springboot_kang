@@ -17,20 +17,24 @@ public class RabbitConstants {
      */
     public static final String MESSAGE_QUEUE = "kang.message";
     
+    
+    
     /**
      * 邮件队列路由键（*表示一个词,#表示零个或多个词）
      */
     public static final String EMAIL_ROUTING_KEY = "kang.email.key";
     
     /**
-     * 短信队列路由键
+     * 短信队列路由键(路由模式Key)
      */
-    public static final String MESSAGE_ROUTING_KEY = "kang.message.key";
+    public static final String MESSAGE_ROUTING_KEY = "kang.message.routing.key";
     
     /**
-     * 通配符模式
+     * 短信队列路由键(通配符模式Key)
      */
-    public static final String TOPIC_EXCHANGE = "kang.topic.exchange";
+    public static final String MESSAGE_TOPIC_KEY = "kang.message.topic.key";
+    
+    
     
     /**
      * 发布和订阅模式
@@ -41,4 +45,9 @@ public class RabbitConstants {
      * 路由模式
      */
     public static final String DIRECT_EXCHANGE = "kang.direct.exchange";
+    
+    /**
+     * 通配符模式
+     */
+    public static final String TOPIC_EXCHANGE = "kang.topic.exchange";
 }
