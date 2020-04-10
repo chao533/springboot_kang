@@ -7,6 +7,8 @@ package com.kang.common.constant;
  * @date 2018年12月10日
  */
 public class RabbitConstants {
+	
+	//------------------队列---------------------------------
     /**
      * 邮件队列
      */
@@ -17,8 +19,13 @@ public class RabbitConstants {
      */
     public static final String MESSAGE_QUEUE = "kang.message";
     
+    /**
+     * 文本队列
+     */
+    public static final String TEXT_QUEUE = "kang.text";
     
     
+	//------------------路由键Key---------------------------------
     /**
      * 邮件队列路由键（*表示一个词,#表示零个或多个词）
      */
@@ -30,12 +37,12 @@ public class RabbitConstants {
     public static final String MESSAGE_ROUTING_KEY = "kang.message.routing.key";
     
     /**
-     * 短信队列路由键(通配符模式Key)
+     * 文本队列路由键(通配符模式Key)
      */
-    public static final String MESSAGE_TOPIC_KEY = "kang.message.topic.key";
+    public static final String TEXT_TOPIC_KEY = "kang.text.topic.key";
     
     
-    
+  //------------------交换机---------------------------------
     /**
      * 发布和订阅模式
      */

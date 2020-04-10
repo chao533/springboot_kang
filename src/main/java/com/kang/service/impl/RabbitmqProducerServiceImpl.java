@@ -56,4 +56,9 @@ public class RabbitmqProducerServiceImpl implements RabbitmqProducerService{
 		}
 		log.info("{}消息发送结束", jsonObj);
 	}
+
+	@Override
+	public void sendText(Object jsonObj) {
+		send(jsonObj, RabbitConstants.TOPIC_EXCHANGE, RabbitConstants.TEXT_TOPIC_KEY);
+	}
 }

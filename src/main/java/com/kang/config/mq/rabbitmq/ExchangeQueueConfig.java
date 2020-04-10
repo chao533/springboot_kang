@@ -38,6 +38,15 @@ public class ExchangeQueueConfig {
     public Queue messageQueue() {
         return new Queue(RabbitConstants.MESSAGE_QUEUE, true);
     }
+    /**
+     *<p>Title: textQueue</p> 
+     *<p>Description: 文本队列</p> 
+     * @return
+     */
+    @Bean
+    public Queue textQueue() {
+        return new Queue(RabbitConstants.TEXT_QUEUE, true);
+    }
     
     /**
      *<p>Title: fanoutExchange</p> 
@@ -69,34 +78,35 @@ public class ExchangeQueueConfig {
         return new TopicExchange(RabbitConstants.TOPIC_EXCHANGE);
     }
 
-    /**
-     *<p>Title: bindingMessage</p> 
-     *<p>Description: 使用FanoutExchange交换机绑定短信队列</p> 
-     * @return
-     */
-    @Bean
-    public Binding fanoutExchangeBindingMessage() {
-        return BindingBuilder.bind(messageQueue()).to(fanoutExchange());
-    }
     
     /**
      *<p>Title: directExchangeBindingEmail</p> 
-     *<p>Description: 使用DirectExchange交换机绑定邮件队列</p> 
+     *<p>Description: 使用fanoutExchange交换机绑定邮件队列</p> 
      * @return
      */
     @Bean
-    public Binding directExchangeBindingEmail() {
-    	 return BindingBuilder.bind(emailQueue()).to(directExchange()).with(RabbitConstants.EMAIL_ROUTING_KEY);
+    public Binding fanoutExchangeBindingEmail() {
+    	 return BindingBuilder.bind(emailQueue()).to(fanoutExchange());
+    }
+    
+    /**
+     *<p>Title: topicExchangeBindingMessage</p> 
+     *<p>Description: 使用directExchange交换机绑定短信队列</p> 
+     * @return
+     */
+    @Bean
+    public Binding directExchangeBindingMessage() {
+    	 return BindingBuilder.bind(messageQueue()).to(directExchange()).with(RabbitConstants.MESSAGE_ROUTING_KEY);
     }
     
     /**
      *<p>Title: bindingEmail</p> 
-     *<p>Description: 使用TopicExchange交换机绑定邮件队列</p> 
+     *<p>Description: 使用topicExchange交换机绑定邮件队列</p> 
      * @return
      */
     @Bean
-    public Binding topicExchangeBindingMessage() {
-    	 return BindingBuilder.bind(messageQueue()).to(topicExchange()).with(RabbitConstants.MESSAGE_TOPIC_KEY);//*表示一个词,#表示零个或多个词
+    public Binding topicExchangeBindingText() {
+    	 return BindingBuilder.bind(textQueue()).to(topicExchange()).with(RabbitConstants.TEXT_TOPIC_KEY);//*表示一个词,#表示零个或多个词
     }
     
 }

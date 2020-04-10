@@ -78,4 +78,29 @@ public class RabbitmqConsumerServiceImpl {
         String response = MessageFormat.format("Message3收到{0}队列的消息:{1}", RabbitConstants.MESSAGE_QUEUE, jsonData);
         return response.toUpperCase();
     }
+    
+    
+    /**
+     *<p>Title: processText1</p> 
+     *<p>Description: 处理文本队列消息</p> 
+     * @param jsonData
+     * @return
+     */
+//    @RabbitListener(bindings ={@QueueBinding(value = @Queue(value = RabbitConstants.TEXT_QUEUE,durable = "false"),
+//            exchange =@Exchange(value = RabbitConstants.TOPIC_EXCHANGE,durable = "false"),key = RabbitConstants.TEXT_TOPIC_KEY)})
+    @RabbitListener(queues = RabbitConstants.TEXT_QUEUE)
+    public String processText1(String jsonData) {
+    	log.info("Text1接受到数据为:{}" , jsonData);
+        String response = MessageFormat.format("Text1收到{0}队列的消息:{1}", RabbitConstants.TEXT_QUEUE, jsonData);
+        return response.toUpperCase();
+    }
+    
+//    @RabbitListener(bindings ={@QueueBinding(value = @Queue(value = RabbitConstants.TEXT_QUEUE,durable = "false"),
+//            exchange =@Exchange(value = RabbitConstants.TOPIC_EXCHANGE,durable = "false"),key = RabbitConstants.TEXT_TOPIC_KEY)})
+    @RabbitListener(queues = RabbitConstants.TEXT_QUEUE)
+    public String processText2(String jsonData) {
+    	log.info("Text2接受到数据为:{}" , jsonData);
+        String response = MessageFormat.format("Text2收到{0}队列的消息:{1}", RabbitConstants.TEXT_QUEUE, jsonData);
+        return response.toUpperCase();
+    }
 }
