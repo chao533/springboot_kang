@@ -308,6 +308,11 @@ public class RedisMapper {
 	public double hdecr(String key, String item, double by) {
 		return redisTemplate.opsForHash().increment(key, item, -by);
 	}
+	
+	
+	public long size(String key, String item) {
+		return redisTemplate.opsForHash().size(key);
+	}
 
 	// ============================set=============================
 	/**
