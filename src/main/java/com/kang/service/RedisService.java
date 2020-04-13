@@ -30,4 +30,11 @@ public interface RedisService {
 	 * @return
 	 */
 	public Message<?> redisCart();
+	
+	/**
+	 *<p>Title: redisFollowFans</p> 
+	 *<p>Description: 我的关注和我的粉丝操作</p> 
+	 * @return
+	 */
+	public Message<?> redisFollowFans();
 }

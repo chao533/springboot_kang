@@ -116,4 +116,33 @@ public class RedisServiceImpl implements RedisService{
 		return new Message<>(ErrorCode.SUCCESS,goodsList);
 	}
 
+	@Override
+	public Message<?> redisFollowFans() {
+		// zhangsan用户关注了lisi用户
+		redisMapper.leftPush(RedisConstants.FOLLOW + "zhangsan", "lisi", 300l);
+		// lisi用户的粉丝有zhangsan用户
+		redisMapper.leftPush(RedisConstants.FANS + "lisi", "zhangsan", 300l);
+		
+		// zhangsan用户关注了wangwu用户
+		redisMapper.leftPush(RedisConstants.FOLLOW + "zhangsan", "wangwu", 300l);
+		// wangwu用户的粉丝有zhangsan用户
+		redisMapper.leftPush(RedisConstants.FANS + "wangwu", "zhangsan", 300l);
+		
+		// lisi用户关注了zhangsan用户
+		redisMapper.leftPush(RedisConstants.FOLLOW + "lisi", "zhangsan", 300l);
+		// zhangsan用户的粉丝有lisi用户
+		redisMapper.leftPush(RedisConstants.FANS + "zhangsan", "lisi", 300l);
+		
+		log.info("此时用户{}的关注列表为:{}","zhangsan", redisMapper.range(RedisConstants.FOLLOW + "zhangsan", 0, -1));
+		log.info("此时用户{}的粉丝列表为:{}","zhangsan", redisMapper.range(RedisConstants.FANS + "zhangsan", 0, -1));
+		
+		log.info("此时用户{}的关注列表为:{}","lisi", redisMapper.range(RedisConstants.FOLLOW + "lisi", 0, -1));
+		log.info("此时用户{}的粉丝列表为:{}","lisi", redisMapper.range(RedisConstants.FANS + "lisi", 0, -1));
+
+		log.info("此时用户{}的关注列表为:{}","wangwu", redisMapper.range(RedisConstants.FOLLOW + "wangwu", 0, -1));
+		log.info("此时用户{}的粉丝列表为:{}","wangwu", redisMapper.range(RedisConstants.FANS + "wangwu", 0, -1));
+		
+		return new Message<>(ErrorCode.SUCCESS);
+	}
+
 }

@@ -423,7 +423,7 @@ public class RedisMapper {
 	 * @param end   结束 0 到 -1代表所有值
 	 * @return
 	 */
-	public List<Object> lGet(String key, long start, long end) {
+	public List<Object> range(String key, long start, long end) {
 		try {
 			return redisTemplate.opsForList().range(key, start, end);
 		} catch (Exception e) {
@@ -471,9 +471,9 @@ public class RedisMapper {
 	 * @param time  时间(秒)
 	 * @return
 	 */
-	public boolean lSet(String key, Object value) {
+	public boolean leftPush(String key, Object value) {
 		try {
-			redisTemplate.opsForList().rightPush(key, value);
+			redisTemplate.opsForList().leftPush(key, value);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -489,9 +489,9 @@ public class RedisMapper {
 	 * @param time  时间(秒)
 	 * @return
 	 */
-	public boolean lSet(String key, Object value, long time) {
+	public boolean leftPush(String key, Object value, long time) {
 		try {
-			redisTemplate.opsForList().rightPush(key, value);
+			redisTemplate.opsForList().leftPush(key, value);
 			if (time > 0)
 				expire(key, time);
 			return true;
@@ -509,9 +509,9 @@ public class RedisMapper {
 	 * @param time  时间(秒)
 	 * @return
 	 */
-	public boolean lSet(String key, List<Object> value) {
+	public boolean leftPushAll(String key, List<Object> value) {
 		try {
-			redisTemplate.opsForList().rightPushAll(key, value);
+			redisTemplate.opsForList().leftPushAll(key, value);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -527,9 +527,9 @@ public class RedisMapper {
 	 * @param time  时间(秒)
 	 * @return
 	 */
-	public boolean lSet(String key, List<Object> value, long time) {
+	public boolean leftPushAll(String key, List<Object> value, long time) {
 		try {
-			redisTemplate.opsForList().rightPushAll(key, value);
+			redisTemplate.opsForList().leftPushAll(key, value);
 			if (time > 0)
 				expire(key, time);
 			return true;

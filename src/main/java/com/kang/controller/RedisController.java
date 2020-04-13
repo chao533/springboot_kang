@@ -61,5 +61,15 @@ public class RedisController {
     	return redisService.redisCart();
     }
     
+    /**
+     *<p>Title: redisFollowFans</p> 
+     *<p>Description: 我的关注和我的粉丝操作</p> 
+     * @return
+     */
+    @RequestMapping(value="/redisFollowFans",method=RequestMethod.GET)
+    public Message<?> redisFollowFans(){
+    	return redisService.redisFollowFans();
+    }
+    
     
 }

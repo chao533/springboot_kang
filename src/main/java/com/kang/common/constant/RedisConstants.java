@@ -21,4 +21,14 @@ public class RedisConstants {
 	 * 用户购物车
 	 */
 	public static final String USER_CART = "KANG:USER:CART:";
+	
+	/**
+	 * 我的关注
+	 */
+	public static final String FOLLOW = "KANG:FOLLOW:";
+	
+	/**
+	 * 我的粉丝
+	 */
+	public static final String FANS = "KANG:FANS:";
 }
