@@ -29,7 +29,7 @@ public class LogAspect {
 	
 	private Logger log = LoggerFactory.getLogger(LogAspect.class);
 
-    @Pointcut("execution(* com.szdtoo.controller..*.*(..))")
+    @Pointcut("execution(* com.kang.controller..*.*(..))")
     public void logPointCut() {
     }
     
