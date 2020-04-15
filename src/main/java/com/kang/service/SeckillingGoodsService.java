@@ -62,4 +62,13 @@ public interface SeckillingGoodsService {
 	 * @return
 	 */
 	Message<?> seckillingGoods_Opti(Long goodsId,Long userId);
+	
+	/**
+	 *<p>Title: seckillingGoods_RedissLock</p> 
+	 *<p>Description: redisson分布式锁</p> 
+	 * @param goodsId
+	 * @param userId
+	 * @return
+	 */
+	Message<?> seckillingGoods_RedissonLock(Long goodsId,Long userId);
 }

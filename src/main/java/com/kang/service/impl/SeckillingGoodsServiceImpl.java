@@ -15,8 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kang.common.anno.Servicelock;
+import com.kang.common.constant.RedisConstants;
 import com.kang.common.msg.ErrorCode;
 import com.kang.common.msg.Message;
+import com.kang.common.utils.RedissonLockUtil;
 import com.kang.mapper.mybaits.SeckillingGoodsMapper;
 import com.kang.service.SeckillingGoodsService;
 
@@ -40,6 +42,8 @@ public class SeckillingGoodsServiceImpl implements SeckillingGoodsService{
 
 	@Autowired
 	private SeckillingGoodsMapper seckillingGoodsMapper;
+	@Autowired
+	private RedissonLockUtil redissonLockUtil;
 	
 	@Override
 	public void resetData(Long id,Integer number) {
@@ -52,15 +56,16 @@ public class SeckillingGoodsServiceImpl implements SeckillingGoodsService{
 		CountDownLatch latch = new CountDownLatch(userIdList.size());//100个参与秒杀的用户
 		this.resetData(goodsId,goodsNum); // 重置数据
 		
-		log.info("开始秒杀二(正常)");
+		log.info("开始秒杀");
 		List<String> msgList = CollUtil.newArrayList();
 		
 		for(Long userId : userIdList){ // 模拟100个用户并发抢购10个商品
 			executor.submit(() -> {
 //				Message<?> result = this.seckillingGoods_Lock(goodsId,userId); // 程序锁Lock
 //				Message<?> result = this.seckillingGoods_AOP(goodsId,userId); // 程序锁AOP
-				Message<?> result = this.seckillingGoods_Pess(goodsId, userId); // 数据库悲观锁
+//				Message<?> result = this.seckillingGoods_Pess(goodsId, userId); // 数据库悲观锁
 //				Message<?> result = this.seckillingGoods_Opti(goodsId, userId); // 数据库乐观锁
+				Message<?> result = this.seckillingGoods_RedissonLock(goodsId, userId); // redisson分布式锁
 				latch.countDown();
 				log.info("{}用户ID:{}，{}",Thread.currentThread().getName(),userId,result.getMsg());
 				msgList.add(Thread.currentThread().getName() + "用户ID:" + userId + "," + result.getMsg());
@@ -121,6 +126,7 @@ public class SeckillingGoodsServiceImpl implements SeckillingGoodsService{
 		}
 		return new Message<>(ErrorCode.SUCESS_END);
 	}
+	
 
 	@Transactional
 	@Override
@@ -158,6 +164,35 @@ public class SeckillingGoodsServiceImpl implements SeckillingGoodsService{
 			}
 		} 
 		return new Message<>(ErrorCode.ERROR_END);
+	}
+
+	@Transactional
+	@Override
+	public Message<?> seckillingGoods_RedissonLock(Long goodsId, Long userId) {
+//		尝试获取锁，最多等待3秒，上锁以后20秒自动解锁（实际项目中推荐这种，以防出现死锁）、这里根据预估秒杀人数，设定自动释放锁时间.
+		boolean res = false;
+		try {
+			res = redissonLockUtil.tryLock(RedisConstants.KANG_REDISSON_LOCK + goodsId, TimeUnit.SECONDS, 3, 20);
+			if(res) {
+				int number = seckillingGoodsMapper.getGoodsStock(goodsId); // 获取库存
+				if (number > 0) {
+					seckillingGoodsMapper.subGoodsStock(goodsId); // 库存-1
+					
+					Map<String,Object> params = MapUtil.builder(new HashMap<String,Object>())
+							.put("goodsId", goodsId).put("userId", userId).put("state", 0).build();
+					seckillingGoodsMapper.insertGoodsSuccDetail(params); // 添加秒杀成功记录
+					
+					// 支付
+				} else {
+					return new Message<>(ErrorCode.ERROR_END);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			redissonLockUtil.unlock(RedisConstants.KANG_REDISSON_LOCK + goodsId);
+		}
+		return new Message<>(ErrorCode.SUCESS_END);
 	}
 
 

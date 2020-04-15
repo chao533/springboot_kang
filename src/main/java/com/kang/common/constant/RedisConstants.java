@@ -31,4 +31,7 @@ public class RedisConstants {
 	 * 我的粉丝
 	 */
 	public static final String FANS = "KANG:FANS:";
+	
+	
+	public static final String KANG_REDISSON_LOCK = "KANG_REDISSON_LOCK:";
 }
