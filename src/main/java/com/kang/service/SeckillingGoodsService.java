@@ -35,4 +35,31 @@ public interface SeckillingGoodsService {
 	 * @return
 	 */
 	Message<?> seckillingGoods_Lock(Long goodsId,Long userId);
+	
+	/**
+	 *<p>Title: seckillingGoods_AOP</p> 
+	 *<p>Description: 程序锁（AOP）</p> 
+	 * @param goodsId
+	 * @param userId
+	 * @return
+	 */
+	Message<?> seckillingGoods_AOP(Long goodsId,Long userId);
+	
+	/**
+	 *<p>Title: seckillingGoods_Pessimism</p> 
+	 *<p>Description: 数据库悲观锁</p> 
+	 * @param goodsId
+	 * @param userId
+	 * @return
+	 */
+	Message<?> seckillingGoods_Pess(Long goodsId,Long userId);
+	
+	/**
+	 *<p>Title: seckillingGoods_Opti</p> 
+	 *<p>Description: 数据库乐观锁</p> 
+	 * @param goodsId
+	 * @param userId
+	 * @return
+	 */
+	Message<?> seckillingGoods_Opti(Long goodsId,Long userId);
 }
