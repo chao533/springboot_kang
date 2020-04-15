@@ -72,7 +72,7 @@ public class SeckillingGoodsServiceImpl implements SeckillingGoodsService{
 		}
 		
 		try {
-			Thread.sleep(7000);
+			Thread.sleep(5000); // 停5秒
 //			latch.await();// 等待所有人任务结束
 			int count = seckillingGoodsMapper.getGoodsSuccDetailCount(goodsId);
 			log.info("一共秒杀出{}件商品",count);
@@ -109,9 +109,9 @@ public class SeckillingGoodsServiceImpl implements SeckillingGoodsService{
 	}
 
 	
+	@Override
 	@Transactional
 	@LockAnnotation
-	@Override
 	public Message<?> seckillingGoods_AOP(Long goodsId, Long userId) {
 		int number = seckillingGoodsMapper.getGoodsStock(goodsId); // 获取库存
 		if (number > 0) {

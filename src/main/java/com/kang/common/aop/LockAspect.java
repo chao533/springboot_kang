@@ -23,7 +23,7 @@ public class LockAspect {
      * 思考：为什么不用synchronized
      * service 默认是单例的，并发下lock只有一个实例
      */
-	private Lock lock = new ReentrantLock(true);//互斥锁 参数默认false，不公平锁  
+	private static Lock lock = new ReentrantLock(true);//互斥锁 参数默认false，不公平锁  
 	
 	@Pointcut("@annotation(com.kang.common.anno.LockAnnotation)") 
 	public void lockPointCut() {
