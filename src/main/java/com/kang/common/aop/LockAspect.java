@@ -17,23 +17,21 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component("lockAspect")
-//@Order(0) //order越小越是最先执行，但更重要的是最先执行的最后结束。order默认值是2147483647
+@Order(0) //order越小越是最先执行，但更重要的是最先执行的最后结束。order默认值是2147483647
 public class LockAspect {
 	/**
      * 思考：为什么不用synchronized
      * service 默认是单例的，并发下lock只有一个实例
      */
-	private static  Lock lock = new ReentrantLock(true);//互斥锁 参数默认false，不公平锁  
+	private Lock lock = new ReentrantLock(true);//互斥锁 参数默认false，不公平锁  
 	
-	//Service层切点    
-//	@Pointcut("@annotation(com.kang.common.anno.Servicelock)")  
-	@Pointcut("execution(* com.kang.service.impl.SeckillingGoodsServiceImpl.seckillingGoods_AOP(..))")
+	@Pointcut("@annotation(com.kang.common.anno.LockAnnotation)") 
 	public void lockPointCut() {
 		
 	}
 	
     @Around("lockPointCut()")
-    public  Object around(ProceedingJoinPoint joinPoint) { 
+    public  Object lockAround(ProceedingJoinPoint joinPoint) { 
     	lock.lock();
     	Object obj = null;
 		try {

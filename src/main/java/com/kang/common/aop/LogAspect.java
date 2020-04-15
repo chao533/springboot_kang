@@ -1,6 +1,8 @@
 package com.kang.common.aop;
 
 import java.lang.reflect.Method;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.lang3.time.StopWatch;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -24,7 +26,7 @@ import com.kang.common.msg.Message;
  */
 @Aspect
 @Component("logAspect")
-@Order(0)
+@Order(1)
 public class LogAspect {
 	
 	private Logger log = LoggerFactory.getLogger(LogAspect.class);
@@ -56,5 +58,5 @@ public class LogAspect {
         }
         return result;
     }
-
+    
 }

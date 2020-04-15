@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kang.common.anno.Servicelock;
+import com.kang.common.anno.LockAnnotation;
 import com.kang.common.constant.RedisConstants;
 import com.kang.common.msg.ErrorCode;
 import com.kang.common.msg.Message;
@@ -109,8 +109,8 @@ public class SeckillingGoodsServiceImpl implements SeckillingGoodsService{
 	}
 
 	
-	@Servicelock
 	@Transactional
+	@LockAnnotation
 	@Override
 	public Message<?> seckillingGoods_AOP(Long goodsId, Long userId) {
 		int number = seckillingGoodsMapper.getGoodsStock(goodsId); // 获取库存
