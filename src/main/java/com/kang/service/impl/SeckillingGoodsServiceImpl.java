@@ -3,7 +3,6 @@ package com.kang.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -53,7 +52,7 @@ public class SeckillingGoodsServiceImpl implements SeckillingGoodsService{
 	
 	@Override
 	public Message<?> seckillingGoods(Long goodsId,Integer goodsNum, List<Long> userIdList) {
-		CountDownLatch latch = new CountDownLatch(userIdList.size());//100个参与秒杀的用户
+//		CountDownLatch latch = new CountDownLatch(userIdList.size());//100个参与秒杀的用户
 		this.resetData(goodsId,goodsNum); // 重置数据
 		
 		log.info("开始秒杀");
@@ -62,18 +61,19 @@ public class SeckillingGoodsServiceImpl implements SeckillingGoodsService{
 		for(Long userId : userIdList){ // 模拟100个用户并发抢购10个商品
 			executor.submit(() -> {
 //				Message<?> result = this.seckillingGoods_Lock(goodsId,userId); // 程序锁Lock
-//				Message<?> result = this.seckillingGoods_AOP(goodsId,userId); // 程序锁AOP
+				Message<?> result = this.seckillingGoods_AOP(goodsId,userId); // 程序锁AOP
 //				Message<?> result = this.seckillingGoods_Pess(goodsId, userId); // 数据库悲观锁
 //				Message<?> result = this.seckillingGoods_Opti(goodsId, userId); // 数据库乐观锁
-				Message<?> result = this.seckillingGoods_RedissonLock(goodsId, userId); // redisson分布式锁
-				latch.countDown();
+//				Message<?> result = this.seckillingGoods_RedissonLock(goodsId, userId); // redisson分布式锁
+//				latch.countDown();
 				log.info("{}用户ID:{}，{}",Thread.currentThread().getName(),userId,result.getMsg());
 				msgList.add(Thread.currentThread().getName() + "用户ID:" + userId + "," + result.getMsg());
 			});
 		}
 		
 		try {
-			latch.await();// 等待所有人任务结束
+			Thread.sleep(7000);
+//			latch.await();// 等待所有人任务结束
 			int count = seckillingGoodsMapper.getGoodsSuccDetailCount(goodsId);
 			log.info("一共秒杀出{}件商品",count);
 		} catch (InterruptedException e) {
@@ -183,6 +183,7 @@ public class SeckillingGoodsServiceImpl implements SeckillingGoodsService{
 					seckillingGoodsMapper.insertGoodsSuccDetail(params); // 添加秒杀成功记录
 					
 					// 支付
+					return new Message<>(ErrorCode.SUCESS_END);
 				} else {
 					return new Message<>(ErrorCode.ERROR_END);
 				}
