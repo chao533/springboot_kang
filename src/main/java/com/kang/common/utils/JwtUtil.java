@@ -12,6 +12,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.kang.common.constant.PropConstants;
 import com.kang.common.exception.TokenValidationException;
 import com.kang.model.mybatis.User;
 
@@ -25,11 +26,13 @@ import io.jsonwebtoken.SignatureAlgorithm;
  * @date 2018年12月3日
  */
 public class JwtUtil {
-    public static final long EXPIRATION_TIME = 3600_000; // 1 hour
-    public static final String SECRET = "Rtg8BPKNEf2mB4mgvKONGPZZQSaJWNLijxR42qRgq0iBb5";
-    public static final String TOKEN_PREFIX = "Bearer";
-    public static final String HEADER_STRING = "Authorization";
-    public static final String ROLE = "ROLE";
+	
+    public static final long EXPIRATION_TIME = new Long(PropConstants.getProp(PropConstants.JWT_PROP,PropConstants.jwtKey.EXPIRATION_TIME));
+    public static final String SECRET = PropConstants.getProp(PropConstants.JWT_PROP,PropConstants.jwtKey.SECRET);
+    public static final String TOKEN_PREFIX = PropConstants.getProp(PropConstants.JWT_PROP,PropConstants.jwtKey.TOKEN_PREFIX);
+    public static final String HEADER_STRING = PropConstants.getProp(PropConstants.JWT_PROP,PropConstants.jwtKey.HEADER_STRING);
+    public static final String ROLE = PropConstants.getProp(PropConstants.JWT_PROP,PropConstants.jwtKey.ROLE);
+	
 
     /**
      * <p>Title: generateToken</p>  
@@ -106,4 +109,6 @@ public class JwtUtil {
 		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
 		return (requestAttributes == null) ? null : ((ServletRequestAttributes) requestAttributes).getRequest();
 	}
+    
+   
 }
