@@ -26,9 +26,7 @@ public class LockAspect {
 	private static Lock lock = new ReentrantLock(true);//互斥锁 参数默认false，不公平锁  
 	
 	@Pointcut("@annotation(com.kang.common.anno.LockAnnotation)") 
-	public void lockPointCut() {
-		
-	}
+	public void lockPointCut() {}
 	
     @Around("lockPointCut()")
     public  Object lockAround(ProceedingJoinPoint joinPoint) { 

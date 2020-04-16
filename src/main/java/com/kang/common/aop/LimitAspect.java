@@ -30,9 +30,9 @@ import com.kang.mapper.redis.RedisMapper;
  */
 @Aspect
 @Component
-public class RequestLimitAspect {
+public class LimitAspect {
 	
-	private Logger logger = LoggerFactory.getLogger(RequestLimitAspect.class);
+	private Logger logger = LoggerFactory.getLogger(LimitAspect.class);
 	
 	@Autowired
 	private RedisMapper redisMapper;
@@ -49,20 +49,20 @@ public class RequestLimitAspect {
 		String ip = getRequest().getLocalAddr();
 		String url = getRequest().getRequestURL().toString();
 		String key = RedisConstants.KANG_REQUEST_LIMIT.concat(url).concat(ip);
+		Object obj = redisMapper.get(key);
+		int count = obj == null ? 0 : Integer.parseInt(obj.toString());
 		
-		Integer count = redisMapper.get(key) == null ? 0 : Integer.parseInt(redisMapper.get(key).toString());
-		if(count == 0) {
-			redisMapper.set(key, 1,100l); // 设置100过期
-			count = 1;
-		} else {
-			redisMapper.set(key, count + 1,100l); // 设置100过期
-			count = count + 1;
-		}
-		
-		if (count > limit.count()) {
+		if (count >= limit.count()) {
 			logger.info("用户IP[" + ip + "]访问地址[" + url + "]超过了限定的次数[" + limit.count() + "]");
 			throw new RequestLimitException("访问的太频繁了");
 		}
+		
+		if(count == 0) {
+			redisMapper.set(key, 1,100l); // 设置100过期
+		} else {
+			redisMapper.set(key, count + 1,100l); // 设置100过期
+		}
+		
 	}
 	
 	public HttpServletRequest getRequest() {

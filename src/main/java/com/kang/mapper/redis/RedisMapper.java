@@ -149,7 +149,7 @@ public class RedisMapper {
 		}
 		return redisTemplate.opsForValue().increment(key, delta);
 	}
-
+	
 	/**
 	 * 递减
 	 * 
