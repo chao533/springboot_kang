@@ -1,4 +1,4 @@
-package com.kang.common.utils;
+package com.kang.config.redis;
 
 import java.util.concurrent.TimeUnit;
 
@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * redis分布式锁帮助类
- * @author 科帮网 By https://blog.52itstyle.com
+　 * <p>Title: RedissonLock</p> 
+　 * <p>Description: redis分布式锁</p> 
+　 * @author CK 
+　 * @date 2020年4月16日
  */
 @Component
-public class RedissonLockUtil {
+public class RedissonLock {
 	@Autowired
     private  RedissonClient redissonClient;
     

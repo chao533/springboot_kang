@@ -71,4 +71,13 @@ public interface SeckillingGoodsService {
 	 * @return
 	 */
 	Message<?> seckillingGoods_RedissonLock(Long goodsId,Long userId);
+	
+	/**
+	 *<p>Title: seckillingGoods_ZkLock</p> 
+	 *<p>Description: Zookeeper 分布式锁</p> 
+	 * @param goodsId
+	 * @param userId
+	 * @return
+	 */
+	Message<?> seckillingGoods_ZkLock(Long goodsId,Long userId);
 }

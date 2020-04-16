@@ -31,6 +31,7 @@
     <fastdfs.version>1.25.4-RELEASE</fastdfs.version>
     <elasticsearch.version>6.2.3</elasticsearch.version>
     <redisson.version>3.6.5</redisson.version>
+    <curator-recipes-version>2.10.0</curator-recipes-version>
   </properties>
   
   <!-- 上传私服 -->
@@ -158,6 +159,13 @@
 		   <groupId>org.redisson</groupId>
 		   <artifactId>redisson</artifactId>
 		   <version>${redisson.version}</version>
+		</dependency>
+		
+		<!-- zookeeper 分布式锁、注意zookeeper版本  这里对应的是3.4.6 参考：https://blog.52itstyle.com/archives/3202/ -->
+		<dependency> 
+		    <groupId>org.apache.curator</groupId> 
+		    <artifactId>curator-recipes</artifactId> 
+		    <version>${curator-recipes-version}</version> 
 		</dependency>
 
 

@@ -10,9 +10,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
- * redisson分布式锁配置文件
- * @author
- * @Date 
+　 * <p>Title: RedissonConfig</p> 
+　 * <p>Description: redisson分布式锁配置文件</p> 
+　 * @author CK 
+　 * @date 2020年4月16日
  */
 @Configuration
 @Component
