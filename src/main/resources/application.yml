@@ -104,9 +104,4 @@ shiro:
     enabled: true
 
 
-# redisson lock
-redisson: 
-  address: redis://47.105.189.247:6379
-  #password: 123456
-
 

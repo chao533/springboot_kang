@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kang.common.anno.LockAnnotation;
 import com.kang.common.msg.Message;
 import com.kang.service.SeckillingGoodsService;
 

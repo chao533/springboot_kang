@@ -2,13 +2,13 @@ package com.kang.config.redis;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.stereotype.Component;
 
 import com.kang.mapper.redis.RedisMapper;
 
@@ -20,7 +20,8 @@ import redis.clients.jedis.JedisPoolConfig;
  * @author chaokang  
  * @date 2018年12月3日
  */
-@Component
+//@Component
+@Configuration
 @PropertySource(value = "classpath:config/redis.properties")//配置文件路径  在resource目录下
 public class RedisConfig {
 	
