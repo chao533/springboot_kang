@@ -105,6 +105,11 @@ public class JwtUtil {
          return body;
     }
     
+    /**
+     *<p>Title: getRequest</p> 
+     *<p>Description: 获取Request对象</p> 
+     * @return
+     */
     public static HttpServletRequest getRequest() {
 		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
 		return (requestAttributes == null) ? null : ((ServletRequestAttributes) requestAttributes).getRequest();

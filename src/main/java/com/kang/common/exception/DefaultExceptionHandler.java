@@ -21,6 +21,12 @@ public class DefaultExceptionHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultExceptionHandler.class);
 
+    @ExceptionHandler(RequestLimitException.class)
+    public Message<String> processRequestLimitException(RequestLimitException e) {
+        LOGGER.error("访问限制异常:{}",e.getMessage());
+        return new Message<String>(ErrorCode.ERROR_LIMIT,e.getMessage());
+    }
+    
     @ExceptionHandler(ServiceException.class)
     public Message<String> processServiceException(ServiceException e) {
         LOGGER.error("业务异常:{}",e.getMessage());
@@ -51,5 +57,7 @@ public class DefaultExceptionHandler {
         LOGGER.error("Token认证异常:{}",e.getMessage());
         return new Message<String>(ErrorCode.ERROR,e.getMessage());
     }
+    
+    
 
 }

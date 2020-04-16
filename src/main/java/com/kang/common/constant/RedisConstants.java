@@ -32,6 +32,13 @@ public class RedisConstants {
 	 */
 	public static final String FANS = "KANG:FANS:";
 	
+	/**
+	 * 分布式锁
+	 */
+	public static final String KANG_REDISSON_LOCK = "KANG:REDISSON:LOCK:";
 	
-	public static final String KANG_REDISSON_LOCK = "KANG_REDISSON_LOCK:";
+	/**
+	 * IP限流
+	 */
+	public static final String KANG_REQUEST_LIMIT = "KANG:REQUEST:LIMIT:";	
 }
