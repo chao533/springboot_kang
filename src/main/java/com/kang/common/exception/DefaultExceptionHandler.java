@@ -23,7 +23,7 @@ public class DefaultExceptionHandler {
 
     @ExceptionHandler(RequestLimitException.class)
     public Message<String> processRequestLimitException(RequestLimitException e) {
-        LOGGER.error("访问限制异常:{}",e.getMessage());
+//        LOGGER.error("访问限制异常:{}",e.getMessage());
         return new Message<String>(ErrorCode.ERROR_LIMIT,e.getMessage());
     }
     

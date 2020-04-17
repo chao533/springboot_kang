@@ -20,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.kang.common.anno.RequestLimit;
 import com.kang.common.constant.RedisConstants;
 import com.kang.common.exception.RequestLimitException;
+import com.kang.common.utils.IPUtils;
 import com.kang.mapper.redis.RedisMapper;
 
 /**
@@ -46,9 +47,9 @@ public class LimitAspect {
 		Method method = signature.getMethod();
 		RequestLimit limit = method.getAnnotation(RequestLimit.class);
 		
-		String ip = getRequest().getLocalAddr();
+		String ip = IPUtils.getIpAddr();
 		String url = getRequest().getRequestURL().toString();
-		String key = RedisConstants.KANG_REQUEST_LIMIT.concat(url).concat(ip);
+		String key = RedisConstants.KANG_REQUEST_LIMIT.concat(ip);
 		Object obj = redisMapper.get(key);
 		int count = obj == null ? 0 : Integer.parseInt(obj.toString());
 		
