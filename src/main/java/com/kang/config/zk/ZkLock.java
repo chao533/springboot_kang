@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 public class ZkLock{
 	
 	@Autowired
-	private InterProcessMutex mutex;
+	private InterProcessMutex interProcessMutex;
 	
 	/**
      * 私有的默认构造子，保证外界无法直接实例化
@@ -34,7 +34,7 @@ public class ZkLock{
     //获得了锁
     public boolean acquire(long time, TimeUnit unit){
     	try {
-			return mutex.acquire(time,unit);
+			return interProcessMutex.acquire(time,unit);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -43,7 +43,7 @@ public class ZkLock{
     //释放锁
     public void release(){
     	try {
-    		mutex.release();
+    		interProcessMutex.release();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

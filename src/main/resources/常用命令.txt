@@ -33,6 +33,10 @@ docker run -p 6379:6379 --name redis -v /zzyyuse/myredis/data:/data -v /zzyyuse/
 -- mysql
 docker run -p 3306:3306 --name mysql -v /zzyyuse/mysql/conf:/etc/mysql/conf.d -v /zzyyuse/mysql/logs:/logs -v /zzyyuse/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6
 
+-- zookeeper
+docker pull zookeeper
+docker run --name zk -p 2181:2181 -p 2888:2888 -p 3888:3888 --restart always -d zookeeper
+
 -- docker私服
 http://192.168.0.100:5000/v2/_catalog
 docker pull registry

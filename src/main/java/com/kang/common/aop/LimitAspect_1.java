@@ -25,15 +25,15 @@ import com.kang.mapper.redis.RedisMapper;
 
 /**
 　 * <p>Title: RequestLimitAspect</p> 
-　 * <p>Description: IP限流</p> 
+　 * <p>Description: IP限流（基于Redis）</p> 
 　 * @author CK 
 　 * @date 2020年4月16日
  */
 @Aspect
 @Component
-public class LimitAspect {
+public class LimitAspect_1 {
 	
-	private Logger logger = LoggerFactory.getLogger(LimitAspect.class);
+	private Logger logger = LoggerFactory.getLogger(LimitAspect_1.class);
 	
 	@Autowired
 	private RedisMapper redisMapper;

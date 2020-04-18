@@ -34,7 +34,7 @@ public class ZkConfig {
 		RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3); 
 		CuratorFramework client = CuratorFrameworkFactory.newClient(host + ":" + port, retryPolicy); 
 		client.start();
-		InterProcessMutex mutex = new InterProcessMutex(client, "/curator/lock"); 
-		return mutex;
+		InterProcessMutex interProcessMutex = new InterProcessMutex(client, "/curator/lock"); 
+		return interProcessMutex;
 	}
 }
