@@ -1,13 +1,14 @@
 package com.kang;
 
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Import;
 
 import com.github.tobato.fastdfs.FdfsClientConfig;
+
+import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * <p>Title: Application</p>  

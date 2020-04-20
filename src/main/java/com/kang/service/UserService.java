@@ -3,6 +3,7 @@ package com.kang.service;
 import java.util.Map;
 
 import com.kang.common.msg.Message;
+import com.kang.model.mybatis.User;
 import com.kang.model.param.ModifyPwdParam;
 
 /**
@@ -30,6 +31,14 @@ public interface UserService {
      * @return
      */
     Message<?> findUserById(Long id);
+    
+    /**
+     *<p>Title: insertUser</p> 
+     *<p>Description: 新增用户信息</p> 
+     * @param user
+     * @return
+     */
+    Message<?> insertUser(User user);
 
     /**
      * <p>Title: login</p>

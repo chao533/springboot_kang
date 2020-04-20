@@ -1,5 +1,6 @@
 package com.kang.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -7,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kang.common.msg.ErrorCode;
 import com.kang.common.msg.Message;
 import com.kang.common.utils.JwtUtil;
+import com.kang.mapper.mybaits.UserMapper;
+import com.kang.model.mybatis.User;
 import com.kang.model.param.UserListParam;
 import com.kang.service.UserService;
 
@@ -32,6 +36,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private UserMapper userMapper;
     
     /**
      *<p>Title: findUserById</p> 
@@ -66,6 +73,17 @@ public class UserController {
     @RequestMapping(value = "/userList",method=RequestMethod.GET)
     public Message<?> userList(UserListParam params){
         return userService.findUserList(BeanUtil.beanToMap(params));
+    }
+    
+    /**
+     *<p>Title: insertUser</p> 
+     *<p>Description: 新增用户信息</p> 
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/insertUser",method=RequestMethod.POST)
+    public Message<?> insertUser(@RequestBody User user){
+        return userService.insertUser(user);
     }
 
 

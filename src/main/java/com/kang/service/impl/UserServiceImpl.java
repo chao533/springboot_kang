@@ -1,9 +1,11 @@
 package com.kang.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -70,6 +72,21 @@ public class UserServiceImpl implements UserService {
         }
         return new Message<>(ErrorCode.ERROR);
     }
+    
+    
+    @Override
+	public Message<?> insertUser(User user) {
+    	Assert.notNull(user.getLoginName(),"用户名不能为空");
+    	Assert.notNull(user.getPwd(),"密码不能为空");
+    	
+    	user.setIcon(StringUtils.isNotBlank(user.getIcon()) ? user.getIcon().substring(user.getIcon().indexOf("/group")) : "");
+    	user.setPwd(SecureUtil.md5(user.getPwd()).toUpperCase());
+    	user.setCreateTime(new Date());
+    	if(userMapper.insertSelective(user) <= 0) {
+    		throw new ServiceException("添加用户失败");
+    	}
+    	return new Message<>(ErrorCode.SUCCESS);
+	}
 
     @Override
     public Message<?> login(Map<String,Object> params) {
@@ -130,4 +147,5 @@ public class UserServiceImpl implements UserService {
     	subject.logout();
         return new Message<String>(ErrorCode.SUCCESS);
     }
+
 }

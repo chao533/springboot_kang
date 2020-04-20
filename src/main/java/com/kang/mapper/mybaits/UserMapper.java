@@ -5,13 +5,17 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.kang.model.mybatis.User;
+
+import tk.mybatis.mapper.common.Mapper;
+
 /**
  * <p>Title: UserMapper</p>  
  * <p>Description: 用户Mapper</p>  
  * @author chaokang  
  * @date 2018年12月3日
  */
-public interface UserMapper {
+public interface UserMapper extends Mapper<User>{
 
     /**
      * <p>Title: getUserList</p>
