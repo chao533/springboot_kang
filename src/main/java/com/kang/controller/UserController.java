@@ -1,6 +1,5 @@
 package com.kang.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kang.common.msg.ErrorCode;
 import com.kang.common.msg.Message;
 import com.kang.common.utils.JwtUtil;
-import com.kang.mapper.mybaits.UserMapper;
 import com.kang.model.mybatis.User;
 import com.kang.model.param.UserListParam;
 import com.kang.service.UserService;
@@ -36,9 +34,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    
-    @Autowired
-    private UserMapper userMapper;
     
     /**
      *<p>Title: findUserById</p> 

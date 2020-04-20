@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
     	user.setIcon(StringUtils.isNotBlank(user.getIcon()) ? user.getIcon().substring(user.getIcon().indexOf("/group")) : "");
     	user.setPwd(SecureUtil.md5(user.getPwd()).toUpperCase());
     	user.setCreateTime(new Date());
-    	if(userMapper.insertSelective(user) <= 0) {
+    	if(userMapper.insertList(CollUtil.newArrayList(user)) <= 0) {
     		throw new ServiceException("添加用户失败");
     	}
     	return new Message<>(ErrorCode.SUCCESS);

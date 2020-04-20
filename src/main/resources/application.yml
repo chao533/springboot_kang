@@ -81,9 +81,9 @@ pagehelper:
     params: count=countSql
 
 # log
-#logging:
-#  level:
-#    com.szdtoo.mapper:INFO
+logging:
+  level:
+    com.kang.mapper:INFO
 
 
 fdfs:
