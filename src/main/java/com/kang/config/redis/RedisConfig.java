@@ -20,7 +20,6 @@ import redis.clients.jedis.JedisPoolConfig;
  * @author chaokang  
  * @date 2018年12月3日
  */
-//@Component
 @Configuration
 @PropertySource(value = "classpath:config/redis.properties")//配置文件路径  在resource目录下
 public class RedisConfig {

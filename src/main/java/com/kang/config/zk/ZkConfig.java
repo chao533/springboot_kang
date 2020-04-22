@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
 
 /**
 　 * <p>Title: ZkConfig</p> 
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Component;
 　 * @date 2020年4月16日
  */
 @Configuration
-@Component
 @PropertySource(value = "classpath:config/zk.properties")
 public class ZkConfig {
 
