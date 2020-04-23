@@ -23,6 +23,8 @@ import com.kang.common.exception.RequestLimitException;
 import com.kang.common.utils.IPUtils;
 import com.kang.mapper.redis.RedisMapper;
 
+import cn.hutool.extra.servlet.ServletUtil;
+
 /**
 　 * <p>Title: RequestLimitAspect</p> 
 　 * <p>Description: IP限流（基于Redis）</p> 
@@ -48,6 +50,8 @@ public class LimitAspect_1 {
 		RequestLimit limit = method.getAnnotation(RequestLimit.class);
 		
 		String ip = IPUtils.getIpAddr();
+		logger.info("IPUtils:{}",ip);
+		logger.info("ServletUtil:{}",ServletUtil.getClientIP(getRequest()));
 		String url = getRequest().getRequestURL().toString();
 		String key = RedisConstants.KANG_REQUEST_LIMIT.concat(ip);
 		Object obj = redisMapper.get(key);

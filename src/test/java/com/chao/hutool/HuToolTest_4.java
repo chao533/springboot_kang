@@ -20,6 +20,8 @@ import cn.hutool.core.util.URLUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
+import cn.hutool.crypto.asymmetric.Sign;
+import cn.hutool.crypto.asymmetric.SignAlgorithm;
 import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.crypto.symmetric.AES;
 import cn.hutool.crypto.symmetric.DES;
@@ -30,7 +32,7 @@ public class HuToolTest_4 {
 
 	
 	public static void main(String[] args) {
-		test7();
+		test9();
 	}
 	
 	
@@ -166,7 +168,10 @@ public class HuToolTest_4 {
 		Console.log("rsa解密后:{}",decryptStr);
 	}
 	
-	
+	/**
+	 *<p>Title: test8</p> 
+	 *<p>Description: 摘要算法</p>
+	 */
 	public static void test8() {
 		String md5 = SecureUtil.md5(str);
 		Console.log("md5加密后:{}",md5);
@@ -179,7 +184,20 @@ public class HuToolTest_4 {
 		
 		String sha256Hex = DigestUtil.sha256Hex(str);
 		Console.log("sha256加密后:{}",sha256Hex);
-		
+	}
+	
+	/**
+	 *<p>Title: test9</p> 
+	 *<p>Description: 签名和验证</p>
+	 */
+	public static void test9() {
+		byte[] data = str.getBytes();
+		Sign sign = SecureUtil.sign(SignAlgorithm.SHA256withRSA);
+		//签名
+		byte[] signed = sign.sign(data);
+		//验证签名
+		boolean verify = sign.verify(data, signed);
+		Console.log("验证签名:{}",verify);
 	}
 	
 	

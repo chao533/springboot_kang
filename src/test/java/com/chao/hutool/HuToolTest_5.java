@@ -9,6 +9,8 @@ import cn.hutool.core.lang.Console;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.cron.CronUtil;
+import cn.hutool.cron.task.Task;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
@@ -18,7 +20,7 @@ public class HuToolTest_5 {
 
 	
 	public static void main(String[] args) {
-		test6();
+		test7();
 	}
 	
 	/**
@@ -107,6 +109,19 @@ public class HuToolTest_5 {
 		Dict dict = Dict.create().set("username", "king").set("password", "123456");
 		String username = dict.getStr("username");
 		Console.log("username:{}",username);
+	}
+	
+	public static void test7() {
+		CronUtil.schedule("* * * * * *", new Task() {
+			
+			@Override
+			public void execute() {
+				Console.log(Thread.currentThread().getName());
+			}
+		});
+		// 支持秒级别定时任务
+		CronUtil.setMatchSecond(true);
+		CronUtil.start();
 	}
 	
 }
