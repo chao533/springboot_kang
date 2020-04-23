@@ -26,6 +26,15 @@ public class PropConstants {
 
 		String ROLE = "jwt.role";
 	}
+	/**
+	 * 私钥
+	 */
+	public static final String PRIVATE_KEY = "config/privateKey.txt";
+	
+	/**
+	 * 公钥
+	 */
+	public static final String PUBLIC_KEY = "config/publicKey.txt";
 	
 	
 	@SneakyThrows(value= ConfigurationException.class)

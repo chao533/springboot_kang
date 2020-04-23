@@ -5,6 +5,8 @@ import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
+import com.kang.common.constant.PropConstants;
+
 import cn.hutool.core.codec.Base32;
 import cn.hutool.core.codec.Base62;
 import cn.hutool.core.codec.Base64;
@@ -18,6 +20,7 @@ import cn.hutool.core.util.URLUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
+import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.crypto.symmetric.AES;
 import cn.hutool.crypto.symmetric.DES;
 
@@ -154,8 +157,8 @@ public class HuToolTest_4 {
 //		InputStream in1 = HuToolTest_4.class.getClassLoader().getResourceAsStream("config/privateKey.txt");
 //		InputStream in2 = HuToolTest_4.class.getClassLoader().getResourceAsStream("config/publicKey.txt");
 		
-		byte[] privateKeyBytes = ResourceUtil.readBytes("classpath:config/privateKey.txt");
-		byte[] publicKeyBytes = ResourceUtil.readBytes("classpath:config/publicKey.txt");
+		byte[] privateKeyBytes = ResourceUtil.readBytes(PropConstants.PRIVATE_KEY);
+		byte[] publicKeyBytes = ResourceUtil.readBytes(PropConstants.PUBLIC_KEY);
 		RSA rsa = new RSA(privateKeyBytes,publicKeyBytes);
 		String encryptHex = rsa.encryptHex(str, CharsetUtil.CHARSET_UTF_8, KeyType.PublicKey);
 		Console.log("rsa加密后:{}",encryptHex);
@@ -163,6 +166,21 @@ public class HuToolTest_4 {
 		Console.log("rsa解密后:{}",decryptStr);
 	}
 	
+	
+	public static void test8() {
+		String md5 = SecureUtil.md5(str);
+		Console.log("md5加密后:{}",md5);
+		
+		String sha1 = SecureUtil.sha1(str);
+		Console.log("sha1加密后:{}",sha1);
+		
+		String sha256 = SecureUtil.sha256(str);
+		Console.log("sha256加密后:{}",sha256);
+		
+		String sha256Hex = DigestUtil.sha256Hex(str);
+		Console.log("sha256加密后:{}",sha256Hex);
+		
+	}
 	
 	
 }
