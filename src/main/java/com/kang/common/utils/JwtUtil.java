@@ -27,11 +27,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
  */
 public class JwtUtil {
 	
-    public static final long EXPIRATION_TIME = new Long(PropConstants.getProp(PropConstants.JWT_PROP,PropConstants.jwtKey.EXPIRATION_TIME));
-    public static final String SECRET = PropConstants.getProp(PropConstants.JWT_PROP,PropConstants.jwtKey.SECRET);
-    public static final String TOKEN_PREFIX = PropConstants.getProp(PropConstants.JWT_PROP,PropConstants.jwtKey.TOKEN_PREFIX);
-    public static final String HEADER_STRING = PropConstants.getProp(PropConstants.JWT_PROP,PropConstants.jwtKey.HEADER_STRING);
-    public static final String ROLE = PropConstants.getProp(PropConstants.JWT_PROP,PropConstants.jwtKey.ROLE);
+    public static final long EXPIRATION_TIME = new Long(PropConstants.getProp_1(PropConstants.JWT_PROP,PropConstants.jwtKey.EXPIRATION_TIME));
+    public static final String SECRET = PropConstants.getProp_2(PropConstants.JWT_PROP,PropConstants.jwtKey.SECRET);
+    public static final String TOKEN_PREFIX = PropConstants.getProp_3(PropConstants.JWT_PROP,PropConstants.jwtKey.TOKEN_PREFIX);
+    public static final String HEADER_STRING = PropConstants.getProp_2(PropConstants.JWT_PROP,PropConstants.jwtKey.HEADER_STRING);
+    public static final String ROLE = PropConstants.getProp_1(PropConstants.JWT_PROP,PropConstants.jwtKey.ROLE);
 	
 
     /**
