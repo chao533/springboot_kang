@@ -1,14 +1,23 @@
 package com.chao.hutool;
 
+import java.io.File;
+import java.security.KeyPair;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+
 import cn.hutool.core.codec.Base32;
 import cn.hutool.core.codec.Base62;
 import cn.hutool.core.codec.Base64;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.EscapeUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.asymmetric.KeyType;
+import cn.hutool.crypto.asymmetric.RSA;
 import cn.hutool.crypto.symmetric.AES;
 import cn.hutool.crypto.symmetric.DES;
 
@@ -18,29 +27,29 @@ public class HuToolTest_4 {
 
 	
 	public static void main(String[] args) {
-		test4();
+		test7();
 	}
 	
 	
 	/**
-	 *<p>Title: test5</p> 
+	 *<p>Title: test1</p> 
 	 *<p>Description: escape和URL编码和解码</p>
 	 */
 	public static void test1() {
 		String escape = EscapeUtil.escape(str);
-		Console.log("编码后：{}",escape);
+		Console.log("escape编码后：{}",escape);
 		String unescape = EscapeUtil.unescape(escape);
-		Console.log("解码后：{}", unescape);
+		Console.log("escape解码后：{}", unescape);
 		System.out.println();
 		String encode = URLUtil.encode(str,CharsetUtil.CHARSET_UTF_8);
-		Console.log("编码后：{}",encode);
+		Console.log("URL编码后：{}",encode);
 		String decode = URLUtil.decode(encode, CharsetUtil.CHARSET_UTF_8);
-		Console.log("解码后：{}",decode);
+		Console.log("URL解码后：{}",decode);
 	}
 	
 	
 	/**
-	 *<p>Title: test8</p> 
+	 *<p>Title: test2</p> 
 	 *<p>Description: Base64 32 62编码解码</p>
 	 */
 	public static void test2() {
@@ -65,8 +74,8 @@ public class HuToolTest_4 {
 		
 	}
 	/**
-	 *<p>Title: test9</p> 
-	 *<p>Description: AES加密解密</p>
+	 *<p>Title: test3</p> 
+	 *<p>Description: AES对称加密解密</p>
 	 */
 	public static void test3() {
 		// key必须为16位
@@ -87,8 +96,8 @@ public class HuToolTest_4 {
 	}
 	
 	/**
-	 *<p>Title: test10</p> 
-	 *<p>Description: DES加密解密</p>
+	 *<p>Title: test4</p> 
+	 *<p>Description: DES对称加密解密</p>
 	 */
 	public static void test4() {
 		// key位数不限
@@ -102,6 +111,56 @@ public class HuToolTest_4 {
 		//解密为字符串
 		String decryptStr = des.decryptStr(encryptHex, CharsetUtil.CHARSET_UTF_8);
 		Console.log("des解密后:{}",decryptStr);
+	}
+	
+	/**
+	 *<p>Title: test5</p> 
+	 *<p>Description: RSA非对称加密</p>
+	 */
+	public static void test5() {
+		KeyPair pair = SecureUtil.generateKeyPair("RSA");
+		PrivateKey generatePrivateKey = pair.getPrivate();
+		Console.log("privateKey:{}",generatePrivateKey.getEncoded());
+		PublicKey generatePublicKey = pair.getPublic();
+		Console.log("publicKey:{}",generatePublicKey.getEncoded());
+		
+		RSA rsa = new RSA(generatePrivateKey,generatePublicKey);
+		
+		String encryptHex = rsa.encryptHex(str, CharsetUtil.CHARSET_UTF_8, KeyType.PublicKey);
+		Console.log("rsa加密后:{}",encryptHex);
+		String decryptStr = rsa.decryptStr(encryptHex, KeyType.PrivateKey, CharsetUtil.CHARSET_UTF_8);
+		Console.log("rsa解密后:{}",decryptStr);
+	}
+	
+	/**
+	 *<p>Title: test6</p> 
+	 *<p>Description: 生成公钥和密钥，并写入磁盘</p>
+	 */
+	public static void test6() {
+		KeyPair pair = SecureUtil.generateKeyPair("RSA");
+		PrivateKey generatePrivateKey = pair.getPrivate();
+		Console.log("privateKey:{}",generatePrivateKey.getEncoded());
+		PublicKey generatePublicKey = pair.getPublic();
+		Console.log("publicKey:{}",generatePublicKey.getEncoded());
+		FileUtil.writeBytes(generatePrivateKey.getEncoded(), new File("c://config/privateKey.txt"));
+		FileUtil.writeBytes(generatePublicKey.getEncoded(), new File("c://config/publicKey.txt"));
+	}
+	
+	/**
+	 *<p>Title: test7</p> 
+	 *<p>Description: 读取classpath下的公钥和密钥</p>
+	 */
+	public static void test7() {
+//		InputStream in1 = HuToolTest_4.class.getClassLoader().getResourceAsStream("config/privateKey.txt");
+//		InputStream in2 = HuToolTest_4.class.getClassLoader().getResourceAsStream("config/publicKey.txt");
+		
+		byte[] privateKeyBytes = ResourceUtil.readBytes("classpath:config/privateKey.txt");
+		byte[] publicKeyBytes = ResourceUtil.readBytes("classpath:config/publicKey.txt");
+		RSA rsa = new RSA(privateKeyBytes,publicKeyBytes);
+		String encryptHex = rsa.encryptHex(str, CharsetUtil.CHARSET_UTF_8, KeyType.PublicKey);
+		Console.log("rsa加密后:{}",encryptHex);
+		String decryptStr = rsa.decryptStr(encryptHex, KeyType.PrivateKey, CharsetUtil.CHARSET_UTF_8);
+		Console.log("rsa解密后:{}",decryptStr);
 	}
 	
 	

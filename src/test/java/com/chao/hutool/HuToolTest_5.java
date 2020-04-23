@@ -80,7 +80,7 @@ public class HuToolTest_5 {
 	}
 	
 	/**
-	 *<p>Title: test6</p> 
+	 *<p>Title: test5</p> 
 	 *<p>Description: 内存分页</p>
 	 */
 	public static void test5() {
@@ -100,7 +100,7 @@ public class HuToolTest_5 {
 	}
 	
 	/**
-	 *<p>Title: test7</p> 
+	 *<p>Title: test6</p> 
 	 *<p>Description: Map的封装</p>
 	 */
 	public static void test6() {
