@@ -20,7 +20,7 @@ public class HuToolTest_5 {
 
 	
 	public static void main(String[] args) {
-		test7();
+		test3();
 	}
 	
 	/**
@@ -52,11 +52,14 @@ public class HuToolTest_5 {
 	 *<p>Description: json转Map</p>
 	 */
 	public static void test3() {
-		String param = "{\"username\":\"king\",\"password\":\"123456\"}";
-//		Map<?,?> bean = JSONUtil.toBean(param, Map.class);
+		Map<String,Object> params = Dict.create().set("username", "king").set("password", "123456");
+		Console.log("params:{}", params);
+		String jsonStr = JSONUtil.toJsonStr(params);
+		Console.log("jsonStr:{}", jsonStr);
+//		Map<?,?> bean = JSONUtil.toBean(jsonStr, Map.class);
 		
-		Map<String,Object> bean = JSONUtil.toBean(param, new TypeReference<Map<String,Object>>() {}, false);
-		System.out.println("bean:" + bean);
+		Map<String,Object> bean = JSONUtil.toBean(jsonStr, new TypeReference<Map<String,Object>>() {}, false);
+		Console.log("bean:{}", bean);
 	}
 	
 	/**

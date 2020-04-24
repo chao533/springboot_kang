@@ -7,12 +7,10 @@ import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.List;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +27,9 @@ import com.kang.service.UploadService;
 
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.StreamProgress;
+import cn.hutool.core.lang.Console;
+import cn.hutool.http.HttpUtil;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -131,16 +132,34 @@ public class UploadServiceImpl implements UploadService{
 	@SneakyThrows
 	@Override
 	public void downloadFile(HttpServletResponse response, String path) {
-		StorePath storePath = StorePath.praseFromUrl(path);
-		@Cleanup InputStream inputStream = storageClient.downloadFile(storePath.getGroup(), storePath.getPath(), (input) -> input);
-		//1.设置文件ContentType类型，这样设置，会自动判断下载文件类型  
+//		StorePath storePath = StorePath.praseFromUrl(path);
+//		@Cleanup InputStream inputStream = storageClient.downloadFile(storePath.getGroup(), storePath.getPath(), (input) -> input);
+//		//1.设置文件ContentType类型，这样设置，会自动判断下载文件类型  
 		response.setContentType("multipart/form-data");
-		 //2.设置文件头：
+//		 //2.设置文件头：
 		response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode("测试文件." + FileUtil.extName(path), "UTF-8"));//此处需要设置下载文件的默认名称
+//		
+//		@Cleanup ServletOutputStream outputStream = response.getOutputStream();
+//		
+//		IOUtils.copy(inputStream, outputStream);
 		
-		@Cleanup ServletOutputStream outputStream = response.getOutputStream();
-		
-		IOUtils.copy(inputStream, outputStream);
+		HttpUtil.download(path, response.getOutputStream(), true,  new StreamProgress(){
+
+		    @Override
+		    public void start() {
+		        Console.log("开始下载。。。。");
+		    }
+
+		    @Override
+		    public void progress(long progressSize) {
+		        Console.log("已下载：{}", FileUtil.readableFileSize(progressSize));
+		    }
+
+		    @Override
+		    public void finish() {
+		        Console.log("下载完成！");
+		    }
+		});
 	}
 
 	@Override
