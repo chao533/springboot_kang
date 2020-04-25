@@ -38,7 +38,13 @@ docker pull zookeeper
 docker run --name zk -p 2181:2181 -p 2888:2888 -p 3888:3888 --restart always -d zookeeper
 
 -- FastDFS
+docker pull morunchang/fastdfs
+docker run -d --name tracker --net=host morunchang/fastdfs sh tracker.sh
+docker run -d --name storage --net=host -e TRACKER_IP=192.168.36.128:22122 -e GROUP_NAME=group1 morunchang/fastdfs sh storage.sh
 
+-- xxl_job
+docker pull xuxueli/xxl-job-admin:2.0.1
+docker run -e PARAMS="--spring.datasource.url=jdbc:mysql://47.105.189.247:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8 --spring.datasource.password=123456" -p 8181:8080 -v /xxl-job-log:/data/applogs --name xxl-job-admin -d xuxueli/xxl-job-admin:2.0.1
 
 -- docker私服
 http://192.168.0.100:5000/v2/_catalog

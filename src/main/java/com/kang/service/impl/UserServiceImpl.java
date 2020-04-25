@@ -22,6 +22,7 @@ import com.kang.common.exception.TokenValidationException;
 import com.kang.common.msg.ErrorCode;
 import com.kang.common.msg.Message;
 import com.kang.common.utils.JwtUtil;
+import com.kang.config.fast.FastConfig;
 import com.kang.mapper.mybaits.UserMapper;
 import com.kang.model.mybatis.User;
 import com.kang.model.param.ModifyPwdParam;
@@ -44,6 +45,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private FastConfig fastConfig;
 //    @Autowired
 //    private RabbitmqProducerService rabbitmqProducerService;
     
@@ -68,6 +71,9 @@ public class UserServiceImpl implements UserService {
     	params.put("id", id);
         List<Map<String, Object>> userList = userMapper.getUserList(params);
         if(userList != null && userList.size() == 1) {
+        	userList.forEach(user -> {
+        		user.put("icon", fastConfig.getFullPush(MapUtil.getStr(user, "icon")));
+        	});
         	return new Message<>(ErrorCode.SUCCESS,userList.get(0));
         }
         return new Message<>(ErrorCode.ERROR);
@@ -81,6 +87,7 @@ public class UserServiceImpl implements UserService {
     	
     	user.setIcon(StringUtils.isNotBlank(user.getIcon()) ? user.getIcon().substring(user.getIcon().indexOf("/group")) : "");
     	user.setPwd(SecureUtil.md5(user.getPwd()).toUpperCase());
+    	user.setIcon(fastConfig.getSuffixPath(user.getIcon()));
     	user.setCreateTime(new Date());
     	if(userMapper.insertList(CollUtil.newArrayList(user)) <= 0) {
     		throw new ServiceException("添加用户失败");
