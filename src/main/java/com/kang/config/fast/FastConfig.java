@@ -22,10 +22,7 @@ public class FastConfig {
 	 * @param @return
 	 */
 	public String getFullPush(String path) {
-		if(StringUtils.isBlank(path)) {
-			return "";
-		}
-		return webserver + path;
+		return StringUtils.isBlank(path) ? "" : webserver + path;
 	}
 	
 	/**
@@ -35,10 +32,7 @@ public class FastConfig {
 	 * @param @return
 	 */
 	public String getSuffixPath(String path) {
-		if(StringUtils.isBlank(path)) {
-			return null;
-		}
-		return path.substring(path.lastIndexOf("/group1"));
+		return StringUtils.isBlank(path) ? null : path.substring(path.lastIndexOf("/group1"));
 	}
 	
 }
