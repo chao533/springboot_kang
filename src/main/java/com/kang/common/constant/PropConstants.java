@@ -43,12 +43,12 @@ public class PropConstants {
 	}
 	
 	public static String getProp_2(String file, String key) {
-		Setting setting = new Setting(JWT_PROP);
+		Setting setting = new Setting(file);
 		return setting.get(key);
 	}
 	
 	public static String getProp_3(String file, String key) {
-		Props props = new Props(JWT_PROP);
+		Props props = new Props(file);
 		return props.getProperty(key);
 	}
 }
