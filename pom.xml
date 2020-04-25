@@ -102,7 +102,12 @@
 			<version>${mybatis.version}</version>
 		</dependency>
 		
-		<!-- Mybaits工具类 -->
+		<!-- tk.mybatis引入两个依赖，否则报错 -->
+		<dependency>
+			<groupId>tk.mybatis</groupId>
+			<artifactId>mapper</artifactId>
+			<version>4.1.2</version>
+		</dependency>
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
