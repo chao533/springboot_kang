@@ -21,11 +21,12 @@ rabbitmqctl reset
 rabbitmqctl start_app
 
 -- mongodb
-docker pull mongo
-docker run -d -p 27017:27017 -v mongo_configdb:/data/configdb -v mongo_db:/data/db --name mongo docker.io/mongo
-docker run -d -p 27017:27017 -v mongo_configdb:/data/configdb -v mongo_db:/data/db --name mongo docker.io/mongo --auth
-docker exec -it mongo mongo admin
-db.createUser({ user: 'admin', pwd: '123456', roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] });
+docker run -d -p 27017:27017 -p 28017:28017 -e MONGODB_PASS="123456" tutum/mongodb
+mongo admin -u admin -p 123456
+docker exec -it a7b25e82be1b /bin/bash
+
+-- elasticsearch
+docker pull elasticsearch
 
 -- redis
 docker run -p 6379:6379 --name redis -v /zzyyuse/myredis/data:/data -v /zzyyuse/myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf  -d redis:3.2 redis-server /usr/local/etc/redis/redis.conf --appendonly yes

@@ -14,9 +14,11 @@ import com.kang.model.mongo.MongoUser;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Console;
+import cn.hutool.core.lang.Dict;
 import cn.hutool.core.map.MapUtil;
 
 public class MongoUserTest extends BaseTest{
+	
 	@Autowired
 	private MongoUserRepository mongoUserRepository;
 	
@@ -37,9 +39,10 @@ public class MongoUserTest extends BaseTest{
 	 *<p>Title: testBatchSaveMongoUser</p> 
 	 *<p>Description: 批量保存MongoUser</p>
 	 */
+	@Test
 	public void testBatchSaveMongoUser() {
-		Map<String,Object> goods3 = MapUtil.builder(new HashMap<String,Object>()).put("goodsId", "1003").put("goodsName", "商品3").build();
-		Map<String,Object> goods4 = MapUtil.builder(new HashMap<String,Object>()).put("goodsId", "1004").put("goodsName", "商品4").build();
+		Map<String,Object> goods3 = Dict.create().set("goodsId", "1003").set("goodsName", "商品3");
+		Map<String,Object> goods4 = Dict.create().set("goodsId", "1004").set("goodsName", "商品4");
 		MongoUser mongoUser2 = MongoUser.builder().id("003").name("李四").gender(false).goodsList(CollUtil.newArrayList(goods3,goods4)).build();
 		
 		Map<String,Object> goods5 = MapUtil.builder(new HashMap<String,Object>()).put("goodsId", "1005").put("goodsName", "商品5").build();
@@ -55,7 +58,7 @@ public class MongoUserTest extends BaseTest{
 	@Test
 	public void testGetMongoUser() {
 		MongoUser mongoUser = mongoUserRepository.findOne("001");
-		Console.log(mongoUser);
+		Console.log("mongoUser:{}",mongoUser);
 	} 
 	
 	/**
@@ -65,7 +68,7 @@ public class MongoUserTest extends BaseTest{
 	@Test
 	public void testGetMongoUserAll() {
 		List<MongoUser> mongoUserList = mongoUserRepository.findAll();
-		Console.log(mongoUserList);
+		Console.log("mongoUserList:{}" ,mongoUserList);
 	}
 	
 	/**
@@ -76,9 +79,9 @@ public class MongoUserTest extends BaseTest{
 	public void testGetMongoUserCondition() {
 		MongoUser mongoUser = MongoUser.builder().name("张三").build();
 		List<MongoUser> mongoUserList1 = mongoUserRepository.findAll(Example.of(mongoUser));
-		Console.log(mongoUserList1);
+		Console.log("mongoUserList1:{}",mongoUserList1);
 		
 		List<MongoUser> mongoUserList2 = mongoUserRepository.findByName("王五");
-		Console.log(mongoUserList2);
+		Console.log("mongoUserList2:{}",mongoUserList2);
 	}
 }
