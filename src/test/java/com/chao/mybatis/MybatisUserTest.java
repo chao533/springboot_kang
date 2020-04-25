@@ -1,6 +1,7 @@
 package com.chao.mybatis;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.kang.model.mybatis.User;
 import com.kang.service.UserService;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.Console;
 
 public class MybatisUserTest extends BaseTest{
 
@@ -51,5 +53,13 @@ public class MybatisUserTest extends BaseTest{
 		user2.setGender(true);
 		user.setIsDel(false);
 		userMapper.insertList(CollUtil.newArrayList(user,user2));
+	}
+	
+	@Test
+	public void testfind() {
+		User user2 = new User();
+		user2.setLoginName("admin");
+		List<User> userList = userMapper.select(user2);
+		userList.forEach(user -> Console.log(user));
 	}
 }

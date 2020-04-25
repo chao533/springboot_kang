@@ -41,7 +41,15 @@ public interface UploadService {
 	
 	/**
 	 *<p>Title: downloadFile</p> 
-	 *<p>Description: 文件下载</p> 
+	 *<p>Description: 文件下载二</p> 
+	 * @param response
+	 * @param path
+	 */
+	void downloadFile_HuTool(HttpServletResponse response, String path);
+	
+	/**
+	 *<p>Title: downloadFile</p> 
+	 *<p>Description: 文件下载一</p> 
 	 * @param response
 	 * @param path
 	 */

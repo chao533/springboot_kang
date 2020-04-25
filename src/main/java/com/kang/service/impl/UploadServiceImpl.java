@@ -3,14 +3,17 @@ package com.kang.service.impl;
 import java.awt.Rectangle;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -129,19 +132,13 @@ public class UploadServiceImpl implements UploadService{
 		return new Message<>(ErrorCode.SUCCESS,result);
 	}
 
-	@SneakyThrows
+	@SneakyThrows(value = IOException.class)
 	@Override
-	public void downloadFile(HttpServletResponse response, String path) {
-//		StorePath storePath = StorePath.praseFromUrl(path);
-//		@Cleanup InputStream inputStream = storageClient.downloadFile(storePath.getGroup(), storePath.getPath(), (input) -> input);
+	public void downloadFile_HuTool(HttpServletResponse response, String path) {
 //		//1.设置文件ContentType类型，这样设置，会自动判断下载文件类型  
 		response.setContentType("multipart/form-data");
 //		 //2.设置文件头：
 		response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode("测试文件." + FileUtil.extName(path), "UTF-8"));//此处需要设置下载文件的默认名称
-//		
-//		@Cleanup ServletOutputStream outputStream = response.getOutputStream();
-//		
-//		IOUtils.copy(inputStream, outputStream);
 		
 		HttpUtil.download(path, response.getOutputStream(), true,  new StreamProgress(){
 
@@ -161,6 +158,20 @@ public class UploadServiceImpl implements UploadService{
 		    }
 		});
 	}
+	
+	@SneakyThrows(value = IOException.class)
+	@Override
+	public void downloadFile(HttpServletResponse response, String path) {
+		StorePath storePath = StorePath.praseFromUrl(path);
+		@Cleanup InputStream inputStream = storageClient.downloadFile(storePath.getGroup(), storePath.getPath(), (input) -> input);
+		//1.设置文件ContentType类型，这样设置，会自动判断下载文件类型  
+		response.setContentType("multipart/form-data");
+		//2.设置文件头：
+		response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode("测试文件." + FileUtil.extName(path), "UTF-8"));//此处需要设置下载文件的默认名称
+		@Cleanup ServletOutputStream outputStream = response.getOutputStream();
+		IOUtils.copy(inputStream, outputStream);
+	}
+	
 
 	@Override
 	public Message<String> deleteFile(String path) {
