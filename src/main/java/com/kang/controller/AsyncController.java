@@ -2,6 +2,7 @@ package com.kang.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,11 +33,13 @@ public class AsyncController {
 	 *<p>Title: get</p> 
 	 *<p>Description: 异步获取数据</p> 
 	 * @return
+	 * @throws ExecutionException 
+	 * @throws InterruptedException 
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/getData",method=RequestMethod.GET)
-	public Message<?> get() throws Exception{
-		log.info("main开始执行，当前线程名称【{}】" + Thread.currentThread().getName());
+	public Message<?> get() throws InterruptedException, ExecutionException{
+		log.info("main开始执行，当前线程名称【{}】" , Thread.currentThread().getName());
 		
 		Map<String,Object> result1 = asyncTask.async1().get();
 		Map<String,Object> result2 = asyncTask.async2().get();

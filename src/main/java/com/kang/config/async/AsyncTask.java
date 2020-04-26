@@ -13,11 +13,10 @@ import org.springframework.stereotype.Component;
 import cn.hutool.core.util.IdUtil;
 
 /**
- * AsyncDemo
- *
- * @author XiongNeng
- * @version 1.0
- * @since 2018/1/25
+　 * <p>Title: AsyncTask</p> 
+　 * <p>Description: 异步任务</p> 
+　 * @author CK 
+　 * @date 2020年4月26日
  */
 @Component
 public class AsyncTask {
@@ -25,7 +24,7 @@ public class AsyncTask {
 
 
     @Async
-	public Future<Map<String,Object>> async1() throws InterruptedException {
+	public Future<Map<String,Object>> async1() {
     	logger.info("async1开始执行，当前线程名称【{}】" , Thread.currentThread().getName());
     	
     	Map<String,Object> result = new HashMap<String,Object>();
@@ -35,7 +34,7 @@ public class AsyncTask {
 	}
 	
 	@Async
-	public Future<Map<String,Object>> async2() throws InterruptedException {
+	public Future<Map<String,Object>> async2() {
 		logger.info("async2开始执行，当前线程名称【{}】" , Thread.currentThread().getName());
 		
 		Map<String,Object> result = new HashMap<String,Object>();

@@ -7,20 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>
- * 任务工厂
- * </p>
- *
- * @package: com.xkcoding.async.task
- * @description: 任务工厂
- * @author: yangkai.shen
- * @date: Created in 2018-12-29 10:37
- * @copyright: Copyright (c) 2018
- * @version: V1.0
- * @modified: yangkai.shen
+　 * <p>Title: TaskFactory</p> 
+　 * <p>Description: 任务工厂</p> 
+　 * @author CK 
+　 * @date 2020年4月26日
  */
 @Component
 public class TaskFactory {
