@@ -1,15 +1,13 @@
 package com.chao.hutool;
 
-import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.Map;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.lang.Console;
-import cn.hutool.core.lang.tree.TreeUtil;
 import cn.hutool.core.map.MapUtil;
-import cn.hutool.http.HttpUtil;
+import cn.hutool.core.text.StrSpliter;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
@@ -17,7 +15,7 @@ import cn.hutool.poi.excel.ExcelWriter;
 public class HuToolTest_6 {
 
 	public static void main(String[] args) {
-		test1();
+		test6();
 	}
 
 	public static void test1() {
@@ -93,5 +91,12 @@ public class HuToolTest_6 {
 		//关闭writer，释放内存
 		writer.close();
 		
+	}
+	
+	public static void test6() {
+		String str1 = "a, ,efedsfs,   ddf";
+		//参数：被切分字符串，分隔符逗号，0表示无限制分片数，去除两边空格，忽略空白项
+		List<String> split = StrSpliter.split(str1, ',', 0, true, true);
+		split.forEach(str -> Console.log(str));
 	}
 }
