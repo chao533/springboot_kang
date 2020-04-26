@@ -24,7 +24,7 @@ import com.kang.common.msg.ErrorCode;
 import com.kang.common.msg.Message;
 import com.kang.common.utils.JwtUtil;
 import com.kang.config.fdfs.FdfsConfig;
-import com.kang.mapper.mybaits.UserMapper;
+import com.kang.mapper.mybatis.UserMapper;
 import com.kang.model.mybatis.User;
 import com.kang.model.param.ModifyPwdParam;
 import com.kang.service.UserService;

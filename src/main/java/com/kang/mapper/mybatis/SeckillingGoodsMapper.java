@@ -1,4 +1,4 @@
-package com.kang.mapper.mybaits;
+package com.kang.mapper.mybatis;
 
 import java.util.Map;
 

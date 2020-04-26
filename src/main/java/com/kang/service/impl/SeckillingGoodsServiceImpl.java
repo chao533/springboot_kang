@@ -19,7 +19,7 @@ import com.kang.common.msg.ErrorCode;
 import com.kang.common.msg.Message;
 import com.kang.config.redis.RedissonLock;
 import com.kang.config.zk.ZkLock;
-import com.kang.mapper.mybaits.SeckillingGoodsMapper;
+import com.kang.mapper.mybatis.SeckillingGoodsMapper;
 import com.kang.service.SeckillingGoodsService;
 
 import cn.hutool.core.collection.CollUtil;

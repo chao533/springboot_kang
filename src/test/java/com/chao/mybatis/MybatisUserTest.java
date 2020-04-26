@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.chao.BaseTest;
-import com.kang.mapper.mybaits.UserMapper;
+import com.kang.mapper.mybatis.UserMapper;
 import com.kang.model.mybatis.User;
 import com.kang.service.UserService;
 

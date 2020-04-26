@@ -13,7 +13,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @date 2018年12月3日
  */
 @SpringBootApplication
-@MapperScan("com.kang.mapper")
+@MapperScan("com.kang.mapper.mybatis")
 public class KangApplication {
 
     public static void main(String[] args) {
