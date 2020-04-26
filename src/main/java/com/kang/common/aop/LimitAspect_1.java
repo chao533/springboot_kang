@@ -58,7 +58,7 @@ public class LimitAspect_1 {
 		int count = obj == null ? 0 : Integer.parseInt(obj.toString());
 		
 		if (count >= limit.count()) {
-			logger.info("用户IP[" + ip + "]访问地址[" + url + "]超过了限定的次数[" + limit.count() + "]");
+			logger.error("用户IP[" + ip + "] 访问地址[" + url + "] 超过了限定的次数[" + limit.count() + "]");
 			throw new RequestLimitException("访问的太频繁了");
 		}
 		
