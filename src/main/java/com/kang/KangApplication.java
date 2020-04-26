@@ -4,9 +4,6 @@ package com.kang;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.Import;
-
-import com.github.tobato.fastdfs.FdfsClientConfig;
 
 import tk.mybatis.spring.annotation.MapperScan;
 
@@ -16,7 +13,6 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @author chaokang  
  * @date 2018年12月3日
  */
-@Import(FdfsClientConfig.class)
 @SpringBootApplication
 @MapperScan("com.kang.mapper")
 @EnableCaching

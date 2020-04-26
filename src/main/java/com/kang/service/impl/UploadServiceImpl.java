@@ -25,7 +25,7 @@ import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import com.kang.common.msg.ErrorCode;
 import com.kang.common.msg.Message;
-import com.kang.config.fast.FastConfig;
+import com.kang.config.fdfs.FdfsConfig;
 import com.kang.service.UploadService;
 
 import cn.hutool.core.img.ImgUtil;
@@ -44,7 +44,7 @@ public class UploadServiceImpl implements UploadService{
 	@Autowired
 	private FastFileStorageClient storageClient;
 	@Autowired
-	private FastConfig fastConfig;
+	private FdfsConfig fastConfig;
 
 	@SneakyThrows
 	@Override

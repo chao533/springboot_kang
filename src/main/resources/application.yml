@@ -87,14 +87,14 @@ logging:
 
 
 fdfs:
-  webserver: http://192.168.36.128:8080/
+  webserver: http://47.105.189.247:8080/
   soTimeout: 1501
   connectTimeout: 601
   thumbImage:     #缩略图生成参数
     width: 150
     height: 150
   trackerList:            #TrackerList参数,支持多个
-    - 192.168.36.128:22122
+    - 47.105.189.247:22122
     
 shiro: 
   #unauthorizedUrl: /test/unauthorizedurl

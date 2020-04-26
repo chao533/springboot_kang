@@ -22,7 +22,7 @@ import com.kang.common.exception.TokenValidationException;
 import com.kang.common.msg.ErrorCode;
 import com.kang.common.msg.Message;
 import com.kang.common.utils.JwtUtil;
-import com.kang.config.fast.FastConfig;
+import com.kang.config.fdfs.FdfsConfig;
 import com.kang.mapper.mybaits.UserMapper;
 import com.kang.model.mybatis.User;
 import com.kang.model.param.ModifyPwdParam;
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
-    private FastConfig fastConfig;
+    private FdfsConfig fastConfig;
 //    @Autowired
 //    private RabbitmqProducerService rabbitmqProducerService;
     
