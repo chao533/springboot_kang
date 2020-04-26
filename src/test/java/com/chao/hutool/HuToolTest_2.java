@@ -59,6 +59,7 @@ public class HuToolTest_2 {
 		System.out.println(list);
 		
 		Map<String, Object> user3 = MapUtil.builder(new HashMap<String,Object>()).put("id", 3).put("name", "li2").build();
+		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> newList = (List<Map<String, Object>>)CollUtil.removeAny(list, user3);
 		System.out.println(newList);
 	}
@@ -92,10 +93,10 @@ public class HuToolTest_2 {
 //		System.out.println(CollUtil.disjunction(list1, list2));
 	}
 	
-	public static void test8() {
-		Map<String,Object> params = MapUtil.builder(new String(), new Object()).put("name", "zk").build();
-		Map<String,Object> params2 = MapUtil.builder(new HashMap<String,Object>()).put("name", "zk").build();
-	}
+//	public static void test8() {
+//		Map<String,Object> params = MapUtil.builder(new String(), new Object()).put("name", "zk").build();
+//		Map<String,Object> params2 = MapUtil.builder(new HashMap<String,Object>()).put("name", "zk").build();
+//	}
 	
 	// 文件操作
 	public static void test7() {
@@ -151,7 +152,7 @@ public class HuToolTest_2 {
 			}
 		});
 		CollUtil.filter(list, (Integer t) -> t == 2 ? false:true);
-//		Console.log(list2);
+		Console.log(list2);
 	}
 	// 循环
 	public static void test4() {

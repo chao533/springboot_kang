@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 
 /**
 　 * <p>Title: ScheduleConfig</p> 
-　 * <p>Description: </p> 
+　 * <p>Description: 定时任务配置</p> 
 　 * @author CK 
 　 * @date 2020年4月8日
  */

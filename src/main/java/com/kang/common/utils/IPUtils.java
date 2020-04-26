@@ -8,7 +8,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 /**
- * IP地址
+　 * <p>Title: IPUtils</p> 
+　 * <p>Description: IP地址</p> 
+　 * @author CK 
+　 * @date 2020年4月26日
  */
 public class IPUtils {
 

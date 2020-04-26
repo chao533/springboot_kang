@@ -7,6 +7,12 @@ import cn.hutool.setting.Setting;
 import cn.hutool.setting.dialect.Props;
 import lombok.SneakyThrows;
 
+/**
+　 * <p>Title: PropConstants</p> 
+　 * <p>Description: 读取配置文件Constants</p> 
+　 * @author CK 
+　 * @date 2020年4月26日
+ */
 public class PropConstants {
 
 	/**

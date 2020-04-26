@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 
 /**
 　 * <p>Title: LockAnnotation</p> 
-　 * <p>Description: 自定义注解 同步锁</p> 
+　 * <p>Description: 同步锁注解</p> 
 　 * @author CK 
 　 * @date 2020年4月15日
  */

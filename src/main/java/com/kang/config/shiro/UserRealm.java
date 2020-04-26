@@ -26,6 +26,12 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.log.StaticLog;
 
+/**
+　 * <p>Title: UserRealm</p> 
+　 * <p>Description: 自定义Realm，用户认证和用户授权</p> 
+　 * @author CK 
+　 * @date 2020年4月26日
+ */
 @Component
 public class UserRealm extends AuthorizingRealm {
 	

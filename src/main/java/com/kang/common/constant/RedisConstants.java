@@ -1,5 +1,11 @@
 package com.kang.common.constant;
 
+/**
+　 * <p>Title: RedisConstants</p> 
+　 * <p>Description: Redis常量</p> 
+　 * @author CK 
+　 * @date 2020年4月26日
+ */
 public class RedisConstants {
 
 	/**

@@ -12,6 +12,12 @@ import com.github.tobato.fastdfs.FdfsClientConfig;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+　 * <p>Title: FdfsConfig</p> 
+　 * <p>Description: FastDFS配置</p> 
+　 * @author CK 
+　 * @date 2020年4月26日
+ */
 @Setter
 @Getter
 @Component

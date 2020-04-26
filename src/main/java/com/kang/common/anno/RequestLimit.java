@@ -9,6 +9,12 @@ import java.lang.annotation.Target;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
+/**
+　 * <p>Title: RequestLimit</p> 
+　 * <p>Description: 限流注解</p> 
+　 * @author CK 
+　 * @date 2020年4月26日
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 @Documented

@@ -1,5 +1,11 @@
 package com.kang.common.exception;
 
+/**
+　 * <p>Title: ServiceException</p> 
+　 * <p>Description: 业务异常</p> 
+　 * @author CK 
+　 * @date 2020年4月26日
+ */
 public class ServiceException extends RuntimeException{
 
 	/**

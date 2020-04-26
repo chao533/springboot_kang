@@ -10,6 +10,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
+/**
+　 * <p>Title: ShiroConfig</p> 
+　 * <p>Description: Shiro配置</p> 
+　 * @author CK 
+　 * @date 2020年4月26日
+ */
 @Configuration
 public class ShiroConfig {
 	

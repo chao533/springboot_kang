@@ -125,7 +125,7 @@ public class HuToolTest_1 {
 		Map<String,Object> param2 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 2).put("name", "李四").build();
 		Map<String,Object> param3 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 3).put("name", "wangwu").build();
 		Map<String,Object> param4 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 2).put("name", "李四").build();
-		List<Map<String,Object>> list = CollUtil.newArrayList(param3,param2,param1);
+		List<Map<String,Object>> list = CollUtil.newArrayList(param4,param3,param2,param1);
 		List<Map<String,Object>> list2 = CollUtil.newArrayList(param2);
 		Console.log(list);
 		Console.log(list2);
@@ -134,7 +134,7 @@ public class HuToolTest_1 {
 //		Console.log(retainAll);
 //		Collection union = CollectionUtils.union(list, list2); // 并集
 //		Console.log(union);
-		Collection subtract = CollectionUtils.subtract(list, list2);// 差集
+		Collection<?> subtract = CollectionUtils.subtract(list, list2);// 差集
 		Console.log(subtract);
 		
 //		Collection<Map<String,Object>> all = CollUtil.union(list,list2);

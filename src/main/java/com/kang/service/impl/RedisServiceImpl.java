@@ -36,7 +36,7 @@ public class RedisServiceImpl implements RedisService{
     		.put("birthday", new Date()).build();
     	
     	// 存入用户信息
-    	redisMapper.set(RedisConstants.USERINFO + userMap_1.get("id"), JSONUtil.parseFromMap(userMap_1), 300);
+    	redisMapper.set(RedisConstants.USERINFO + userMap_1.get("id"), JSONUtil.toJsonStr(userMap_1), 300);
     	
     	// 取出用户信息
     	Object jsonObj_1 = redisMapper.get(RedisConstants.USERINFO + userMap_1.get("id"));

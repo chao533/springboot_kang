@@ -19,6 +19,12 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.json.JSONUtil;
 
+/**
+　 * <p>Title: RabbitmqController</p> 
+　 * <p>Description: Rabbitmq操作</p> 
+　 * @author CK 
+　 * @date 2020年4月26日
+ */
 @RestController
 @RequestMapping(value="/rabbitmq")
 public class RabbitmqController {
@@ -31,7 +37,6 @@ public class RabbitmqController {
 		Map<String, Object> params = MapUtil.builder(new HashMap<String,Object>())
 			.put("to", "chao533@qq.com").put("subject", "合肥").put("html", "合肥天气预报").build();
 		rabbitmqProducerService.sendEmail(JSONUtil.toJsonStr(params));
-		
 		return new Message<>(ErrorCode.SUCCESS);
 	}
 	

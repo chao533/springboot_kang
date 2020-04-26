@@ -1,5 +1,11 @@
 package com.kang.common.exception;
 
+/**
+　 * <p>Title: RequestLimitException</p> 
+　 * <p>Description: 限流异常</p> 
+　 * @author CK 
+　 * @date 2020年4月26日
+ */
 public class RequestLimitException extends RuntimeException{
 
 	/**

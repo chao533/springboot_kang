@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.chao.BaseTest;
+import com.kang.config.async.TaskFactory;
 
 import lombok.SneakyThrows;
 

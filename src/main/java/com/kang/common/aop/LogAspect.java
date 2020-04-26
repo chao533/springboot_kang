@@ -1,8 +1,6 @@
 package com.kang.common.aop;
 
 import java.lang.reflect.Method;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.lang3.time.StopWatch;
 import org.aspectj.lang.ProceedingJoinPoint;

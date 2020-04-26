@@ -146,7 +146,7 @@ public class HuToolTest_3 {
 		Map<String,Object> param2 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 2).put("name", "李四").build();
 		Map<String,Object> param4 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 2).put("name", "李四").build();
 		Map<String,Object> param3 = MapUtil.builder(new LinkedHashMap<String,Object>()).put("id", 3).put("name", "wangwu").build();
-		List<Map<String,Object>> list = CollUtil.newArrayList(param3,param1,param2);
+		List<Map<String,Object>> list = CollUtil.newArrayList(param4,param3,param1,param2);
 		List<Map<String,Object>> list2 = CollUtil.newArrayList(param1);
 		Console.log(list);
 		Console.log(list2);

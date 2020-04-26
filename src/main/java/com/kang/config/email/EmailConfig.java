@@ -6,6 +6,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.Getter;
 
+/**
+　 * <p>Title: EmailConfig</p> 
+　 * <p>Description: 邮件配置</p> 
+　 * @author CK 
+　 * @date 2020年4月26日
+ */
 @Component
 @Getter
 @PropertySource(value = "classpath:config/email.properties")

@@ -3,7 +3,6 @@ package com.kang.model.mybatis;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,7 +12,7 @@ import lombok.Data;
 
 /**
 　 * <p>Title: User</p> 
-　 * <p>Description: </p> 
+　 * <p>Description: 用户实体类</p> 
 　 * @author CK 
 　 * @date 2020年4月20日
  */
