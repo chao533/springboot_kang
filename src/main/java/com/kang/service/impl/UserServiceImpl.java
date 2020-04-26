@@ -112,7 +112,11 @@ public class UserServiceImpl implements UserService {
     	
     	params.put("pwd", md5Pwd);
         List<Map<String, Object>> userList = userMapper.getUserList(params);
-        Map<String, Object> userMap = userList.get(0);
+        if(CollUtil.isEmpty(userList)) {
+        	throw new ServiceException("用户不存在");
+        }
+        Map<String, Object> userMap = userList.get(0);	
+    	userMap.put("icon", fastConfig.getFullPush(MapUtil.getStr(userMap, "icon")));
         userMap.remove("pwd");
         result.put("userInfo", userMap);
         

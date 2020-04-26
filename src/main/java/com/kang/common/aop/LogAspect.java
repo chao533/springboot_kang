@@ -1,20 +1,20 @@
 package com.kang.common.aop;
 
-import java.lang.reflect.Method;
-
 import org.apache.commons.lang3.time.StopWatch;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.kang.common.msg.ErrorCode;
-import com.kang.common.msg.Message;
+import com.kang.common.exception.RequestLimitException;
+import com.kang.common.exception.ServiceException;
+import com.kang.common.exception.TokenValidationException;
+
+import cn.hutool.json.JSONUtil;
 
 /**
  * <p>Title: LogAspect</p>  
@@ -30,31 +30,41 @@ public class LogAspect {
 	private Logger log = LoggerFactory.getLogger(LogAspect.class);
 
     @Pointcut("execution(* com.kang.controller..*.*(..))")
-    public void logPointCut() {
-    }
+    public void logPointCut() {}
     
     @Around(value = "logPointCut()")
     public Object logOperate(ProceedingJoinPoint joinPoint) {
-    	
     	StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-
         Object result = null;
-        Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
-        String methodName = method.getDeclaringClass().getSimpleName() + "." + method.getName();
-        
-        log.info("[log aop] begin;method:{}", methodName);
         try {
             result = joinPoint.proceed();
-            log.info("[log aop] end;method:{},result:{},耗时:{}",
-                    methodName, result, stopWatch.getTime());
+        }catch (RequestLimitException e) {
+            throw new RequestLimitException(e.getMessage());
+        }catch (ServiceException e) {
+        	e.printStackTrace();
+            throw new ServiceException(e.getMessage());
+        }catch (TokenValidationException e) {
+        	e.printStackTrace();
+            throw new TokenValidationException(e.getMessage());
         } catch (Throwable e) {
         	e.printStackTrace();
-            log.error("[log aop] exception;method:{};耗时:{}",
-                    methodName, stopWatch.getTime());
-            result = new Message<String>(ErrorCode.ERROR,e.getMessage());
+            throw new ServiceException("logAspect操作失败");
+        } finally {
+        	printLog(joinPoint, result, stopWatch.getTime());
         }
         return result;
     }
+    
+    
+    private void printLog(ProceedingJoinPoint joinPoint,Object result,Long spendTime) {
+    	String format = "线程名称: {}, 目标类名: {}, 目标方法: {}, 调用参数: {}, 返回结果: {}, 花费时间: {}";
+    	String threadName = Thread.currentThread().getName();
+    	Object className = joinPoint.getTarget().getClass().getName();
+    	String methodName = joinPoint.getSignature().getName();
+    	String args = JSONUtil.toJsonStr(joinPoint.getArgs());
+    	log.info(format,threadName,className,methodName,args,result,spendTime);
+    }
+    
     
 }
