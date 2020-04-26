@@ -1,13 +1,17 @@
 package com.kang.common.msg;
 
+import java.io.Serializable;
+
 /**
  * <p>Title: Message</p>  
  * <p>Description: 统一返回Message信息</p>  
  * @author chaokang  
  * @date 2018年12月3日
  */
-public class Message<T> {
+public class Message<T> implements Serializable{
 	
+	private static final long serialVersionUID = -3159473297776025114L;
+
 	private int code; // 状态码
 	
 	private String msg; // 信息

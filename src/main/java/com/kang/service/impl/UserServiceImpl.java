@@ -12,6 +12,7 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.Page;
@@ -63,7 +64,7 @@ public class UserServiceImpl implements UserService {
 		return new Message<>(ErrorCode.SUCCESS,pageInfo);
     }
 
-    //@Cacheable(value="user",key="#id",unless="#result == null")
+    @Cacheable(value="user",key="#id",unless="#result == null")
     @Override
     public Message<?> findUserById(Long id) {
     	Assert.notNull(id,"参数异常");
