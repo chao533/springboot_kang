@@ -67,8 +67,8 @@ public class SeckillingGoodsServiceImpl implements SeckillingGoodsService{
 //				Message<?> result = this.seckillingGoods_AOP(goodsId,userId); // 程序锁AOP
 //				Message<?> result = this.seckillingGoods_Pess(goodsId, userId); // 数据库悲观锁
 //				Message<?> result = this.seckillingGoods_Opti(goodsId, userId); // 数据库乐观锁
-//				Message<?> result = this.seckillingGoods_RedissonLock(goodsId, userId); // redisson分布式锁
-				Message<?> result = this.seckillingGoods_ZkLock(goodsId, userId); // Zookeeper 分布式锁
+				Message<?> result = this.seckillingGoods_RedissonLock(goodsId, userId); // redisson分布式锁
+//				Message<?> result = this.seckillingGoods_ZkLock(goodsId, userId); // Zookeeper 分布式锁
 //				latch.countDown();
 				log.info("{}用户ID:{}，{}",Thread.currentThread().getName(),userId,result.getMsg());
 				msgList.add(Thread.currentThread().getName() + "用户ID:" + userId + "," + result.getMsg());
