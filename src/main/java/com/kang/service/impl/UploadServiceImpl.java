@@ -28,6 +28,7 @@ import com.kang.common.msg.Message;
 import com.kang.config.fdfs.FdfsConfig;
 import com.kang.service.UploadService;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.StreamProgress;
@@ -48,23 +49,24 @@ public class UploadServiceImpl implements UploadService{
 
 	@SneakyThrows
 	@Override
-	public Message<String> uploadFile(HttpServletRequest request, String fileKey) {
+	public Message<?> uploadFile(HttpServletRequest request, String fileKey) {
 		List<MultipartFile> multipartFileList = this.getFileList(request, fileKey);
-		String result = "";
+		List<String> resultList = CollUtil.newArrayList();
 		for(MultipartFile multipartFile : multipartFileList) {
 			@Cleanup InputStream inputStream = multipartFile.getInputStream();
 			String extName = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
 			StorePath storePath = storageClient.uploadFile(inputStream,multipartFile.getSize(), extName,null);
 			String fullPath = storePath.getFullPath();
 			if(StringUtils.isNotBlank(fullPath)) {
-				result += fastConfig.getWebserver() + fullPath + ",";
+//				result += fastConfig.getWebserver() + fullPath + ",";
+				resultList.add(fastConfig.getWebserver() + fullPath);
 			}
 		}
-		if(StringUtils.isNotBlank(result)) {
-			result = result.substring(0, result.length() - 1);
-		}
-		log.info("result:" + result);
-		return new Message<>(ErrorCode.SUCCESS,result);
+//		if(StringUtils.isNotBlank(result)) {
+//			result = result.substring(0, result.length() - 1);
+//		}
+		log.info("result:" + resultList);
+		return new Message<>(ErrorCode.SUCCESS,resultList);
 	}
 	
 	private List<MultipartFile> getFileList(HttpServletRequest request,String key){
@@ -84,9 +86,9 @@ public class UploadServiceImpl implements UploadService{
 
 	@SneakyThrows
 	@Override
-	public Message<String> uploadCutPic(HttpServletRequest request, String fileKey, int x, int y, int width,int height) {
+	public Message<?> uploadCutPic(HttpServletRequest request, String fileKey, int x, int y, int width,int height) {
 		List<MultipartFile> multipartFileList = this.getFileList(request, fileKey);
-		String result = "";
+		List<String> resultList = CollUtil.newArrayList();
 		for(MultipartFile multipartFile : multipartFileList) {
 			
 			@Cleanup ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -97,14 +99,11 @@ public class UploadServiceImpl implements UploadService{
 			StorePath storePath = storageClient.uploadFile(input,output.size(), extName,null);
 			String fullPath = storePath.getFullPath();
 			if(StringUtils.isNotBlank(fullPath)) {
-				result += fastConfig.getWebserver() + fullPath + ",";
+				resultList.add(fastConfig.getWebserver() + fullPath);
 			}
 		}
-		if(StringUtils.isNotBlank(result)) {
-			result = result.substring(0, result.length() - 1);
-		}
-		log.info("result:" + result);
-		return new Message<>(ErrorCode.SUCCESS,result);
+		log.info("result:" + resultList);
+		return new Message<>(ErrorCode.SUCCESS,resultList);
 	}
 
 	@SneakyThrows

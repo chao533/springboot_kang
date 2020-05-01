@@ -32,7 +32,7 @@ public class UploadController {
      * @return
      */
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public Message<String> upload(HttpServletRequest request, ImgCutParam params) {
+	public Message<?> upload(HttpServletRequest request, ImgCutParam params) {
 		int x = params.getX();
 		int y = params.getY();
 		int width = params.getWidth();

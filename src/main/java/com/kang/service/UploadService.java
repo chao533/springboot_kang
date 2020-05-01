@@ -14,7 +14,7 @@ public interface UploadService {
 	 * @param fileKey
 	 * @return
 	 */
-	Message<String> uploadFile(HttpServletRequest request, String fileKey);
+	Message<?> uploadFile(HttpServletRequest request, String fileKey);
 	
 	/**
 	 *<p>Title: uploadCutPic</p> 
@@ -27,7 +27,7 @@ public interface UploadService {
 	 * @param height
 	 * @return
 	 */
-	Message<String> uploadCutPic(HttpServletRequest request, String fileKey,int x,int y,int width,int height);
+	Message<?> uploadCutPic(HttpServletRequest request, String fileKey,int x,int y,int width,int height);
 	
 	/**
 	 *<p>Title: uploadCutScale</p> 
