@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import com.kang.common.constant.RabbitConstants;
 
 @Component
-@RabbitListener(bindings ={@QueueBinding(value = @Queue(value = RabbitConstants.MESSAGE_QUEUE,durable = "true"),
+@RabbitListener(bindings ={@QueueBinding(value = @Queue(value = RabbitConstants.MESSAGE_QUEUE_2,durable = "true"),
 exchange =@Exchange(value = RabbitConstants.DIRECT_EXCHANGE,durable = "true"),key = RabbitConstants.MESSAGE_ROUTING_KEY)})
 public class MessageConsumer_2 {
 
@@ -23,7 +23,7 @@ public class MessageConsumer_2 {
 	@RabbitHandler
 	public String processMessage1(String jsonData) {
     	log.info("Message2接受到数据为:{}" , jsonData);
-        String response = MessageFormat.format("Message2收到{0}队列的消息:{1}", RabbitConstants.MESSAGE_QUEUE, jsonData);
+        String response = MessageFormat.format("Message2收到{0}队列的消息:{1}", RabbitConstants.MESSAGE_QUEUE_2, jsonData);
         return response.toUpperCase();
     }
 }

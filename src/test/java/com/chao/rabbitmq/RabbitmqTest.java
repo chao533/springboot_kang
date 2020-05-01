@@ -40,4 +40,11 @@ public class RabbitmqTest extends BaseTest{
 			.put("id", IdUtil.simpleUUID()).put("name", "张三").put("birthday", DateUtil.format(new Date(), DatePattern.NORM_DATE_PATTERN)).build();
 		rabbitmqProducerService.sendMessage(JSONUtil.toJsonStr(params));
 	}
+	
+	@Test
+	public void testRabbitmq_3() {
+		Map<String, Object> params = MapUtil.builder(new HashMap<String,Object>())
+			.put("id", IdUtil.simpleUUID()).put("name", "李四").put("birthday", DateUtil.format(new Date(), DatePattern.NORM_DATE_PATTERN)).build();
+		rabbitmqProducerService.sendText(JSONUtil.toJsonStr(params));
+	}
 }

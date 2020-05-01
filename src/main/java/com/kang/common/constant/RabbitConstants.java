@@ -17,12 +17,20 @@ public class RabbitConstants {
     /**
      * 短信队列
      */
-    public static final String MESSAGE_QUEUE = "kang.message";
+    public static final String MESSAGE_QUEUE = "kang.message.one";
+    /**
+     * 短信队列2
+     */
+    public static final String MESSAGE_QUEUE_2 = "kang.message.two";
     
     /**
      * 文本队列
      */
-    public static final String TEXT_QUEUE = "kang.text";
+    public static final String TEXT_QUEUE = "kang.text.one";
+    /**
+     * 文本队列2
+     */
+    public static final String TEXT_QUEUE_2 = "kang.text.two";
     
     
 	//------------------路由键Key---------------------------------
