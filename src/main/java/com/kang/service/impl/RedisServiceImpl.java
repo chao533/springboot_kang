@@ -14,6 +14,7 @@ import com.kang.mapper.redis.RedisMapper;
 import com.kang.service.RedisService;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
@@ -40,7 +41,7 @@ public class RedisServiceImpl implements RedisService{
     	
     	// 取出用户信息
     	Object jsonObj_1 = redisMapper.get(RedisConstants.USERINFO + userMap_1.get("id"));
-    	Map<?,?> result_1 = JSONUtil.toBean(jsonObj_1.toString(), Map.class);
+    	Map<String,Object> result_1 = JSONUtil.toBean(jsonObj_1.toString(), new TypeReference<Map<String,Object>>(){},true);
     	
     	log.info("string类型获取用户信息：{}" ,result_1);
     	
