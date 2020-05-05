@@ -48,12 +48,12 @@ public class ShiroConfig {
 	ShiroFilterChainDefinition shiroFilterChainDefinition() {
 		DefaultShiroFilterChainDefinition definition = new DefaultShiroFilterChainDefinition();
 		definition.addPathDefinition("/login", "anon");
-		definition.addPathDefinition("/swagger-ui.html", "anon");
+		definition.addPathDefinition("/swagger-ui.html**", "anon");
 		definition.addPathDefinition("/swagger-resources/**", "anon");
-		definition.addPathDefinition("/images/**", "anon");
-		definition.addPathDefinition("/webjars/**", "anon");
 		definition.addPathDefinition("/v2/api-docs", "anon");
-		definition.addPathDefinition("/configuration/ui", "anon");
+		definition.addPathDefinition("/configuration/**", "anon");
+		definition.addPathDefinition("/webjars/**", "anon");
+		definition.addPathDefinition("/images/**", "anon");
 		definition.addPathDefinition("/loginOut", "anon");
 		definition.addPathDefinition("/upload", "anon");
 		definition.addPathDefinition("/downloadFile", "anon");

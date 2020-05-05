@@ -16,6 +16,8 @@ import com.kang.model.param.UserLoginParam;
 import com.kang.service.UserService;
 
 import cn.hutool.core.bean.BeanUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
 　 * <p>Title: LoginController</p> 
@@ -23,6 +25,7 @@ import cn.hutool.core.bean.BeanUtil;
 　 * @author CK 
 　 * @date 2020年4月6日
  */
+@Api(value="登录",tags={"登录操作接口"})
 @RestController
 public class LoginController {
     protected Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -36,6 +39,7 @@ public class LoginController {
      * @param params
      * @return
      */
+    @ApiOperation(value="登录")
     @RequestLimit(count=3,time=60000)
     @RequestMapping(value="/login",method=RequestMethod.POST)
     public Message<?> login(@RequestBody UserLoginParam params){
@@ -59,6 +63,7 @@ public class LoginController {
      * @param request
      * @return
      */
+    @ApiOperation(value="退出")
     @RequestMapping(value="/loginOut",method=RequestMethod.GET)
     public Message<String> loginOut(){
     	return userService.loginOut();

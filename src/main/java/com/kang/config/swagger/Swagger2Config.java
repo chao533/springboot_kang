@@ -20,7 +20,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * <p>Title: Swagger2</p>  
- * <p>Description: swagger配置类</p>  
+ * <p>Description: swagger配置类 http://localhost:8083/swagger-ui.html</p>  
  * @author chaokang  
  * @date 2018年12月3日
  */
@@ -32,12 +32,12 @@ public class Swagger2Config {
     public Docket buildDocket(){
     	ParameterBuilder tokenPar = new ParameterBuilder();
         List<Parameter> pars = new ArrayList<Parameter>();
-        tokenPar.name("Authorization").description("令牌").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
+        tokenPar.name("Authorization").description("token").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
         pars.add(tokenPar.build());
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(buildApiInf())
                 .select()       
-                .apis(RequestHandlerSelectors.basePackage("com.szdtoo.controller"))//controller路径
+                .apis(RequestHandlerSelectors.basePackage("com.kang.controller"))//controller路径
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build().globalOperationParameters(pars);
@@ -45,8 +45,8 @@ public class Swagger2Config {
 
     private ApiInfo buildApiInf(){
         return new ApiInfoBuilder()
-                .title("微信端")
-                .description("springboot swagger2")
+                .title("接口测试文档")
+                .description("SpringBoot-Swagger2.0")
                 .build();
 
     }
