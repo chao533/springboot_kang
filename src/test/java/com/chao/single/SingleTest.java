@@ -12,7 +12,7 @@ import cn.hutool.core.lang.Console;
 public class SingleTest {
 
 	public static void main(String[] args) throws Exception{
-		test1();
+		test2();
 	}
 
 	// 单例
