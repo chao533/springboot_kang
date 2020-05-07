@@ -10,10 +10,10 @@ package com.chao.design.observer;
 public class ObserverTest {
 
 	public static void main(String[] args) {
-		Subject subject = new SubjectImpl(); // 创建通知着实例对象
+		Subject subject = new ConcreteSubject(); // 创建通知着实例对象
 		
-		subject.add(new ObserverImpl_1()); // 添加多个观察者对象
-		subject.add(new ObserverImpl_2());
+		subject.add(new ConcreteObserver_1()); // 添加多个观察者对象
+		subject.add(new ConcreteObserver_2());
 		subject.setState();
 	}
 }

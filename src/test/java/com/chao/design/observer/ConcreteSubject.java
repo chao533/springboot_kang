@@ -3,7 +3,13 @@ package com.chao.design.observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubjectImpl implements Subject{
+/**
+　 * <p>Title: ConcreteSubject</p> 
+　 * <p>Description: 具体的主题</p> 
+　 * @author CK 
+　 * @date 2020年5月7日
+ */
+public class ConcreteSubject implements Subject{
 	
 	private List<Observer> list = new ArrayList<>();
 

@@ -8,7 +8,7 @@ import cn.hutool.core.lang.Console;
  * @author ChaoKang
  * @date 2020年5月6日
  */
-public class ObserverImpl_2 implements Observer{
+public class ConcreteObserver_2 implements Observer{
 
 	@Override
 	public void update() {
