@@ -6,6 +6,8 @@ import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;
 
+import com.chao.design.proxy.StuServiceImpl;
+
 import cn.hutool.core.lang.Console;
 /**
 　 * <p>Title: MyMethodInterceptor</p> 
