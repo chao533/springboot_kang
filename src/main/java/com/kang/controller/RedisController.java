@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kang.common.msg.Message;
 import com.kang.service.RedisService;
 
+import cn.hutool.extra.spring.SpringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -33,7 +34,8 @@ public class RedisController {
     @ApiOperation(value="用户信息")
     @RequestMapping(value="/redisUser",method=RequestMethod.GET)
     public Message<?> redisUser(){
-    	return redisService.redisUser();
+    	RedisService bean = SpringUtil.getBean(RedisService.class);
+    	return bean.redisUser();
     }
     
     /**
