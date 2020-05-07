@@ -6,6 +6,12 @@ import java.lang.reflect.Proxy;
 
 import cn.hutool.core.lang.Console;
 
+/**
+　 * <p>Title: MyInvocationHandler</p> 
+　 * <p>Description: JDK动态代理，需要实现InvocationHandler接口</p> 
+　 * @author CK 
+　 * @date 2020年5月7日
+ */
 public class MyInvocationHandler implements InvocationHandler{
 	
 	private Object target; // 目标类对象
