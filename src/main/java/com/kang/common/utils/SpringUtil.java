@@ -1,29 +1,64 @@
 package com.kang.common.utils;
 
-import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class SpringUtil implements ApplicationContextAware {
 
 	private static ApplicationContext applicationContext;
-	
+
 	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		if(SpringUtil.applicationContext == null){
-            SpringUtil.applicationContext  = applicationContext;
-    	}
-		System.out.println("========ApplicationContext配置成功,在普通类可以通过调用SpringUtils.getAppContext()获取applicationContext对象,applicationContext="+ SpringUtil.applicationContext+"========");
+	public void setApplicationContext(ApplicationContext applicationContext) {
+		SpringUtil.applicationContext = applicationContext;
 	}
-	
+
+	/**
+	 * 获取applicationContext
+	 *
+	 * @return ApplicationContext
+	 */
 	public static ApplicationContext getApplicationContext() {
 		return applicationContext;
 	}
 
-	public static <T> T getApplicationContextClass(Class<T> var1) {
-        ApplicationContext applicationContext = getApplicationContext();
-        return applicationContext.getBean(var1);
+	//通过name获取 Bean.
+
+	/**
+	 * 通过name获取 Bean
+	 *
+	 * @param <T> Bean类型
+	 * @param name Bean名称
+	 * @return Bean
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T getBean(String name) {
+		return (T) applicationContext.getBean(name);
 	}
+
+	/**
+	 * 通过class获取Bean
+	 *
+	 * @param <T> Bean类型
+	 * @param clazz Bean类
+	 * @return Bean对象
+	 */
+	public static <T> T getBean(Class<T> clazz) {
+		return applicationContext.getBean(clazz);
+	}
+
+	/**
+	 * 通过name,以及Clazz返回指定的Bean
+	 *
+	 * @param <T> bean类型
+	 * @param name Bean名称
+	 * @param clazz bean类型
+	 * @return Bean对象
+	 */
+	public static <T> T getBean(String name, Class<T> clazz) {
+		return applicationContext.getBean(name, clazz);
+	}
+
 }
