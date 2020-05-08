@@ -62,4 +62,11 @@ public class MybatisUserTest extends BaseTest{
 		List<User> userList = userMapper.select(user2);
 		userList.forEach(user -> Console.log(user));
 	}
+	
+	@Test
+	public void testDelete() {
+		User user2 = new User();
+		user2.setUserName("测试用户");;
+		userMapper.delete(user2);
+	}
 }
